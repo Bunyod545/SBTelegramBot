@@ -39,3 +39,18 @@ public static void Main()
 ## Now go to your bot
 
 ![bot-creating-in-telegram](docs/telegrambotversion.png)
+
+## Create first command
+
+```csharp
+using SB.TelegramBot
+
+[TelegramBotCommandName("/hello")]
+public class HelloCommand : TelegramBotPublicCommand
+{
+   public override void Execute()
+   {
+      MessageService.SendMessage("Hello Telegram Bot");)
+   }
+}
+```
