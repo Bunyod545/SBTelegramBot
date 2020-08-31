@@ -43,14 +43,14 @@ public static void Main()
 ## Create first command
 
 ```csharp
-using SB.TelegramBot
+using SB.TelegramBot;
 
 [TelegramBotCommandName("/hello")]
 public class HelloCommand : TelegramBotPublicCommand
 {
    public override void Execute()
    {
-      MessageService.SendMessage("Hello Telegram Bot");)
+      MessageService.SendMessage("Hello Telegram Bot");
    }
 }
 ```
