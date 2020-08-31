@@ -13,7 +13,7 @@ Project targets **.NET Standard 2**.
 
 ## Create the bot on telegram first
 
-![bot-creating-in-telegram](Assets/createbot.png)
+![bot-creating-in-telegram](docs/createbot.png)
 
 ## Namespace
 -------
@@ -34,4 +34,4 @@ public static void Main()
 ```
 ## Now go to your bot
 
-![bot-creating-in-telegram](Assets/telegrambotversion.png)
+![bot-creating-in-telegram](docs/telegrambotversion.png)
