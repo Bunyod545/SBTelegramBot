@@ -22,5 +22,17 @@
         /// </summary>
         /// <returns></returns>
         ITelegramBotCommandName GetCommandName();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        void Execute<T>() where T : ITelegramBotCommand;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        T CreateCommand<T>() where T : ITelegramBotCommand;
     }
 }

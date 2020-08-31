@@ -12,7 +12,7 @@
         public override void Execute()
         {
             var version = TelegramBotApplication.Version;
-            MessageService.SendText($"TelegramBot Application version: {version}");
+            MessageService.SendMessage($"TelegramBot Application version: {version}");
         }
     }
 }

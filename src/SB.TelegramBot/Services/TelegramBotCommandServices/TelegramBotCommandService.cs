@@ -1,5 +1,6 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotCommands.Factories.Models;
+using SB.TelegramBot.Logics.TelegramBotDIContainers;
 
 namespace SB.TelegramBot.Services
 {
@@ -53,6 +54,25 @@ namespace SB.TelegramBot.Services
         public ITelegramBotCommandName GetCommandName()
         {
             return Info.CommandName;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public void Execute<T>() where T : ITelegramBotCommand
+        {
+            var command = CreateCommand<T>();
+            command.Execute();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public T CreateCommand<T>() where T : ITelegramBotCommand
+        {
+            return TelegramBotServicesContainer.CreateWithServices<T>();
         }
     }
 }
