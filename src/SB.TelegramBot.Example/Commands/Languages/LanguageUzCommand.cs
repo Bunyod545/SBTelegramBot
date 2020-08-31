@@ -1,5 +1,5 @@
 ﻿using SB.TelegramBot;
-using SB.TeleramBot.Example.Resources.Messages;
+using SB.TelegramBot.Example.Resources.Messages;
 
 namespace SB.TeleramBot.Example.Commands
 {

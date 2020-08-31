@@ -1,6 +1,6 @@
 ﻿using SB.TelegramBot;
+using SB.TelegramBot.Example.Resources.Messages;
 using SB.TeleramBot.Example.Commands.Languages.LanguageEnCommands.Models;
-using SB.TeleramBot.Example.Resources.Messages;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SB.TeleramBot.Example.Commands

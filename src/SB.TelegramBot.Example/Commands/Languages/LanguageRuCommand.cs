@@ -1,22 +1,19 @@
 ﻿using SB.TelegramBot;
-using SB.TeleramBot.Example.Commands.Languages.LanguageEnCommands.Models;
-using SB.TeleramBot.Example.Resources.Messages;
+using SB.TelegramBot.Example.Resources.Messages;
 
 namespace SB.TeleramBot.Example.Commands
 {
     /// <summary>
     /// 
     /// </summary>
-    public class LanguageEnCommand : TelegramBotCallbackCommand
+    public class LanguageRuCommand : TelegramBotCallbackCommand
     {
         /// <summary>
         /// 
         /// </summary>
         public override void Execute()
         {
-            var data = CallbackQueryService.GetData<LanguageEnInfo>();
-
-            UserService.SetCurrentUserLanguage("en");
+            UserService.SetCurrentUserLanguage("ru-RU");
             CallbackQueryService.SendText(TelegramBotMessages.UserSuccessfulyRegistered);
         }
     }
