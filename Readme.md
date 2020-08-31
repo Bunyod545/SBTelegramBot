@@ -19,14 +19,13 @@ SB.TelegramBot is available on [NuGet]. You can install the package using:
 
 	PM> Install-Package SB.TelegramBot
 
-
 ## Namespace
--------
+
 ```csharp
 using SB.TelegramBot;
 ```
 ## Run telegram bot application
--------
+
 ```csharp
 public static void Main()
 {
