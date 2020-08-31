@@ -15,6 +15,11 @@ Project targets **.NET Standard 2**.
 
 ![bot-creating-in-telegram](docs/createbot.png)
 
+SB.TelegramBot is available on [NuGet]. You can install the package using:
+
+	PM> Install-Package SB.TelegramBot
+
+
 ## Namespace
 -------
 ```csharp
