@@ -15,13 +15,17 @@ Project targets **.NET Standard 2**.
 
 ![bot-creating-in-telegram](docs/createbot.png)
 
+SB.TelegramBot is available on [NuGet]. You can install the package using:
+
+	PM> Install-Package SB.TelegramBot
+
 ## Namespace
--------
+
 ```csharp
 using SB.TelegramBot;
 ```
 ## Run telegram bot application
--------
+
 ```csharp
 public static void Main()
 {
@@ -35,3 +39,18 @@ public static void Main()
 ## Now go to your bot
 
 ![bot-creating-in-telegram](docs/telegrambotversion.png)
+
+## Create first command
+
+```csharp
+using SB.TelegramBot;
+
+[TelegramBotCommandName("/hello")]
+public class HelloCommand : TelegramBotPublicCommand
+{
+   public override void Execute()
+   {
+      MessageService.SendMessage("Hello Telegram Bot");
+   }
+}
+```
