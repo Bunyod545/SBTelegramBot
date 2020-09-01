@@ -11,7 +11,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
     /// <summary>
     /// 
     /// </summary>
-    public static class TelegramBotCommandFactory
+    public static partial class TelegramBotCommandFactory
     {
         /// <summary>
         /// 
@@ -39,15 +39,6 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        public static void IgnoreCommand<T>() where T : ITelegramBotCommand
-        {
-            Infos.RemoveAll(f => f.ClrType == typeof(T));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="commandClrType"></param>
         private static void InitializeInfo(Type commandClrType)
         {
@@ -69,157 +60,10 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
-        public static TelegramBotCommandInfo GetCommand(Type commandType)
+        /// <typeparam name="T"></typeparam>
+        public static void IgnoreCommand<T>() where T : ITelegramBotCommand
         {
-            return Infos.FirstOrDefault(s => s.ClrType == commandType);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static ITelegramBotCommand GetCommand(string name)
-        {
-            var info = Infos.FirstOrDefault(s => s.CommandName != null && s.CommandName.IsEqualName(name));
-            return InternalGetCommand(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="clrName"></param>
-        /// <returns></returns>
-        public static ITelegramBotCommand GetCommandByClrName(string clrName)
-        {
-            var info = Infos.FirstOrDefault(s => s.CommandClrName == clrName);
-            return InternalGetCommand(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static ITelegramBotCommand GetPublicOrInternalCommand(string name)
-        {
-            var info = Infos.FirstOrDefault(s => (s.CommandType == TelegramBotCommandType.PublicCommand ||
-                                                  s.CommandType == TelegramBotCommandType.InternalCommand) &&
-                                                  s.CommandName != null &&
-                                                  s.CommandName.IsEqualName(name));
-
-            return InternalGetCommand(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="clrName"></param>
-        /// <returns></returns>
-        public static ITelegramBotCommand GetPublicOrInternalCommandByClrName(string clrName)
-        {
-            var info = Infos.FirstOrDefault(s => (s.CommandType == TelegramBotCommandType.PublicCommand ||
-                                                  s.CommandType == TelegramBotCommandType.InternalCommand) &&
-                                                  s.CommandName != null &&
-                                                  s.CommandClrName == clrName);
-
-            return InternalGetCommand(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static ITelegramBotCommand GetPublicCommand(string name)
-        {
-            var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.PublicCommand &&
-                                                 s.CommandName != null &&
-                                                 s.CommandName.IsEqualName(name));
-
-            return InternalGetCommand(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="clrName"></param>
-        /// <returns></returns>
-        public static ITelegramBotCommand GetPublicCommandByClrName(string clrName)
-        {
-            var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.PublicCommand &&
-                                                 s.CommandClrName == clrName);
-
-            return InternalGetCommand(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="commandId"></param>
-        /// <returns></returns>
-        public static ITelegramBotCommand GetCallbackCommand(long commandId)
-        {
-            var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.CallbackCommand &&
-                                                 s.CommandId == commandId);
-
-            return InternalGetCommand(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static ITelegramBotCommand GetCallbackCommand(string name)
-        {
-            var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.CallbackCommand &&
-                                                  s.CommandName != null &&
-                                                  s.CommandName.IsEqualName(name));
-
-            return InternalGetCommand(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="clrName"></param>
-        /// <returns></returns>
-        public static ITelegramBotCommand GetCallbackCommandByClrName(string clrName)
-        {
-            var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.CallbackCommand &&
-                                                   s.CommandClrName == clrName);
-
-            return InternalGetCommand(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static ITelegramBotCommand GetInternalCommand(string name)
-        {
-            var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.InternalCommand &&
-                                                 s.CommandName != null &&
-                                                 s.CommandName.IsEqualName(name));
-
-            return InternalGetCommand(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="clrName"></param>
-        /// <returns></returns>
-        public static ITelegramBotCommand GetInternalCommandByClrName(string clrName)
-        {
-            var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.InternalCommand &&
-                                                 s.CommandClrName == clrName);
-
-            return InternalGetCommand(info);
+            Infos.RemoveAll(f => f.ClrType == typeof(T));
         }
 
         /// <summary>
@@ -227,7 +71,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        private static ITelegramBotCommand InternalGetCommand(TelegramBotCommandInfo info)
+        public static ITelegramBotCommand GetCommandInstance(TelegramBotCommandInfo info)
         {
             if (info == null)
                 return null;

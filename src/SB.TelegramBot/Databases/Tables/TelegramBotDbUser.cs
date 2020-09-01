@@ -24,5 +24,15 @@
         /// 
         /// </summary>
         public string CurrentCommand { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string BackCommand { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string BackCommandHandler { get; set; }
     }
 }

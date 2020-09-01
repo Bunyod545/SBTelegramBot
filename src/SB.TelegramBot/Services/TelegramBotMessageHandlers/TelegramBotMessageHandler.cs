@@ -29,22 +29,66 @@ namespace SB.TelegramBot.Services
                 currentUser = userService.RegisterUser();
 
             TelegramBotLanguageHelper.InitializeCulture(currentUser.Language);
-            if (!string.IsNullOrEmpty(currentUser.CurrentCommandClrName))
-            {
-                var currentCommand = TelegramBotCommandFactory.GetPublicOrInternalCommand(currentUser.CurrentCommandClrName);
-                currentCommand?.Execute();
+            if (HandleBackCommand(currentUser, e))
                 return;
-            }
 
-            var command = TelegramBotCommandFactory.GetPublicCommand(e.Message.Text);
-            if (command != null)
-            {
-                command.Execute();
+            if (HandleCurrentCommand(currentUser))
                 return;
-            }
+
+            if (HandlePublicCommand(e))
+                return;
 
             var unknownMessageService = TelegramBotServicesContainer.GetService<ITelegramBotUnknownMessageService>();
-            unknownMessageService.Execute();
+            unknownMessageService.Handle();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private bool HandleBackCommand(TelegramBotUserInfo user, MessageEventArgs e)
+        {
+            if (string.IsNullOrEmpty(user.BackCommandHandlerClrName))
+                return false;
+
+            var handler = TelegramBotCommandFactory.GetBackCommandHandler(user.BackCommandHandlerClrName);
+            if (handler?.CommandName == null)
+                return false;
+
+            if (!handler.CommandName.IsEqualName(e.Message.Text))
+                return false;
+
+            var handlerCommand = TelegramBotCommandFactory.GetCommandInstance(handler);
+            handlerCommand.Execute();
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private bool HandleCurrentCommand(TelegramBotUserInfo user)
+        {
+            if (string.IsNullOrEmpty(user.CurrentCommandClrName))
+                return false;
+
+            var currentCommand = TelegramBotCommandFactory.GetPublicOrInternalCommand(user.CurrentCommandClrName);
+            currentCommand?.Execute();
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private bool HandlePublicCommand(MessageEventArgs e)
+        {
+            var command = TelegramBotCommandFactory.GetPublicCommand(e.Message.Text);
+            if (command == null)
+                return false;
+
+            command.Execute();
+            return true;
         }
     }
 }

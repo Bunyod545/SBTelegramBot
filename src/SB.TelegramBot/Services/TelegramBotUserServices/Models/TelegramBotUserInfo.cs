@@ -23,6 +23,16 @@
         /// <summary>
         /// 
         /// </summary>
+        public string BackCommandHandlerClrName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string BackCommandClrName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public TelegramBotUserInfo()
         {
 

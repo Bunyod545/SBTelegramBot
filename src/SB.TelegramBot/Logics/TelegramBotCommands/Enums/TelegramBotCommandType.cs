@@ -28,6 +28,11 @@
         /// <summary>
         /// 
         /// </summary>
-        InlineCommand
+        InlineCommand,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        BackCommand
     }
 }

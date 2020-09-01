@@ -6,42 +6,43 @@ namespace SB.TelegramBot
     /// <summary>
     /// 
     /// </summary>
-    public class InlineKeyboardButtonBuilder
+    public class KeyboardButtonBuilder
     {
         /// <summary>
         /// 
         /// </summary>
-        private List<List<InlineKeyboardButton>> _buttons;
+        private List<List<KeyboardButton>> _buttons;
 
         /// <summary>
         /// 
         /// </summary>
-        public InlineKeyboardButtonBuilder()
+        public KeyboardButtonBuilder()
         {
-            _buttons = new List<List<InlineKeyboardButton>>();
+            _buttons = new List<List<KeyboardButton>>();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public InlineKeyboardButtonInfo AddRowButton()
+        public KeyboardButtonBuilder AddRowButton(string text)
         {
-            var currentRowButtons = new List<InlineKeyboardButton>();
+            var currentRowButtons = new List<KeyboardButton>();
             _buttons.Add(currentRowButtons);
 
-            var currentButton = new InlineKeyboardButton();
+            var currentButton = new KeyboardButton();
+            currentButton.Text = text;
             currentRowButtons.Add(currentButton);
-            return new InlineKeyboardButtonInfo(currentButton);
+            return this;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public InlineKeyboardMarkup Build()
+        public ReplyKeyboardMarkup Build()
         {
-            return new InlineKeyboardMarkup(_buttons);
+            return new ReplyKeyboardMarkup(_buttons);
         }
     }
 }

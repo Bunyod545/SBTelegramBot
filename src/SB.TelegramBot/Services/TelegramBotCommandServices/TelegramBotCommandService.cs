@@ -7,7 +7,7 @@ namespace SB.TelegramBot.Services
     /// <summary>
     /// 
     /// </summary>
-    public class TelegramBotCommandService : ITelegramBotCommandService
+    public partial class TelegramBotCommandService : ITelegramBotCommandService
     {
         /// <summary>
         /// 
@@ -22,11 +22,17 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
+        private readonly ITelegramBotMessageService MessageService;
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="command"></param>
         public TelegramBotCommandService(ITelegramBotCommand command)
         {
             Command = command;
             Info = TelegramBotCommandFactory.GetCommand(command.GetType());
+            MessageService = TelegramBotServicesContainer.GetService<ITelegramBotMessageService>();
         }
 
         /// <summary>
