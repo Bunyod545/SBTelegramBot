@@ -14,7 +14,6 @@ namespace SB.TelegramBot.Services
         /// <param name="e"></param>
         public void Handle(object sender, MessageEventArgs e)
         {
-
         }
     }
 }

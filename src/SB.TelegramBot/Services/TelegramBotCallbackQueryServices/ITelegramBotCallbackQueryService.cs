@@ -1,5 +1,4 @@
 ﻿using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SB.TelegramBot.Services
 {
@@ -12,13 +11,6 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         CallbackQuery CallbackQuery { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="replyMarkup"></param>
-        void SendText(string text, IReplyMarkup replyMarkup = null);
 
         /// <summary>
         /// 

@@ -23,6 +23,11 @@
         /// <summary>
         /// 
         /// </summary>
-        CallbackCommand
+        CallbackCommand,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        InlineCommand
     }
 }

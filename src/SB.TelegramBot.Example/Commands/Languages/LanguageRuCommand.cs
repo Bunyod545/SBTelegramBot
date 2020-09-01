@@ -14,7 +14,7 @@ namespace SB.TeleramBot.Example.Commands
         public override void Execute()
         {
             UserService.SetCurrentUserLanguage("ru-RU");
-            CallbackQueryService.SendText(TelegramBotMessages.UserSuccessfulyRegistered);
+            MessageService.SendMessage(TelegramBotMessages.UserSuccessfulyRegistered);
         }
     }
 }

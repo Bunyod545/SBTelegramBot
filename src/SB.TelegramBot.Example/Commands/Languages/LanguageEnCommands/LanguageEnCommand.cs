@@ -17,7 +17,7 @@ namespace SB.TeleramBot.Example.Commands
             var data = CallbackQueryService.GetData<LanguageEnInfo>();
 
             UserService.SetCurrentUserLanguage("en");
-            CallbackQueryService.SendText(TelegramBotMessages.UserSuccessfulyRegistered);
+            MessageService.SendMessage(TelegramBotMessages.UserSuccessfulyRegistered);
         }
     }
 }

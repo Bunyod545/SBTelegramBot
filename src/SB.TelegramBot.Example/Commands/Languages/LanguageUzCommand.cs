@@ -14,7 +14,7 @@ namespace SB.TeleramBot.Example.Commands
         public override void Execute()
         {
             UserService.SetCurrentUserLanguage("uz-Latn-UZ");
-            CallbackQueryService.SendText(TelegramBotMessages.UserSuccessfulyRegistered);
+            MessageService.SendMessage(TelegramBotMessages.UserSuccessfulyRegistered);
         }
     }
 }
