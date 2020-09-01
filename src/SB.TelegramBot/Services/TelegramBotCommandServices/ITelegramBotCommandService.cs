@@ -44,6 +44,11 @@
         /// <summary>
         /// 
         /// </summary>
+        void ClearCacheCommands();
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <typeparam name="TCommand"></typeparam>
         void ClearCurrentCommand();
 

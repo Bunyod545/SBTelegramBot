@@ -32,6 +32,9 @@ namespace SB.TelegramBot.Services
             if (HandleBackCommand(currentUser, e))
                 return;
 
+            if (HandlePriorityCommand(currentUser, e))
+                return;
+
             if (HandleCurrentCommand(currentUser))
                 return;
 
@@ -59,6 +62,31 @@ namespace SB.TelegramBot.Services
                 return false;
 
             var handlerCommand = TelegramBotCommandFactory.GetCommandInstance(handler);
+            handlerCommand.Execute();
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private bool HandlePriorityCommand(TelegramBotUserInfo user, MessageEventArgs e)
+        {
+            if (string.IsNullOrEmpty(user.CurrentCommandClrName))
+                return false;
+
+            var commandInfo = TelegramBotCommandFactory.GetPublicCommandInfo(e.Message.Text);
+            if (commandInfo?.CommandName == null)
+                return false;
+
+            var currentCommandInfo = TelegramBotCommandFactory.GetCommandInfoByClrName(user.CurrentCommandClrName);
+            if (currentCommandInfo?.CommandName == null)
+                return false;
+
+            if (!commandInfo.LowCommands.Contains(currentCommandInfo))
+                return false;
+
+            var handlerCommand = TelegramBotCommandFactory.GetCommandInstance(commandInfo);
             handlerCommand.Execute();
             return true;
         }

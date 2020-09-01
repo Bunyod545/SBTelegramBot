@@ -31,7 +31,7 @@ namespace SB.TelegramBot.Services
         public TelegramBotCommandService(ITelegramBotCommand command)
         {
             Command = command;
-            Info = TelegramBotCommandFactory.GetCommand(command.GetType());
+            Info = TelegramBotCommandFactory.GetCommandInfo(command.GetType());
             MessageService = TelegramBotServicesContainer.GetService<ITelegramBotMessageService>();
         }
 
@@ -60,6 +60,16 @@ namespace SB.TelegramBot.Services
         public ITelegramBotCommandName GetCommandName()
         {
             return Info.CommandName;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void ClearCacheCommands()
+        {
+            ClearCurrentCommand();
+            ClearBackCommand();
+            ClearBackCommandHandler();
         }
 
         /// <summary>

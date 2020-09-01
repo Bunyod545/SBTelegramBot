@@ -30,7 +30,9 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
 
             var interfaceType = typeof(ITelegramBotCommand);
             var commandTypes = types.Where(w => interfaceType.IsAssignableFrom(w)).ToList();
+
             commandTypes.ForEach(InitializeInfo);
+            Infos.ForEach(InitializeLowCommands);
 
             var initializer = TelegramBotServicesContainer.GetService<ITelegramBotCommandFactoryInitializer>();
             initializer.Initialize(new List<TelegramBotCommandInfo>(Infos));
@@ -55,6 +57,20 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
             info.CommandType = attr.Type;
 
             Infos.Add(info);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        private static void InitializeLowCommands(TelegramBotCommandInfo info)
+        {
+            var attrs = info.ClrType.GetCustomAttributes<TelegramBotLowCommandAttribute>();
+            if (attrs == null)
+                return;
+
+            var lowCommands = attrs.Select(s => s.LowCommand).ToList();
+            info.LowCommands = Infos.Where(w => lowCommands.Contains(w.ClrType)).ToList();
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories.Models;
+using System.Linq;
 
 namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
 {
@@ -35,6 +36,18 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
                                                   s.CommandClrName == clrName);
 
             return GetCommandInstance(info);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static TelegramBotCommandInfo GetPublicCommandInfo(string name)
+        {
+            return Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.PublicCommand &&
+                                             s.CommandName != null &&
+                                             s.CommandName.IsEqualName(name));
         }
 
         /// <summary>

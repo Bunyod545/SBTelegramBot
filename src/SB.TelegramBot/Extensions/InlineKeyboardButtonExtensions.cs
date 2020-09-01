@@ -14,7 +14,7 @@ namespace SB.TelegramBot
         /// <param name="button"></param>
         public static void SetCommand<TCommand>(this InlineKeyboardButton button) where TCommand : ITelegramBotCommand
         {
-            var commandInfo = TelegramBotCommandFactory.GetCommand(typeof(TCommand));
+            var commandInfo = TelegramBotCommandFactory.GetCommandInfo(typeof(TCommand));
             if (commandInfo == null)
                 return;
 

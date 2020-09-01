@@ -1,5 +1,6 @@
 ﻿using SB.TelegramBot.Services;
 using System;
+using System.Collections.Generic;
 
 namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories.Models
 {
@@ -32,5 +33,18 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories.Models
         /// 
         /// </summary>
         public Type ClrType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<TelegramBotCommandInfo> LowCommands { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TelegramBotCommandInfo()
+        {
+            LowCommands = new List<TelegramBotCommandInfo>();
+        }
     }
 }
