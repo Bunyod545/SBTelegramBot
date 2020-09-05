@@ -1,4 +1,6 @@
-﻿using Telegram.Bot.Types;
+﻿using System.Threading;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SB.TelegramBot.Services
@@ -37,8 +39,13 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <param name="text"></param>
+        /// <param name="parseMode"></param>
+        /// <param name="disableWebPagePreview"></param>
+        /// <param name="disableNotification"></param>
+        /// <param name="replyToMessageId"></param>
         /// <param name="replyMarkup"></param>
-        void SendMessage(string text, IReplyMarkup replyMarkup = null);
+        /// <param name="cancellationToken"></param>
+        void SendMessage(string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 

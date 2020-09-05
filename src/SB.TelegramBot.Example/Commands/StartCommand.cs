@@ -31,7 +31,7 @@ namespace SB.TeleramBot.Example.Commands
             buttons[2].Text = "LanguageEnCommand";
 
             var buttonsMarkUp = new InlineKeyboardMarkup(buttons);
-            MessageService.SendMessage(TelegramBotMessages.UserSuccessfulyRegistered, buttonsMarkUp);
+            MessageService.SendMessage(TelegramBotMessages.UserSuccessfulyRegistered, replyMarkup: buttonsMarkUp);
         }
     }
 }
