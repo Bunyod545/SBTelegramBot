@@ -37,6 +37,11 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories.Models
         /// <summary>
         /// 
         /// </summary>
+        public ITelegramBotCommandRole CommandRole { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public List<TelegramBotCommandInfo> LowCommands { get; set; }
 
         /// <summary>

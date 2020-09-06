@@ -81,5 +81,40 @@ namespace SB.TelegramBot.Services
             TelegramBotDb.Users.Update(user);
             TelegramBotLanguageHelper.InitializeCulture(user.Language);
         }
-    }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string GetCurrentUserRole()
+        {
+            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == _messageService.Message.Chat.Id);
+            return user?.UserRole;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public bool IsInRole(string role)
+        {
+            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == _messageService.Message.Chat.Id);
+            return user?.UserRole == role;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="role"></param>
+        public void SetCurrentUserRole(string role)
+        {
+            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == _messageService.Message.Chat.Id);
+            if (user == null)
+                return;
+
+            user.UserRole = role;
+            TelegramBotDb.Users.Update(user);
+        }
+}
 }

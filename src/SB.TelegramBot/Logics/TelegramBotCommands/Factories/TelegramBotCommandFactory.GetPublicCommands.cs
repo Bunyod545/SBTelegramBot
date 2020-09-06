@@ -54,6 +54,38 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// 
         /// </summary>
         /// <param name="name"></param>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public static TelegramBotCommandInfo GetPublicCommandInfo(string name, string role)
+        {
+            return Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.PublicCommand &&
+                                             s.CommandName != null &&
+                                             s.CommandName.IsEqualName(name) &&
+                                             s.CommandRole != null &&
+                                             s.CommandRole.IsEqualRole(role));
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static ITelegramBotCommand GetPublicCommand(string name, string role)
+        {
+            var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.PublicCommand &&
+                                                 s.CommandName != null &&
+                                                 s.CommandName.IsEqualName(name) &&
+                                                 s.CommandRole != null &&
+                                                 s.CommandRole.IsEqualRole(role));
+
+            return GetCommandInstance(info);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
         /// <returns></returns>
         public static ITelegramBotCommand GetPublicCommand(string name)
         {

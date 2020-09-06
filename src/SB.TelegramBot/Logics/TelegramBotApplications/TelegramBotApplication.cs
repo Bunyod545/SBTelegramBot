@@ -61,6 +61,8 @@ namespace SB.TelegramBot
         protected virtual void RegisterServices(ITelegramBotServicesCollection services)
         {
             services.AddTransient<ITelegramBotCommandName, TelegramBotCommandName>();
+            services.AddTransient<ITelegramBotCommandRole, TelegramBotCommandRole>();
+
             services.AddScoped<ITelegramBotCommandFactoryInitializer, TelegramBotCommandFactoryInitializer>();
             services.AddScoped<ITelegramBotUserService, TelegramBotUserService>();
             services.AddScoped<ITelegramBotMessageService, TelegramBotMessageService>();

@@ -29,5 +29,24 @@
         /// </summary>
         /// <param name="language"></param>
         void SetCurrentUserLanguage(string language);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        string GetCurrentUserRole();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        bool IsInRole(string role);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="role"></param>
+        void SetCurrentUserRole(string role);
     }
 }

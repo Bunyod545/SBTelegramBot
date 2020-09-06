@@ -38,7 +38,7 @@ namespace SB.TelegramBot.Services
             if (HandleCurrentCommand(currentUser))
                 return;
 
-            if (HandlePublicCommand(e))
+            if (HandlePublicCommand(currentUser ,e))
                 return;
 
             var unknownMessageService = TelegramBotServicesContainer.GetService<ITelegramBotUnknownMessageService>();
@@ -75,7 +75,7 @@ namespace SB.TelegramBot.Services
             if (string.IsNullOrEmpty(user.CurrentCommandClrName))
                 return false;
 
-            var commandInfo = TelegramBotCommandFactory.GetPublicCommandInfo(e.Message.Text);
+            var commandInfo = TelegramBotCommandFactory.GetPublicCommandInfo(e.Message.Text, user.UserRole);
             if (commandInfo?.CommandName == null)
                 return false;
 
@@ -108,10 +108,12 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="user"></param>
+        /// <param name="e"></param>
         /// <returns></returns>
-        private bool HandlePublicCommand(MessageEventArgs e)
+        private bool HandlePublicCommand(TelegramBotUserInfo user, MessageEventArgs e)
         {
-            var command = TelegramBotCommandFactory.GetPublicCommand(e.Message.Text);
+            var command = TelegramBotCommandFactory.GetPublicCommand(e.Message.Text, user.UserRole);
             if (command == null)
                 return false;
 

@@ -34,5 +34,10 @@
         /// 
         /// </summary>
         public string BackCommandHandler { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UserRole { get; set; }
     }
 }

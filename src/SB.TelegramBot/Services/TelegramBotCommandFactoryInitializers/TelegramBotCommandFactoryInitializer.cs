@@ -42,6 +42,7 @@ namespace SB.TelegramBot.Services
         {
             InitializeIdentifier(info);
             InitializeName(info);
+            InitializeRole(info);
         }
 
         /// <summary>
@@ -109,6 +110,21 @@ namespace SB.TelegramBot.Services
             var commandName = TelegramBotServicesContainer.GetService<ITelegramBotCommandName>();
             info.CommandName = commandName;
             commandName.Initialize(info);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private void InitializeRole(TelegramBotCommandInfo info)
+        {
+            if (!TelegramBotServicesContainer.IsRegistered<ITelegramBotCommandRole>())
+                return;
+
+            var commandrole = TelegramBotServicesContainer.GetService<ITelegramBotCommandRole>();
+            info.CommandRole = commandrole;
+            commandrole.Initialize(info);
         }
     }
 }

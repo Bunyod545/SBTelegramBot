@@ -13,6 +13,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public string UserRole { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Language { get; set; }
 
         /// <summary>
