@@ -34,7 +34,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <typeparam name="TImplement"></typeparam>
         public static void AddScoped<TInterface, TImplement>() where TImplement : TInterface
         {
-            _containerBuilder.RegisterType<TImplement>().As<TInterface>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            _containerBuilder.RegisterType<TImplement>().As<TInterface>().InstancePerLifetimeScope();
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <typeparam name="TImplement"></typeparam>
         public static void AddSingleton<TInterface, TImplement>() where TImplement : TInterface
         {
-            _containerBuilder.RegisterType<TImplement>().As<TInterface>().SingleInstance().PreserveExistingDefaults();
+            _containerBuilder.RegisterType<TImplement>().As<TInterface>().SingleInstance();
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <typeparam name="TImplement"></typeparam>
         public static void AddTransient<TInterface, TImplement>() where TImplement : TInterface
         {
-            _containerBuilder.RegisterType<TImplement>().As<TInterface>().InstancePerDependency().PreserveExistingDefaults();
+            _containerBuilder.RegisterType<TImplement>().As<TInterface>().InstancePerDependency();
         }
 
         /// <summary>
