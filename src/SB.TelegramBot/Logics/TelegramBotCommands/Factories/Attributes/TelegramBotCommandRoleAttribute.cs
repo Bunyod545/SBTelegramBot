@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories.Attributes
+namespace SB.TelegramBot
 {
     /// <summary>
     /// 
