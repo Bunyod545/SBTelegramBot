@@ -1,9 +1,7 @@
-﻿using SB.TelegramBot.Databases.Tables;
-using SB.TelegramBot.Helpers;
+﻿using SB.TelegramBot.Helpers;
 using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Logics.TelegramBotMessages;
-using System.Globalization;
 using Telegram.Bot.Args;
 
 namespace SB.TelegramBot.Services
@@ -32,13 +30,13 @@ namespace SB.TelegramBot.Services
             if (HandleBackCommand(currentUser, e))
                 return;
 
-            if (HandlePriorityCommand(currentUser, e))
+            if (HandlePriorityCommand(currentUser, userService, e))
                 return;
 
             if (HandleCurrentCommand(currentUser))
                 return;
 
-            if (HandlePublicCommand(currentUser ,e))
+            if (HandlePublicCommand(userService, e))
                 return;
 
             var unknownMessageService = TelegramBotServicesContainer.GetService<ITelegramBotUnknownMessageService>();
@@ -48,6 +46,8 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="user"></param>
+        /// <param name="e"></param>
         /// <returns></returns>
         private bool HandleBackCommand(TelegramBotUserInfo user, MessageEventArgs e)
         {
@@ -69,13 +69,17 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="user"></param>
+        /// <param name="userService"></param>
+        /// <param name="e"></param>
         /// <returns></returns>
-        private bool HandlePriorityCommand(TelegramBotUserInfo user, MessageEventArgs e)
+        private bool HandlePriorityCommand(TelegramBotUserInfo user, ITelegramBotUserService userService, MessageEventArgs e)
         {
             if (string.IsNullOrEmpty(user.CurrentCommandClrName))
                 return false;
 
-            var commandInfo = TelegramBotCommandFactory.GetPublicCommandInfo(e.Message.Text, user.UserRole);
+            var userRole = userService.GetCurrentUserRole();
+            var commandInfo = TelegramBotCommandFactory.GetPublicCommandInfo(e.Message.Text, userRole);
             if (commandInfo?.CommandName == null)
                 return false;
 
@@ -108,12 +112,13 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="userService"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        private bool HandlePublicCommand(TelegramBotUserInfo user, MessageEventArgs e)
+        private bool HandlePublicCommand(ITelegramBotUserService userService, MessageEventArgs e)
         {
-            var command = TelegramBotCommandFactory.GetPublicCommand(e.Message.Text, user.UserRole);
+            var userRole = userService.GetCurrentUserRole();
+            var command = TelegramBotCommandFactory.GetPublicCommand(e.Message.Text, userRole);
             if (command == null)
                 return false;
 
