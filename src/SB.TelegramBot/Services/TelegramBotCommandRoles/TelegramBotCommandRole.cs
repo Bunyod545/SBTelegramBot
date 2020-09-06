@@ -41,11 +41,14 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="role"></param>
         /// <returns></returns>
-        public bool IsEqualRole(string name)
+        public bool IsEqualRole(string role)
         {
-            return GetRole() == name;
+            if (Role == null)
+                return true;
+
+            return Role == role;
         }
 
         /// <summary>
