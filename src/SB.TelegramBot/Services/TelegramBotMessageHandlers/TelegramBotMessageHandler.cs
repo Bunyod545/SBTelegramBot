@@ -4,6 +4,7 @@ using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Logics.TelegramBotMessages;
 using Telegram.Bot.Args;
 
+
 namespace SB.TelegramBot.Services
 {
     /// <summary>
@@ -17,6 +18,18 @@ namespace SB.TelegramBot.Services
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void Handle(object sender, MessageEventArgs e)
+        {
+            TelegramBotServicesContainer.RequestBegin();
+            InternalHandle(sender, e);
+            TelegramBotServicesContainer.RequestEnd();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InternalHandle(object sender, MessageEventArgs e)
         {
             TelegramBotMessageManager.Message.Value = e.Message;
 

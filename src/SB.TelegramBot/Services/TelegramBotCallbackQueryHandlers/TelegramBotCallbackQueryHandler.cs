@@ -19,6 +19,18 @@ namespace SB.TelegramBot.Services
         /// <param name="e"></param>
         public void Handle(object sender, CallbackQueryEventArgs e)
         {
+            TelegramBotServicesContainer.RequestBegin();
+            InternalHandle(sender, e);
+            TelegramBotServicesContainer.RequestEnd();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InternalHandle(object sender, CallbackQueryEventArgs e)
+        {
             TelegramBotMessageManager.Message.Value = e.CallbackQuery.Message;
 
             var userService = TelegramBotServicesContainer.GetService<ITelegramBotUserService>();

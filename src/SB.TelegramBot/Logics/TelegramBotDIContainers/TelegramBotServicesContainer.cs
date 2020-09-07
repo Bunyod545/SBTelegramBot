@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using System;
 using System.Linq;
+using System.Threading;
 
 namespace SB.TelegramBot.Logics.TelegramBotDIContainers
 {
@@ -22,9 +23,34 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
+        private static readonly AsyncLocal<ILifetimeScope> Scope = new AsyncLocal<ILifetimeScope>();
+
+        /// <summary>
+        /// 
+        /// </summary>
         static TelegramBotServicesContainer()
         {
             _containerBuilder = new ContainerBuilder();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void RequestBegin()
+        {
+            Scope.Value = _container.BeginLifetimeScope();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void RequestEnd()
+        {
+            if (Scope.Value == null)
+                return;
+
+            Scope.Value.Dispose();
+            Scope.Value = null;
         }
 
         /// <summary>
@@ -91,7 +117,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <typeparam name="TInterface"></typeparam>
         public static TInterface GetService<TInterface>()
         {
-            return _container.Resolve<TInterface>();
+            return (TInterface)GetService(typeof(TInterface));
         }
 
         /// <summary>
@@ -100,6 +126,9 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <typeparam name="TInterface"></typeparam>
         public static object GetService(Type type)
         {
+            if (Scope.Value != null)
+                return Scope.Value.Resolve(type);
+
             return _container.Resolve(type);
         }
 
