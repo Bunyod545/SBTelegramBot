@@ -17,7 +17,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void Handle(object sender, CallbackQueryEventArgs e)
+        public virtual void Handle(object sender, CallbackQueryEventArgs e)
         {
             TelegramBotServicesContainer.RequestBegin();
             InternalHandle(sender, e);
@@ -29,7 +29,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void InternalHandle(object sender, CallbackQueryEventArgs e)
+        protected virtual void InternalHandle(object sender, CallbackQueryEventArgs e)
         {
             TelegramBotMessageManager.Message.Value = e.CallbackQuery.Message;
 
@@ -57,7 +57,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <returns></returns>
-        private long? GetCommandId(string data)
+        protected virtual long? GetCommandId(string data)
         {
             if (string.IsNullOrEmpty(data))
                 return null;
@@ -75,7 +75,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        private string RemoveCommandId(string data)
+        protected virtual string RemoveCommandId(string data)
         {
             var index = data.IndexOf(';');
             return data.Substring(index + 1);

@@ -17,7 +17,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void Handle(object sender, MessageEventArgs e)
+        public virtual void Handle(object sender, MessageEventArgs e)
         {
             TelegramBotServicesContainer.RequestBegin();
             InternalHandle(sender, e);
@@ -29,7 +29,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void InternalHandle(object sender, MessageEventArgs e)
+        protected virtual void InternalHandle(object sender, MessageEventArgs e)
         {
             TelegramBotMessageManager.Message.Value = e.Message;
 
@@ -62,7 +62,7 @@ namespace SB.TelegramBot.Services
         /// <param name="user"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        private bool HandleBackCommand(TelegramBotUserInfo user, MessageEventArgs e)
+        protected virtual bool HandleBackCommand(TelegramBotUserInfo user, MessageEventArgs e)
         {
             if (string.IsNullOrEmpty(user.BackCommandHandlerClrName))
                 return false;
@@ -86,7 +86,7 @@ namespace SB.TelegramBot.Services
         /// <param name="userService"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        private bool HandlePriorityCommand(TelegramBotUserInfo user, ITelegramBotUserService userService, MessageEventArgs e)
+        protected virtual bool HandlePriorityCommand(TelegramBotUserInfo user, ITelegramBotUserService userService, MessageEventArgs e)
         {
             if (string.IsNullOrEmpty(user.CurrentCommandClrName))
                 return false;
@@ -112,7 +112,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <returns></returns>
-        private bool HandleCurrentCommand(TelegramBotUserInfo user)
+        protected virtual bool HandleCurrentCommand(TelegramBotUserInfo user)
         {
             if (string.IsNullOrEmpty(user.CurrentCommandClrName))
                 return false;
@@ -128,7 +128,7 @@ namespace SB.TelegramBot.Services
         /// <param name="userService"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        private bool HandlePublicCommand(ITelegramBotUserService userService, MessageEventArgs e)
+        protected virtual bool HandlePublicCommand(ITelegramBotUserService userService, MessageEventArgs e)
         {
             var userRole = userService.GetCurrentUserRole();
             var command = TelegramBotCommandFactory.GetPublicCommand(e.Message.Text, userRole);

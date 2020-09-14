@@ -29,7 +29,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <param name="infos"></param>
-        public void Initialize(List<TelegramBotCommandInfo> infos)
+        public virtual void Initialize(List<TelegramBotCommandInfo> infos)
         {
             infos.ForEach(InitializeInfo);
         }
@@ -38,7 +38,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <param name="info"></param>
-        private void InitializeInfo(TelegramBotCommandInfo info)
+        protected virtual void InitializeInfo(TelegramBotCommandInfo info)
         {
             InitializeIdentifier(info);
             InitializeName(info);
@@ -49,7 +49,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <param name="info"></param>
-        private void InitializeIdentifier(TelegramBotCommandInfo info)
+        protected virtual void InitializeIdentifier(TelegramBotCommandInfo info)
         {
             var dbCommand = _dbCommands.FirstOrDefault(f => f.ClrName == info.ClrType.Name);
             if (dbCommand == null)
@@ -65,7 +65,7 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        private void InitializeName(TelegramBotCommandInfo info)
+        protected virtual void InitializeName(TelegramBotCommandInfo info)
         {
             if (InitializeNameWithType(info))
                 return;
@@ -78,7 +78,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        private bool InitializeNameWithType(TelegramBotCommandInfo info)
+        protected virtual bool InitializeNameWithType(TelegramBotCommandInfo info)
         {
             var attrs = info.ClrType.GetCustomAttributes(typeof(TelegramBotCommandNameAttribute), false);
             if (attrs.Length != 1)
@@ -102,7 +102,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        private void InitializeNameWithService(TelegramBotCommandInfo info)
+        protected virtual void InitializeNameWithService(TelegramBotCommandInfo info)
         {
             if (!TelegramBotServicesContainer.IsRegistered<ITelegramBotCommandName>())
                 return;
@@ -117,7 +117,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        private void InitializeRole(TelegramBotCommandInfo info)
+        protected virtual void InitializeRole(TelegramBotCommandInfo info)
         {
             if (!TelegramBotServicesContainer.IsRegistered<ITelegramBotCommandRole>())
                 return;

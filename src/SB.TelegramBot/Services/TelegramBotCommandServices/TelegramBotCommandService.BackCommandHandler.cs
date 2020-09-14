@@ -12,9 +12,19 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <typeparam name="TCommand"></typeparam>
-        public void SetBackCommandHandler<TCommand>() where TCommand : ITelegramBotCommand
+        public virtual void SetBackCommandHandler<TCommand>() where TCommand : ITelegramBotCommand
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == MessageService.Message.Chat.Id);
+            SetBackCommandHandler<TCommand>(ChatId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TCommand"></typeparam>
+        /// <param name="chatId"></param>
+        public virtual void SetBackCommandHandler<TCommand>(long chatId) where TCommand : ITelegramBotCommand
+        {
+            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
             if (user == null)
                 return;
 
@@ -27,7 +37,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T GetBackCommandHandler<T>() where T : class, ITelegramBotCommand
+        public virtual T GetBackCommandHandler<T>() where T : class, ITelegramBotCommand
         {
             var user = TelegramBotDb.Users.FindOne(f => f.ChatId == MessageService.Message.Chat.Id);
             if (user == null)
@@ -39,7 +49,22 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        public void ExecuteBackCommandHandler()
+        /// <typeparam name="T"></typeparam>
+        /// <param name="chatId"></param>
+        /// <returns></returns>
+        public virtual T GetBackCommandHandler<T>(long chatId) where T : class, ITelegramBotCommand
+        {
+            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId); ;
+            if (user == null)
+                return default(T);
+
+            return TelegramBotCommandFactory.GetCommandByClrName(user.BackCommandHandler) as T;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void ExecuteBackCommandHandler()
         {
             var backCommand = GetBackCommandHandler<ITelegramBotCommand>();
             backCommand?.Execute();
@@ -48,7 +73,15 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        public void ClearBackCommandHandler()
+        public virtual void ClearBackCommandHandler()
+        {
+            ClearBackCommandHandler(ChatId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void ClearBackCommandHandler(long chatId)
         {
             var user = TelegramBotDb.Users.FindOne(f => f.ChatId == MessageService.Message.Chat.Id);
             if (user == null)

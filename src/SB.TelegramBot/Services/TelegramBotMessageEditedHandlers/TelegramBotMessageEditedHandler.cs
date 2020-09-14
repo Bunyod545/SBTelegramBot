@@ -12,7 +12,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void Handle(object sender, MessageEventArgs e)
+        public virtual void Handle(object sender, MessageEventArgs e)
         {
         }
     }

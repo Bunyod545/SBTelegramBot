@@ -42,7 +42,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="text"></param>
         /// <param name="replyMarkup"></param>
-        public void EditMessage(string text, InlineKeyboardMarkup replyMarkup = null)
+        public virtual void EditMessage(string text, InlineKeyboardMarkup replyMarkup = null)
         {
             var client = TelegramBotClientManager.Client;
             client.EditMessageTextAsync(ChatId, MessageId, text, replyMarkup: replyMarkup);
@@ -51,7 +51,7 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        public void RemoveMessage()
+        public virtual void RemoveMessage()
         {
             var client = TelegramBotClientManager.Client;
             client.DeleteMessageAsync(ChatId, MessageId);
@@ -67,7 +67,7 @@ namespace SB.TelegramBot.Services
         /// <param name="replyToMessageId"></param>
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
-        public void SendMessage(string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public virtual void SendMessage(string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
             var client = TelegramBotClientManager.Client;
             client.SendTextMessageAsync(Message.Chat.Id, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, cancellationToken);

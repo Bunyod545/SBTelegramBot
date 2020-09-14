@@ -22,7 +22,12 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        private readonly ITelegramBotMessageService MessageService;
+        protected readonly ITelegramBotMessageService MessageService;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected long ChatId => MessageService.ChatId;
 
         /// <summary>
         /// 
@@ -39,7 +44,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <returns></returns>
-        public long GetCommandId()
+        public virtual long GetCommandId()
         {
             return Info.CommandId;
         }
@@ -48,7 +53,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <returns></returns>
-        public TelegramBotCommandType GetCommandType()
+        public virtual TelegramBotCommandType GetCommandType()
         {
             return Info.CommandType;
         }
@@ -57,7 +62,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <returns></returns>
-        public ITelegramBotCommandName GetCommandName()
+        public virtual ITelegramBotCommandName GetCommandName()
         {
             return Info.CommandName;
         }
@@ -65,18 +70,26 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        public void ClearCacheCommands()
+        public virtual void ClearCacheCommands()
         {
-            ClearCurrentCommand();
-            ClearBackCommand();
-            ClearBackCommandHandler();
+            ClearCacheCommands(ChatId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void ClearCacheCommands(long chatId)
+        {
+            ClearCurrentCommand(chatId);
+            ClearBackCommand(chatId);
+            ClearBackCommandHandler(chatId);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void Execute<T>() where T : ITelegramBotCommand
+        public virtual void Execute<T>() where T : ITelegramBotCommand
         {
             var command = CreateCommand<T>();
             command.Execute();
@@ -86,7 +99,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public T CreateCommand<T>() where T : ITelegramBotCommand
+        public virtual T CreateCommand<T>() where T : ITelegramBotCommand
         {
             return TelegramBotServicesContainer.CreateWithServices<T>();
         }

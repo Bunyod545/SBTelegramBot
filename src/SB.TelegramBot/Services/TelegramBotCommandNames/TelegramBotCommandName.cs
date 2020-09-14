@@ -39,7 +39,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <param name="info"></param>
-        public void Initialize(TelegramBotCommandInfo info)
+        public virtual void Initialize(TelegramBotCommandInfo info)
         {
             Info = info;
             if (InitializeWithAttributes())
@@ -51,7 +51,7 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        private bool InitializeWithAttributes()
+        protected virtual bool InitializeWithAttributes()
         {
             var attrs = Info.ClrType.GetCustomAttributes(typeof(TelegramBotCommandNameAttribute), true);
             var attrsList = attrs.Cast<TelegramBotCommandNameAttribute>().ToList();
@@ -65,7 +65,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="commandName"></param>
         /// <param name="attr"></param>
-        private void InitializeName(TelegramBotCommandNameAttribute attr)
+        protected virtual void InitializeName(TelegramBotCommandNameAttribute attr)
         {
             if (!string.IsNullOrEmpty(attr.Name))
                 Names.Add(attr.Language, attr.Name);
@@ -74,7 +74,7 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        private void InitializeWithResource()
+        protected virtual void InitializeWithResource()
         {
             var assembly = Info.ClrType.Assembly;
             var synonymsResx = assembly.GetTypes().FirstOrDefault(f => f.Name == "TelegramBotCommandsSynonyms");
@@ -96,7 +96,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public bool IsEqualName(string name)
+        public virtual bool IsEqualName(string name)
         {
             return GetName() == name;
         }
@@ -105,7 +105,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <returns></returns>
-        public string GetName()
+        public virtual string GetName()
         {
             if (Names.Count > 0)
                 return GetNameWithAttribute();
@@ -120,7 +120,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <returns></returns>
-        private string GetNameWithAttribute()
+        protected virtual string GetNameWithAttribute()
         {
             var userService = TelegramBotServicesContainer.GetService<ITelegramBotUserService>();
             var currentUser = userService.GetCurrentUserInfo();

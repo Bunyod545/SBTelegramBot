@@ -22,7 +22,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <param name="info"></param>
-        public void Initialize(TelegramBotCommandInfo info)
+        public virtual void Initialize(TelegramBotCommandInfo info)
         {
             Info = info;
             InitializeWithAttribute();
@@ -31,7 +31,7 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        private void InitializeWithAttribute()
+        protected virtual void InitializeWithAttribute()
         {
             var attr = Info.ClrType.GetCustomAttribute<TelegramBotCommandRoleAttribute>();
             Role = attr?.Role;
@@ -42,7 +42,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="role"></param>
         /// <returns></returns>
-        public bool IsEqualRole(string role)
+        public virtual bool IsEqualRole(string role)
         {
             if (Role == null)
                 return true;
@@ -54,7 +54,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <returns></returns>
-        public string GetRole()
+        public virtual string GetRole()
         {
             return Role;
         }

@@ -13,7 +13,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="commandClrType"></param>
         /// <returns></returns>
-        public ITelegramBotCommand ActivateCommand(Type commandClrType)
+        public virtual ITelegramBotCommand ActivateCommand(Type commandClrType)
         {
             return TelegramBotServicesContainer.CreateWithServices(commandClrType) as ITelegramBotCommand;
         }

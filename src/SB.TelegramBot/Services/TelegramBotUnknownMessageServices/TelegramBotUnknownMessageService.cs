@@ -8,7 +8,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public void Handle()
+        public virtual void Handle()
         {
         }
     }

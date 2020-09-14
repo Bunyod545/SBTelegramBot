@@ -33,8 +33,22 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="chatId"></param>
+        /// <param name="language"></param>
+        void SetUserLanguage(long chatId, string language);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         string GetCurrentUserRole();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chatId"></param>
+        /// <returns></returns>
+        string GetUserRole(long chatId);
 
         /// <summary>
         /// 
@@ -46,7 +60,22 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="chatId"></param>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        bool IsInRole(long chatId, string role);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="role"></param>
         void SetCurrentUserRole(string role);
+    
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chatId"></param>
+        /// <param name="role"></param>
+        void SetUserRole(long chatId ,string role);
     }
 }

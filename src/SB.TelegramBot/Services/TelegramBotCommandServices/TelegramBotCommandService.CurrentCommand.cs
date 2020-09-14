@@ -11,9 +11,19 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <typeparam name="TCommand"></typeparam>
-        public void SetCurrentCommand<TCommand>() where TCommand : ITelegramBotCommand
+        public virtual void SetCurrentCommand<TCommand>() where TCommand : ITelegramBotCommand
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == MessageService.Message.Chat.Id);
+            SetCurrentCommand<TCommand>(ChatId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TCommand"></typeparam>
+        /// <param name="chatId"></param>
+        public virtual void SetCurrentCommand<TCommand>(long chatId) where TCommand : ITelegramBotCommand
+        {
+            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
             if (user == null)
                 return;
 
@@ -24,9 +34,18 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        public void ClearCurrentCommand()
+        public virtual void ClearCurrentCommand()
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == MessageService.Message.Chat.Id);
+            ClearCurrentCommand(ChatId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chatId"></param>
+        public virtual void ClearCurrentCommand(long chatId)
+        {
+            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
             if (user == null)
                 return;
 
