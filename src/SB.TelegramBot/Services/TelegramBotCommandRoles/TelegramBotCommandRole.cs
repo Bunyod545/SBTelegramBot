@@ -44,9 +44,6 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public virtual bool IsEqualRole(string role)
         {
-            if (Role == null)
-                return true;
-
             return Role == role;
         }
 

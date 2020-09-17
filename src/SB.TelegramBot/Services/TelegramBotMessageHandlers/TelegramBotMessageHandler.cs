@@ -93,6 +93,9 @@ namespace SB.TelegramBot.Services
 
             var userRole = userService.GetCurrentUserRole();
             var commandInfo = TelegramBotCommandFactory.GetPublicCommandInfo(e.Message.Text, userRole);
+            if (commandInfo == null)
+                commandInfo = TelegramBotCommandFactory.GetPublicCommandInfo(e.Message.Text);
+
             if (commandInfo?.CommandName == null)
                 return false;
 
@@ -132,6 +135,9 @@ namespace SB.TelegramBot.Services
         {
             var userRole = userService.GetCurrentUserRole();
             var command = TelegramBotCommandFactory.GetPublicCommand(e.Message.Text, userRole);
+            if (command == null)
+                command = TelegramBotCommandFactory.GetPublicCommand(e.Message.Text);
+
             if (command == null)
                 return false;
 
