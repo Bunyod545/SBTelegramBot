@@ -5,7 +5,7 @@ namespace SB.TelegramBot
     /// <summary>
     /// 
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class TelegramBotCommandRoleAttribute : Attribute
     {
         /// <summary>
