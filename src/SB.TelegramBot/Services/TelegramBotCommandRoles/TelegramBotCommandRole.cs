@@ -1,4 +1,6 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories.Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace SB.TelegramBot.Services
@@ -16,7 +18,15 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        public string Role { get; private set; }
+        public List<string> Roles { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TelegramBotCommandRole()
+        {
+            Roles = new List<string>();
+        }
 
         /// <summary>
         /// 
@@ -33,8 +43,8 @@ namespace SB.TelegramBot.Services
         /// </summary>
         protected virtual void InitializeWithAttribute()
         {
-            var attr = Info.ClrType.GetCustomAttribute<TelegramBotCommandRoleAttribute>();
-            Role = attr?.Role;
+            var attrs = Info.ClrType.GetCustomAttributes<TelegramBotCommandRoleAttribute>();
+            Roles = attrs.Select(s => s.Role).ToList();
         }
 
         /// <summary>
@@ -44,7 +54,10 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public virtual bool IsEqualRole(string role)
         {
-            return Role == role;
+            if (string.IsNullOrEmpty(role) && Roles.Count == 0)
+                return true;
+
+            return Roles.Contains(role);
         }
 
         /// <summary>
@@ -53,7 +66,7 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public virtual string GetRole()
         {
-            return Role;
+            return string.Join(", ", Roles);
         }
     }
 }
