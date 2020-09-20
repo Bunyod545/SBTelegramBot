@@ -34,6 +34,7 @@ namespace SB.TelegramBot
         {
             if (_columnButtons != null)
                 EndOfColumn();
+
             var currentRowButtons = new List<KeyboardButton>();
             _buttons.Add(currentRowButtons);
 
