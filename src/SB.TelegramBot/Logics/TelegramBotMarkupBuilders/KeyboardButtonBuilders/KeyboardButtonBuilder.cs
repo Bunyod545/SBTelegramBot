@@ -16,6 +16,11 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
+        private List<KeyboardButton> _columnButtons;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public KeyboardButtonBuilder()
         {
             _buttons = new List<List<KeyboardButton>>();
@@ -27,6 +32,8 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public KeyboardButtonBuilder AddRowButton(string text)
         {
+            if (_columnButtons != null)
+                EndColumn();
             var currentRowButtons = new List<KeyboardButton>();
             _buttons.Add(currentRowButtons);
 
@@ -39,9 +46,40 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public KeyboardButtonBuilder AddColumnButton(string text)
+        {
+            if (_columnButtons == null)
+                _columnButtons = new List<KeyboardButton>();
+
+            var currentButton = new KeyboardButton();
+            currentButton.Text = text;
+            _columnButtons.Add(currentButton);
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void EndColumn()
+        {
+            if (_columnButtons == null)
+                return;
+
+            if (_columnButtons.Count > 0)
+                _buttons.Add(_columnButtons);
+
+            _columnButtons = null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public ReplyKeyboardMarkup Build()
         {
+            EndColumn();
             return new ReplyKeyboardMarkup(_buttons);
         }
     }

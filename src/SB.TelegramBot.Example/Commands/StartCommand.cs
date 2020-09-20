@@ -16,22 +16,58 @@ namespace SB.TeleramBot.Example.Commands
         /// </summary>
         public override void Execute()
         {
-            var buttons = new InlineKeyboardButton[3];
-            buttons[0] = new InlineKeyboardButton();
-            buttons[0].SetCommand<LanguageUzCommand>();
-            buttons[0].Text = "LanguageUzCommand";
+            ShowInlineKeyboards();
+            ShowKeyboard();
+        }
 
-            buttons[1] = new InlineKeyboardButton();
-            buttons[1].SetCommand<LanguageRuCommand>();
-            buttons[1].Text = "LanguageRuCommand";
 
-            buttons[2] = new InlineKeyboardButton();
-            buttons[2].SetCommand<LanguageEnCommand>();
-            buttons[2].SetData(new LanguageEnInfo("Test"));
-            buttons[2].Text = "LanguageEnCommand";
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ShowInlineKeyboards()
+        {
+            var buttonsBuilder = new InlineKeyboardButtonBuilder();
+            buttonsBuilder.AddColumnButton()
+                .WithText("O'zbek tili")
+                .WithCommand<LanguageUzCommand>();
+            buttonsBuilder.AddColumnButton()
+                .WithText("Rus tili")
+                .WithCommand<LanguageRuCommand>();
+            buttonsBuilder.EndColumn();
 
-            var buttonsMarkUp = new InlineKeyboardMarkup(buttons);
-            MessageService.SendMessage(TelegramBotMessages.UserSuccessfulyRegistered, replyMarkup: buttonsMarkUp);
+            buttonsBuilder.AddColumnButton()
+                            .WithText("O'zbek tili")
+                            .WithCommand<LanguageUzCommand>();
+            buttonsBuilder.AddColumnButton()
+                .WithText("Rus tili")
+                .WithCommand<LanguageRuCommand>();
+
+            buttonsBuilder.AddRowButton()
+                .WithText("O'zbek tili")
+                .WithCommand<LanguageUzCommand>();
+
+            var buttons = buttonsBuilder.Build();
+            MessageService.SendMessage("Test columns", replyMarkup: buttons);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ShowKeyboard()
+        {
+            var buttonsBuilder = new KeyboardButtonBuilder();
+            buttonsBuilder.AddColumnButton("Column 1");
+            buttonsBuilder.AddColumnButton("Column 2");
+
+            buttonsBuilder.AddRowButton("Row 1");
+
+            buttonsBuilder.AddColumnButton("Column 3");
+            buttonsBuilder.AddColumnButton("Column 4");
+
+            var buttons = buttonsBuilder.Build();
+            buttons.ResizeKeyboard = true;
+
+            MessageService.SendMessage("Test", replyMarkup: buttons);
         }
     }
 }

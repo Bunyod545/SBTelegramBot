@@ -25,5 +25,6 @@ namespace SB.TeleramBot.Example.Commands
 
             Client.SendTextMessageAsync(MessageService.Message.Chat.Id, "Text", replyMarkup: rkm);
         }
+
     }
 }
