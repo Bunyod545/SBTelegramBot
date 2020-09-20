@@ -33,7 +33,7 @@ namespace SB.TelegramBot
         public InlineKeyboardButtonInfo AddRowButton()
         {
             if (_columnButtons != null)
-                EndColumn();
+                EndOfColumn();
             var currentRowButtons = new List<InlineKeyboardButton>();
             _buttons.Add(currentRowButtons);
 
@@ -59,7 +59,7 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public void EndColumn()
+        public void EndOfColumn()
         {
             if (_columnButtons == null)
                 return;
@@ -76,7 +76,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public InlineKeyboardMarkup Build()
         {
-            EndColumn();
+            EndOfColumn();
             return new InlineKeyboardMarkup(_buttons);
         }
     }

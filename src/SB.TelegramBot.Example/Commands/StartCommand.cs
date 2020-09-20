@@ -33,7 +33,7 @@ namespace SB.TeleramBot.Example.Commands
             buttonsBuilder.AddColumnButton()
                 .WithText("Rus tili")
                 .WithCommand<LanguageRuCommand>();
-            buttonsBuilder.EndColumn();
+            buttonsBuilder.EndOfColumn();
 
             buttonsBuilder.AddColumnButton()
                             .WithText("O'zbek tili")
