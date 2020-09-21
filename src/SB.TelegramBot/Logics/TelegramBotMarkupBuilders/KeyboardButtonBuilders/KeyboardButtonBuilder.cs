@@ -16,6 +16,11 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
+        private List<KeyboardButton> _columnButtons;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private bool _isResize = true;
 
         /// <summary>
@@ -32,6 +37,9 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public KeyboardButtonBuilder AddRowButton(string text)
         {
+            if (_columnButtons != null)
+                EndOfColumn();
+
             var currentRowButtons = new List<KeyboardButton>();
             _buttons.Add(currentRowButtons);
 
@@ -44,12 +52,32 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="text"></param>
         /// <param name="isResize"></param>
         /// <returns></returns>
-        public KeyboardButtonBuilder Resize(bool isResize)
+        public KeyboardButtonBuilder AddColumnButton(string text)
         {
-            _isResize = isResize;
+            if (_columnButtons == null)
+                _columnButtons = new List<KeyboardButton>();
+
+            var currentButton = new KeyboardButton();
+            currentButton.Text = text;
+            _columnButtons.Add(currentButton);
             return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void EndOfColumn()
+        {
+            if (_columnButtons == null)
+                return;
+
+            if (_columnButtons.Count > 0)
+                _buttons.Add(_columnButtons);
+
+            _columnButtons = null;
         }
 
         /// <summary>
@@ -58,9 +86,10 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public ReplyKeyboardMarkup Build()
         {
+            EndOfColumn();
+
             var markup = new ReplyKeyboardMarkup(_buttons);
             markup.ResizeKeyboard = _isResize; 
-
             return markup;
         }
     }
