@@ -83,6 +83,17 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="isCanResize"></param>
+        /// <returns></returns>
+        public KeyboardButtonBuilder IsCanResize(bool isCanResize)
+        {
+            _isResize = isCanResize;
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public ReplyKeyboardMarkup Build()
         {
