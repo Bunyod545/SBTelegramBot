@@ -16,6 +16,11 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
+        private bool _isResize = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public KeyboardButtonBuilder()
         {
             _buttons = new List<List<KeyboardButton>>();
@@ -39,10 +44,24 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="isResize"></param>
+        /// <returns></returns>
+        public KeyboardButtonBuilder Resize(bool isResize)
+        {
+            _isResize = isResize;
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public ReplyKeyboardMarkup Build()
         {
-            return new ReplyKeyboardMarkup(_buttons);
+            var markup = new ReplyKeyboardMarkup(_buttons);
+            markup.ResizeKeyboard = _isResize; 
+
+            return markup;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        private InlineKeyboardButton _button;
+        public InlineKeyboardButton Button { get; }
 
         /// <summary>
         /// 
@@ -18,7 +18,7 @@ namespace SB.TelegramBot
         /// <param name="button"></param>
         public InlineKeyboardButtonInfo(InlineKeyboardButton button)
         {
-            _button = button;
+            Button = button;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public InlineKeyboardButtonInfo WithText(string text)
         {
-            _button.Text = text;
+            Button.Text = text;
             return this;
         }
 
@@ -37,7 +37,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public InlineKeyboardButtonInfo WithCommand<T>() where T : ITelegramBotCommand
         {
-            _button.SetCommand<T>();
+            Button.SetCommand<T>();
             return this;
         }
 
@@ -47,7 +47,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public InlineKeyboardButtonInfo WithData(object data)
         {
-            _button.SetData(data);
+            Button.SetData(data);
             return this;
         }
     }
