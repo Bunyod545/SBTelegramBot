@@ -12,6 +12,8 @@ namespace SB.TelegramBot.Services
     /// </summary>
     public class TelegramBotMessageHandler : ITelegramBotMessageHandler
     {
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -41,6 +43,9 @@ namespace SB.TelegramBot.Services
 
             TelegramBotLanguageHelper.InitializeCulture(currentUser.Language);
             if (HandleBackCommand(currentUser, e))
+                return;
+
+            if (HandleHighestCommand(userService, e))
                 return;
 
             if (HandlePriorityCommand(currentUser, userService, e))
@@ -75,6 +80,31 @@ namespace SB.TelegramBot.Services
                 return false;
 
             var handlerCommand = TelegramBotCommandFactory.GetCommandInstance(handler);
+            handlerCommand.Execute();
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="userService"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        protected virtual bool HandleHighestCommand(ITelegramBotUserService userService, MessageEventArgs e)
+        {
+            var userRole = userService.GetCurrentUserRole();
+            var commandInfo = TelegramBotCommandFactory.GetPublicCommandInfo(e.Message.Text, userRole);
+            if (commandInfo == null)
+                commandInfo = TelegramBotCommandFactory.GetPublicCommandInfo(e.Message.Text);
+
+            if (commandInfo == null)
+                return false;
+
+            if (!commandInfo.IsHighestCommand)
+                return false;
+
+            var handlerCommand = TelegramBotCommandFactory.GetCommandInstance(commandInfo);
             handlerCommand.Execute();
             return true;
         }

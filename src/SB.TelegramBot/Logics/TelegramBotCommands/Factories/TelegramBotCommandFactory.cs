@@ -33,6 +33,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
 
             commandTypes.ForEach(InitializeInfo);
             Infos.ForEach(InitializeLowCommands);
+            Infos.ForEach(InitializeHighestCommand);
 
             var initializer = TelegramBotServicesContainer.GetService<ITelegramBotCommandFactoryInitializer>();
             initializer.Initialize(new List<TelegramBotCommandInfo>(Infos));
@@ -57,6 +58,19 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
             info.CommandType = attr.Type;
 
             Infos.Add(info);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        private static void InitializeHighestCommand(TelegramBotCommandInfo info)
+        {
+            var attrs = info.ClrType.GetCustomAttribute<TelegramBotHighestCommandAttribute>();
+            if (attrs == null)
+                return;
+
+            info.IsHighestCommand = true;
         }
 
         /// <summary>
