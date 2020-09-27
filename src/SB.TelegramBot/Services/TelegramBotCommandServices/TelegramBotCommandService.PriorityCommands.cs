@@ -43,6 +43,34 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
+        public virtual void RemovePriorityCommand<TCommand>() where TCommand : ITelegramBotCommand
+        {
+            RemovePriorityCommand<TCommand>(ChatId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void RemovePriorityCommand<TCommand>(long chatId) where TCommand : ITelegramBotCommand
+        {
+            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            if (user == null)
+                return;
+            
+            var command = TelegramBotCommandFactory.GetCommandInfo(typeof(TCommand));
+            if (command == null)
+                return;
+
+            if (user.PriorityCommands == null)
+                return;
+
+            user.PriorityCommands.RemoveAll(r => r == command.CommandId);
+            TelegramBotDb.Users.Update(user);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual void ClearPriorityCommands()
         {
             ClearPriorityCommands(ChatId);

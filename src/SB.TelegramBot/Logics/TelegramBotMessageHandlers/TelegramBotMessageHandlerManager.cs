@@ -108,12 +108,13 @@ namespace SB.TelegramBot
             context.Message = message;
             context.UserService = userService;
             context.User = currentUser;
+            context.UserRole = userService.GetCurrentUserRole();
 
             var handlers = GetMessageHandlers();
             for (int index = 0; index < handlers.Count; index++)
             {
                 var handler = handlers[index];
-                if (index < handlers.Count)
+                if (index < handlers.Count - 1)
                     context.NextHandler = handlers[index + 1];
 
                 handler.Handle(context);

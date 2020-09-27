@@ -16,6 +16,7 @@ namespace SB.TelegramBot
         {
             var unknownMessageService = TelegramBotServicesContainer.GetService<ITelegramBotUnknownMessageService>();
             unknownMessageService.Handle();
+            context.MessageHandled();
         }
     }
 }

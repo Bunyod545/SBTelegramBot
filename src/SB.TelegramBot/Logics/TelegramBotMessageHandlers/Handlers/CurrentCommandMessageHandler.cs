@@ -13,18 +13,11 @@ namespace SB.TelegramBot
         /// <param name="context"></param>
         public void Handle(MessageContext context)
         {
-            if (string.IsNullOrEmpty(context.User.BackCommandHandlerClrName))
+            if (string.IsNullOrEmpty(context.User.CurrentCommandClrName))
                 return;
 
-            var handler = TelegramBotCommandFactory.GetBackCommandHandler(context.User.BackCommandHandlerClrName);
-            if (handler?.CommandName == null)
-                return;
-
-            if (!handler.CommandName.IsEqualName(context.Message.Text))
-                return;
-
-            var handlerCommand = TelegramBotCommandFactory.GetCommandInstance(handler);
-            handlerCommand.Execute();
+            var currentCommand = TelegramBotCommandFactory.GetPublicOrInternalCommand(context.User.CurrentCommandClrName);
+            currentCommand?.Execute();
             context.MessageHandled();
         }
     }

@@ -13,7 +13,7 @@ namespace SB.TelegramBot
         /// <param name="context"></param>
         public void Handle(MessageContext context)
         {
-            var command = TelegramBotCommandFactory.GetPublicCommand(context.Message.Text,context.UserRole);
+            var command = TelegramBotCommandFactory.GetPublicCommand(context.Message.Text, context.UserRole);
             if (command == null)
                 command = TelegramBotCommandFactory.GetPublicCommand(context.Message.Text);
 
