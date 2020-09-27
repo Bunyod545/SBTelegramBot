@@ -83,6 +83,7 @@ namespace SB.TelegramBot.Services
             ClearCurrentCommand(chatId);
             ClearBackCommand(chatId);
             ClearBackCommandHandler(chatId);
+            ClearPriorityCommands(chatId);
         }
 
         /// <summary>

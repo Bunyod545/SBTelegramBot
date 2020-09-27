@@ -1,4 +1,6 @@
-﻿namespace SB.TelegramBot.Databases.Tables
+﻿using System.Collections.Generic;
+
+namespace SB.TelegramBot.Databases.Tables
 {
     /// <summary>
     /// 
@@ -24,6 +26,11 @@
         /// 
         /// </summary>
         public string CurrentCommand { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<long> PriorityCommands { get; set; }
 
         /// <summary>
         /// 

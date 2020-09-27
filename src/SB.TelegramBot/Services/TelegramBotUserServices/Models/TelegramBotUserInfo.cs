@@ -1,4 +1,6 @@
-﻿namespace SB.TelegramBot.Services
+﻿using System.Collections.Generic;
+
+namespace SB.TelegramBot.Services
 {
     /// <summary>
     /// 
@@ -9,11 +11,6 @@
         /// 
         /// </summary>
         public long ChatId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string UserRole { get; set; }
 
         /// <summary>
         /// 
@@ -34,6 +31,11 @@
         /// 
         /// </summary>
         public string BackCommandClrName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<long> PriorityCommands { get; set; }
 
         /// <summary>
         /// 

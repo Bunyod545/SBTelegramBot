@@ -8,7 +8,7 @@ namespace SB.TelegramBot
     /// <summary>
     /// 
     /// </summary>
-    public abstract class TelegramBotBaseCommand : ITelegramBotCommand
+    public abstract partial class TelegramBotBaseCommand : ITelegramBotCommand
     {
         /// <summary>
         /// 
