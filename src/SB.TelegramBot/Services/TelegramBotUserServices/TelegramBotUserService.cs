@@ -63,6 +63,7 @@ namespace SB.TelegramBot.Services
             userInfo.CurrentCommandClrName = user.CurrentCommand;
             userInfo.BackCommandClrName = user.BackCommand;
             userInfo.BackCommandHandlerClrName = user.BackCommandHandler;
+            userInfo.PriorityCommands = user.PriorityCommands;
 
             return userInfo;
         }
