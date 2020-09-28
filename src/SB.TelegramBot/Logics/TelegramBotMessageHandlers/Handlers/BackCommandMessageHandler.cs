@@ -13,7 +13,7 @@ namespace SB.TelegramBot
         /// <param name="context"></param>
         public void Handle(MessageContext context)
         {
-            if (string.IsNullOrEmpty(context.User.CurrentCommandClrName))
+            if (string.IsNullOrEmpty(context.User.BackCommandClrName))
                 return;
 
             var currentCommand = TelegramBotCommandFactory.GetPublicOrInternalCommand(context.User.CurrentCommandClrName);
