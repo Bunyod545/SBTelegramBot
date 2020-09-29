@@ -33,7 +33,7 @@ namespace SB.TelegramBot
             if (string.IsNullOrEmpty(value))
                 return null;
 
-            return bool.Parse(value);
+            return Convert.ToBoolean(Convert.ToInt32(value));
         }
     }
 }
