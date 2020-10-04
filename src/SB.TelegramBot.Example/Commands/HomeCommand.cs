@@ -7,6 +7,8 @@ namespace SB.TeleramBot.Example.Commands
     /// 
     /// </summary>
     [TelegramBotLowCommand(typeof(StartCommand))]
+    [TelegramBotNearCommand(typeof(StartCommand))]
+    [TelegramBotNearCommand(typeof(LanguageEnCommand))]
     public class HomeCommand : TelegramBotPublicCommand
     {
         /// <summary>
