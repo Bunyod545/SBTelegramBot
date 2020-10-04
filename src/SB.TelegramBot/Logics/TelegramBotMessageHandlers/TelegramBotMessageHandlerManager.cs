@@ -28,6 +28,7 @@ namespace SB.TelegramBot
             AddHandler<BackCommandMessageHandler>();
             AddHandler<HighestCommandMessageHandler>();
             AddHandler<PriorityCommandHandler>();
+            AddHandler<NearCommandMessageHandler>();
             AddHandler<LowPriorityCommandMessageHandler>();
             AddHandler<CurrentCommandMessageHandler>();
             AddHandler<PublicCommandMessageHandler>();

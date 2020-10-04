@@ -52,9 +52,15 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories.Models
         /// <summary>
         /// 
         /// </summary>
+        public List<TelegramBotCommandInfo> NearCommands { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public TelegramBotCommandInfo()
         {
             LowCommands = new List<TelegramBotCommandInfo>();
+            NearCommands = new List<TelegramBotCommandInfo>();
         }
     }
 }

@@ -33,6 +33,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
 
             commandTypes.ForEach(InitializeInfo);
             Infos.ForEach(InitializeLowCommands);
+            Infos.ForEach(InitializeNearCommands);
             Infos.ForEach(InitializeHighestCommand);
 
             var initializer = TelegramBotServicesContainer.GetService<ITelegramBotCommandFactoryInitializer>();
@@ -85,6 +86,20 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
 
             var lowCommands = attrs.Select(s => s.LowCommand).ToList();
             info.LowCommands = Infos.Where(w => lowCommands.Contains(w.ClrType)).ToList();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        private static void InitializeNearCommands(TelegramBotCommandInfo info)
+        {
+            var attrs = info.ClrType.GetCustomAttributes<TelegramBotNearCommandAttribute>();
+            if (attrs == null)
+                return;
+
+            var nearCommands = attrs.Select(s => s.NearCommandType).ToList();
+            info.NearCommands = Infos.Where(w => nearCommands.Contains(w.ClrType)).ToList();
         }
 
         /// <summary>
