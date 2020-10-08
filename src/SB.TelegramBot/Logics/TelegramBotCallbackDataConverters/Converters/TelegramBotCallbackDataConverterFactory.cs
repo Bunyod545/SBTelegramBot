@@ -61,6 +61,9 @@ namespace SB.TelegramBot
             AddOrUpdateConverter<DateTime, TelegramBotCallbackDataDateTimeConverter>();
             AddOrUpdateConverter<DateTime?, TelegramBotCallbackDataDateTimeConverter>();
 
+            AddOrUpdateConverter<Guid, TelegramBotCallbackDataGuidConverter>();
+            AddOrUpdateConverter<Guid?, TelegramBotCallbackDataGuidConverter>();
+
             AddOrUpdateConverter<object, TelegramBotCallbackDataObjectConverter>();
             AddOrUpdateConverter<string, TelegramBotCallbackDataTextConverter>();
         }
