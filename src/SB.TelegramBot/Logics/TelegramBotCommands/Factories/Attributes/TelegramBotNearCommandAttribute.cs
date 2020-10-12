@@ -5,6 +5,7 @@ namespace SB.TelegramBot
     /// <summary>
     /// 
     /// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class TelegramBotNearCommandAttribute : Attribute
     {
         /// <summary>
