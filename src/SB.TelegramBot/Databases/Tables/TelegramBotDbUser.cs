@@ -30,6 +30,11 @@ namespace SB.TelegramBot.Databases.Tables
         /// <summary>
         /// 
         /// </summary>
+        public string CurrentCommandData { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public List<long> PriorityCommands { get; set; }
 
         /// <summary>

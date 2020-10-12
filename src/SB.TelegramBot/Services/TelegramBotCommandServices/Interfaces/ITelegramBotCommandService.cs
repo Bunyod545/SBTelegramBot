@@ -1,11 +1,9 @@
-﻿using Telegram.Bot.Types;
-
-namespace SB.TelegramBot.Services
+﻿namespace SB.TelegramBot.Services
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface ITelegramBotCommandService
+    public partial interface ITelegramBotCommandService
     {
         /// <summary>
         /// 
