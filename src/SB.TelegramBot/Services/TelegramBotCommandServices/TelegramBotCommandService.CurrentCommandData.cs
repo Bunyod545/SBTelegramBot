@@ -110,7 +110,7 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public void SetCurrentCommandDataString(string data)
         {
-            SetCurrentCommandDataString(data);
+            SetCurrentCommandDataString(ChatId, data);
         }
 
         /// <summary>
