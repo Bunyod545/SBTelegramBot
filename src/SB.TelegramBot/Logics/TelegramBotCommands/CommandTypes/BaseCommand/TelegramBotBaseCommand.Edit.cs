@@ -192,7 +192,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task<Message> EditMessageTextV2Async(string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, InlineKeyboardMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
         {
-            return Client.EditMessageTextAsync(ChatId, MessageId, text, parseMode, disableWebPagePreview, replyMarkup, cancellationToken);
+            return Client.EditMessageTextV2Async(ChatId, MessageId, text, parseMode, disableWebPagePreview, replyMarkup, entities, cancellationToken);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task<Message> EditMessageTextV2Async(ChatId chatId, int messageId, string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, InlineKeyboardMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
         {
-            return Client.EditMessageTextAsync(chatId, messageId, text, parseMode, disableWebPagePreview, replyMarkup, cancellationToken);
+            return Client.EditMessageTextV2Async(chatId, messageId, text, parseMode, disableWebPagePreview, replyMarkup, entities, cancellationToken);
         }
 
         /// <summary>
@@ -225,6 +225,21 @@ namespace SB.TelegramBot
         public Task EditMessageTextAsync(string inlineMessageId, string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, InlineKeyboardMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
             return Client.EditMessageTextAsync(inlineMessageId, text, parseMode, disableWebPagePreview, replyMarkup, cancellationToken);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inlineMessageId"></param>
+        /// <param name="text"></param>
+        /// <param name="parseMode"></param>
+        /// <param name="disableWebPagePreview"></param>
+        /// <param name="replyMarkup"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public Task EditMessageTextV2Async(string inlineMessageId, string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, InlineKeyboardMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
+        {
+            return Client.EditMessageTextV2Async(inlineMessageId, text, parseMode, disableWebPagePreview, replyMarkup, entities, cancellationToken);
         }
     }
 }

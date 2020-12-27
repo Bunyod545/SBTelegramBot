@@ -540,7 +540,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task<Message> SendTextMessageV2Async(string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
         {
-            return Client.SendTextMessageAsync(ChatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, entities, cancellationToken);
+            return Client.SendTextMessageV2Async(ChatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, entities, cancellationToken);
         }
 
         /// <summary>
@@ -591,7 +591,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task<Message> SendTextMessageV2Async(ChatId chatId, string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
         {
-            return Client.SendTextMessageAsync(chatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, entities, cancellationToken);
+            return Client.SendTextMessageV2Async(chatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, entities, cancellationToken);
         }
 
         /// <summary>

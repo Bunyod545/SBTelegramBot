@@ -27,7 +27,7 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>On success, the sent Description is returned.</returns>
         /// <see href="https://core.telegram.org/bots/api#sendmessage"/>
-        public static Task<Message> SendTextMessageAsync(
+        public static Task<Message> SendTextMessageV2Async(
             this ITelegramBotClient client,
             ChatId chatId,
             string text,
@@ -60,7 +60,7 @@ namespace SB.TelegramBot
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public static Task<Message> EditMessageTextAsync(
+        public static Task<Message> EditMessageTextV2Async(
             this ITelegramBotClient client,
             ChatId chatId,
             int messageId,
@@ -91,7 +91,7 @@ namespace SB.TelegramBot
         /// <param name="entities"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public static Task EditMessageTextAsync(
+        public static Task EditMessageTextV2Async(
             this ITelegramBotClient client,
             string inlineMessageId,
             string text,
