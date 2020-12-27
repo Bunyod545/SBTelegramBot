@@ -27,7 +27,6 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>On success, the sent Description is returned.</returns>
         /// <see href="https://core.telegram.org/bots/api#sendmessage"/>
-
         public static Task<Message> SendTextMessageAsync(
             this ITelegramBotClient client,
             ChatId chatId,
@@ -46,7 +45,68 @@ namespace SB.TelegramBot
                 DisableWebPagePreview = disableWebPagePreview,
                 DisableNotification = disableNotification,
                 ReplyToMessageId = replyToMessageId,
-                ReplyMarkup = replyMarkup
+                ReplyMarkup = replyMarkup,
+                Entities = entities
+            }, cancellationToken);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chatId"></param>
+        /// <param name="messageId"></param>
+        /// <param name="text"></param>
+        /// <param name="parseMode"></param>
+        /// <param name="disableWebPagePreview"></param>
+        /// <param name="replyMarkup"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public static Task<Message> EditMessageTextV2Async(
+            this ITelegramBotClient client,
+            ChatId chatId,
+            int messageId,
+            string text,
+            ParseMode parseMode = default,
+            bool disableWebPagePreview = default,
+            InlineKeyboardMarkup replyMarkup = default,
+            MessageEntity[] entities = default,
+            CancellationToken cancellationToken = default
+        ) =>
+            client.MakeRequestAsync(new SbEditMessageTextRequest(chatId, messageId, text)
+            {
+                ParseMode = parseMode,
+                DisableWebPagePreview = disableWebPagePreview,
+                ReplyMarkup = replyMarkup,
+                Entities = entities
+            }, cancellationToken);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="inlineMessageId"></param>
+        /// <param name="text"></param>
+        /// <param name="parseMode"></param>
+        /// <param name="disableWebPagePreview"></param>
+        /// <param name="replyMarkup"></param>
+        /// <param name="entities"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public static Task EditMessageTextV2Async(
+            this ITelegramBotClient client,
+            string inlineMessageId,
+            string text,
+            ParseMode parseMode = default,
+            bool disableWebPagePreview = default,
+            InlineKeyboardMarkup replyMarkup = default,
+            MessageEntity[] entities = default,
+            CancellationToken cancellationToken = default
+        ) =>
+            client.MakeRequestAsync(new SbEditInlineMessageTextRequest(inlineMessageId, text)
+            {
+                DisableWebPagePreview = disableWebPagePreview,
+                ReplyMarkup = replyMarkup,
+                ParseMode = parseMode,
+                Entities = entities
             }, cancellationToken);
     }
 }
