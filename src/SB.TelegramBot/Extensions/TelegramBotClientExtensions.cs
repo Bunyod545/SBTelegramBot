@@ -60,7 +60,7 @@ namespace SB.TelegramBot
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public static Task<Message> EditMessageTextV2Async(
+        public static Task<Message> EditMessageTextAsync(
             this ITelegramBotClient client,
             ChatId chatId,
             int messageId,
@@ -91,7 +91,7 @@ namespace SB.TelegramBot
         /// <param name="entities"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public static Task EditMessageTextV2Async(
+        public static Task EditMessageTextAsync(
             this ITelegramBotClient client,
             string inlineMessageId,
             string text,

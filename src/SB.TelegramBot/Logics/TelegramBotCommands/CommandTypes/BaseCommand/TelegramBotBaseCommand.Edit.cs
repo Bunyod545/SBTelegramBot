@@ -181,6 +181,40 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="chatId"></param>
+        /// <param name="messageId"></param>
+        /// <param name="text"></param>
+        /// <param name="parseMode"></param>
+        /// <param name="disableWebPagePreview"></param>
+        /// <param name="replyMarkup"></param>
+        /// <param name="entities"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public Task<Message> EditMessageTextV2Async(string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, InlineKeyboardMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
+        {
+            return Client.EditMessageTextAsync(ChatId, MessageId, text, parseMode, disableWebPagePreview, replyMarkup, cancellationToken);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chatId"></param>
+        /// <param name="messageId"></param>
+        /// <param name="text"></param>
+        /// <param name="parseMode"></param>
+        /// <param name="disableWebPagePreview"></param>
+        /// <param name="replyMarkup"></param>
+        /// <param name="entities"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public Task<Message> EditMessageTextV2Async(ChatId chatId, int messageId, string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, InlineKeyboardMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
+        {
+            return Client.EditMessageTextAsync(chatId, messageId, text, parseMode, disableWebPagePreview, replyMarkup, cancellationToken);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="inlineMessageId"></param>
         /// <param name="text"></param>
         /// <param name="parseMode"></param>
