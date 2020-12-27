@@ -529,7 +529,23 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="chatId"></param>
+        /// <param name="text"></param>
+        /// <param name="parseMode"></param>
+        /// <param name="disableWebPagePreview"></param>
+        /// <param name="disableNotification"></param>
+        /// <param name="replyToMessageId"></param>
+        /// <param name="replyMarkup"></param>
+        /// <param name="entities"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public Task<Message> SendTextMessageAsync(string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
+        {
+            return Client.SendTextMessageAsync(ChatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, entities, cancellationToken);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="text"></param>
         /// <param name="parseMode"></param>
         /// <param name="disableWebPagePreview"></param>
@@ -558,6 +574,24 @@ namespace SB.TelegramBot
         public Task<Message> SendTextMessageAsync(ChatId chatId, string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
             return Client.SendTextMessageAsync(chatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chatId"></param>
+        /// <param name="text"></param>
+        /// <param name="parseMode"></param>
+        /// <param name="disableWebPagePreview"></param>
+        /// <param name="disableNotification"></param>
+        /// <param name="replyToMessageId"></param>
+        /// <param name="replyMarkup"></param>
+        /// <param name="entities"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public Task<Message> SendTextMessageAsync(ChatId chatId, string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
+        {
+            return Client.SendTextMessageAsync(chatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, entities, cancellationToken);
         }
 
         /// <summary>
