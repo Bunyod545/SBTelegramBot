@@ -36,14 +36,11 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public bool IsCanNextHandler { get; set; } = true;
+        public bool IsCanExecuteNextHandler { get; set; } = true;
 
         /// <summary>
         /// 
         /// </summary>
-        public void MessageHandled()
-        {
-            IsCanNextHandler = false;
-        }
+        public ITelegramBotCommand HandlerCommand { get; internal set; }
     }
 }

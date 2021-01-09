@@ -119,7 +119,7 @@ namespace SB.TelegramBot
                     context.NextHandler = handlers[index + 1];
 
                 handler.Handle(context);
-                if (!context.IsCanNextHandler)
+                if (!context.IsCanExecuteNextHandler)
                     break;
             }
         } 

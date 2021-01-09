@@ -5,13 +5,13 @@ namespace SB.TelegramBot
     /// <summary>
     /// 
     /// </summary>
-    public class PublicCommandMessageHandler : ICommandMessageHandler
+    public class PublicCommandMessageHandler : BaseCommandMessageHandler
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
-        public void Handle(MessageContext context)
+        public override void Handle(MessageContext context)
         {
             var command = TelegramBotCommandFactory.GetPublicCommand(context.Message.Text, context.UserRole);
             if (command == null)
@@ -20,8 +20,7 @@ namespace SB.TelegramBot
             if (command == null)
                 return;
 
-            command.Execute();
-            context.MessageHandled();
+            ExecuteCommand(context, command);
         }
     }
 }

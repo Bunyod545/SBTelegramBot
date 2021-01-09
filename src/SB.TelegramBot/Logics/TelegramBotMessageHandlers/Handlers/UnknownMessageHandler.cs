@@ -15,8 +15,9 @@ namespace SB.TelegramBot
         public void Handle(MessageContext context)
         {
             var unknownMessageService = TelegramBotServicesContainer.GetService<ITelegramBotUnknownMessageService>();
+
             unknownMessageService.Handle();
-            context.MessageHandled();
+            context.IsCanExecuteNextHandler = false;
         }
     }
 }

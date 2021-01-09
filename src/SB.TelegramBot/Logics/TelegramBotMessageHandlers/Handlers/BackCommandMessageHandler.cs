@@ -5,13 +5,13 @@ namespace SB.TelegramBot
     /// <summary>
     /// 
     /// </summary>
-    public class BackCommandMessageHandler : ICommandMessageHandler
+    public class BackCommandMessageHandler : BaseCommandMessageHandler
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
-        public void Handle(MessageContext context)
+        public override void Handle(MessageContext context)
         {
             if (string.IsNullOrEmpty(context.User.BackCommandHandlerClrName))
                 return;
@@ -24,8 +24,7 @@ namespace SB.TelegramBot
                 return;
 
             var handlerCommand = TelegramBotCommandFactory.GetCommandInstance(handler);
-            handlerCommand.Execute();
-            context.MessageHandled();
+            ExecuteCommand(context, handlerCommand);
         }
     }
 }

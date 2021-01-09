@@ -6,13 +6,13 @@ namespace SB.TelegramBot
     /// <summary>
     /// 
     /// </summary>
-    public class PriorityCommandHandler : ICommandMessageHandler
+    public class PriorityCommandHandler : BaseCommandMessageHandler
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
-        public void Handle(MessageContext context)
+        public override void Handle(MessageContext context)
         {
             var priorityCommands = context.User.PriorityCommands;
             if (priorityCommands == null || !priorityCommands.Any())
@@ -22,8 +22,7 @@ namespace SB.TelegramBot
             if (priorityCommand == null)
                 return;
 
-            priorityCommand.Execute();
-            context.MessageHandled();
+            ExecuteCommand(context, priorityCommand);
         }
 
         /// <summary>
