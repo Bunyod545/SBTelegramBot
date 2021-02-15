@@ -64,7 +64,7 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <returns></returns>
-        protected virtual string GetRole()
+        public virtual string GetRole()
         {
             return string.Join(", ", Roles);
         }
