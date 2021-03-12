@@ -56,10 +56,21 @@ namespace SB.TeleramBot.Example.Commands
         private void ShowKeyboard()
         {
             var buttonsBuilder = new KeyboardButtonBuilder();
-            buttonsBuilder.AddColumnButton("Column 1");
-            buttonsBuilder.AddColumnButton("Column 2");
+            buttonsBuilder
+                .AddColumnButton("Column 1")
+                .WithRequestContact("Contact");
+            
+            buttonsBuilder
+                .AddColumnButton("Column 2")
+                .WithRequestLocation("Location");
 
-            buttonsBuilder.AddRowButton("Row 1");
+            buttonsBuilder
+                .AddRowButton("ContactRowButton")
+                .WithRequestContact("RequestContact");
+
+            buttonsBuilder
+                .AddRowButton("LacationRowButton2")
+                .WithRequestLocation("RequestLocation");
 
             buttonsBuilder.AddColumnButton("Column 3");
             buttonsBuilder.AddColumnButton("Column 4");
