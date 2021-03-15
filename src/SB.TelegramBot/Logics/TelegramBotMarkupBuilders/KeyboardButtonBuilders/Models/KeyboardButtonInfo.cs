@@ -24,22 +24,18 @@ namespace SB.TelegramBot.Logics.TelegramBotMarkupBuilders.KeyboardButtonBuilders
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="text"></param>
         /// <returns></returns>
-        public void WithRequestContact(string text)
+        public void WithRequestContact()
         {
-            Button.Text = text;
             Button.RequestContact = true;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="text"></param>
         /// <returns></returns>
-        public void WithRequestLocation(string text)
+        public void WithRequestLocation()
         {
-            Button.Text = text;
             Button.RequestLocation = true;
         }
     }
