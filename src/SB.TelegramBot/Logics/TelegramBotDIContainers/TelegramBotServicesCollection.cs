@@ -20,6 +20,16 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="baseType"></param>
+        /// <param name="serviceType"></param>
+        public void AddScoped(Type baseType, Type serviceType)
+        {
+            TelegramBotServicesContainer.AddScoped(baseType, serviceType);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <typeparam name="TInterface"></typeparam>
         /// <typeparam name="TImplement"></typeparam>
         public void AddSingleton<TInterface, TImplement>() where TImplement : TInterface
@@ -30,11 +40,31 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="baseType"></param>
+        /// <param name="serviceType"></param>
+        public void AddSingleton(Type baseType, Type serviceType)
+        {
+            TelegramBotServicesContainer.AddSingleton(baseType, serviceType);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <typeparam name="TInterface"></typeparam>
         /// <typeparam name="TImplement"></typeparam>
         public void AddTransient<TInterface, TImplement>() where TImplement : TInterface
         {
             TelegramBotServicesContainer.AddTransient<TInterface, TImplement>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseType"></param>
+        /// <param name="serviceType"></param>
+        public void AddTransient(Type baseType, Type serviceType)
+        {
+            TelegramBotServicesContainer.AddTransient(baseType, serviceType);
         }
 
         /// <summary>

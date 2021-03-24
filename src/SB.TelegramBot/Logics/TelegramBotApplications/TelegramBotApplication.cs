@@ -1,4 +1,5 @@
-﻿using SB.TelegramBot.Logics.TelegramBotClients;
+﻿using SB.TelegramBot.Logics.TelegramBotAutoDI;
+using SB.TelegramBot.Logics.TelegramBotClients;
 using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Services;
@@ -75,6 +76,7 @@ namespace SB.TelegramBot
             services.AddScoped<ITelegramBotMessageEditedHandler, TelegramBotMessageEditedHandler>();
             services.AddScoped<ITelegramBotInlineQueryHandler, TelegramBotInlineQueryHandler>();
 
+            TelegramBotAutoDIManager.Register(services);
             AppConfig.RegisterServices(services);
         }
 

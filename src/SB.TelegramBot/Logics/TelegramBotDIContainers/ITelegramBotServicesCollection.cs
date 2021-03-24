@@ -10,6 +10,27 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="baseType"></param>
+        /// <param name="serviceType"></param>
+        void AddScoped(Type baseType, Type serviceType);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseType"></param>
+        /// <param name="serviceType"></param>
+        void AddTransient(Type baseType, Type serviceType);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseType"></param>
+        /// <param name="serviceType"></param>
+        void AddSingleton(Type baseType, Type serviceType);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <typeparam name="TInterface"></typeparam>
         /// <typeparam name="TImplement"></typeparam>
         void AddScoped<TInterface, TImplement>() where TImplement : TInterface;

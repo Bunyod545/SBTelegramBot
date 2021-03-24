@@ -56,6 +56,16 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="baseType"></param>
+        /// <param name="implementType"></param>
+        public static void AddScoped(Type baseType, Type implementType)
+        {
+            _containerBuilder.RegisterType(implementType).As(baseType).InstancePerLifetimeScope();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <typeparam name="TInterface"></typeparam>
         /// <typeparam name="TImplement"></typeparam>
         public static void AddScoped<TInterface, TImplement>() where TImplement : TInterface
@@ -66,11 +76,31 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="baseType"></param>
+        /// <param name="implementType"></param>
+        public static void AddSingleton(Type baseType, Type implementType)
+        {
+            _containerBuilder.RegisterType(implementType).As(baseType).SingleInstance();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <typeparam name="TInterface"></typeparam>
         /// <typeparam name="TImplement"></typeparam>
         public static void AddSingleton<TInterface, TImplement>() where TImplement : TInterface
         {
             _containerBuilder.RegisterType<TImplement>().As<TInterface>().SingleInstance();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseType"></param>
+        /// <param name="implementType"></param>
+        public static void AddTransient(Type baseType, Type implementType)
+        {
+            _containerBuilder.RegisterType(implementType).As(baseType).InstancePerDependency();
         }
 
         /// <summary>
