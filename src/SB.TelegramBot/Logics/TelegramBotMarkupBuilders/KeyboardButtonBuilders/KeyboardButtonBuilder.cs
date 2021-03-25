@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SB.TelegramBot.Logics.TelegramBotMarkupBuilders.KeyboardButtonBuilders.Models;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SB.TelegramBot
@@ -35,7 +36,7 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <returns></returns>
-        public KeyboardButtonBuilder AddRowButton(string text)
+        public KeyboardButtonInfo AddRowButton(string text)
         {
             if (_columnButtons != null)
                 EndOfColumn();
@@ -46,16 +47,15 @@ namespace SB.TelegramBot
             var currentButton = new KeyboardButton();
             currentButton.Text = text;
             currentRowButtons.Add(currentButton);
-            return this;
+            return new KeyboardButtonInfo(currentButton);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="text"></param>
-        /// <param name="isResize"></param>
         /// <returns></returns>
-        public KeyboardButtonBuilder AddColumnButton(string text)
+        public KeyboardButtonInfo AddColumnButton(string text)
         {
             if (_columnButtons == null)
                 _columnButtons = new List<KeyboardButton>();
@@ -63,7 +63,7 @@ namespace SB.TelegramBot
             var currentButton = new KeyboardButton();
             currentButton.Text = text;
             _columnButtons.Add(currentButton);
-            return this;
+            return new KeyboardButtonInfo(currentButton);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace SB.TelegramBot
             EndOfColumn();
 
             var markup = new ReplyKeyboardMarkup(_buttons);
-            markup.ResizeKeyboard = _isResize; 
+            markup.ResizeKeyboard = _isResize;
             return markup;
         }
     }
