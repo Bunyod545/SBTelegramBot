@@ -90,9 +90,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         {
             var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.PublicCommand &&
                                                  s.CommandName != null &&
-                                                 s.CommandName.IsEqualName(name) &&
-                                                 s.CommandRole != null &&
-                                                 s.CommandRole.IsEqualRole(null));
+                                                 s.CommandName.IsEqualName(name));
 
             return GetCommandInstance(info);
         }
