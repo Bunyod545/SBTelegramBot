@@ -9,7 +9,7 @@
         /// 
         /// </summary>
         /// <param name="services"></param>
-        public static void UseTelegramBotDI(this IServiceCollection services)
+        public static void ConfigureTelegramBot(this IServiceCollection services)
         {
 
         }

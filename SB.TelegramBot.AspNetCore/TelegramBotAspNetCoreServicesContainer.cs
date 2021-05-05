@@ -13,7 +13,16 @@ namespace SB.TelegramBot.AspNetCore
         /// <summary>
         /// 
         /// </summary>
-        private IServiceCollection _serviceCollection;
+        private readonly IServiceCollection _serviceCollection;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serviceCollection"></param>
+        public TelegramBotAspNetCoreServicesContainer(IServiceCollection serviceCollection)
+        {
+            _serviceCollection = serviceCollection;
+        }
 
         /// <summary>
         /// 
@@ -94,102 +103,9 @@ namespace SB.TelegramBot.AspNetCore
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public T CreateWithServices<T>()
-        {
-            return (T)CreateWithServices(typeof(T));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public object CreateWithServices(Type type)
-        {
-            var ctors = type.GetConstructors();
-            if (ctors.Length == 0)
-                throw new Exception($"Cannot find any public constructor for {type}");
-
-            if (ctors.Length > 1)
-                throw new Exception($"More public constructors for {type}");
-
-            var ctor = ctors.FirstOrDefault();
-            var ctorParamsInfos = ctor.GetParameters();
-
-            var ctorParams = new object[ctorParamsInfos.Length];
-            for (int index = 0; index < ctorParamsInfos.Length; index++)
-            {
-                var ctorParamInfo = ctorParamsInfos[index];
-                ctorParams[index] = GetService(ctorParamInfo.ParameterType);
-            }
-
-            return Activator.CreateInstance(type, ctorParams);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TInterface"></typeparam>
-        /// <returns></returns>
-        public TInterface GetService<TInterface>()
-        {
-           return _serviceCollection.
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public object GetService(Type type)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public void Initialize()
         {
-            throw new NotImplementedException();
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public bool IsRegistered<T>()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="serviceType"></param>
-        /// <returns></returns>
-        public bool IsRegistered(Type serviceType)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void RequestBegin()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void RequestEnd()
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -197,7 +113,7 @@ namespace SB.TelegramBot.AspNetCore
         /// </summary>
         public void Dispose()
         {
-            throw new NotImplementedException();
+
         }
     }
 }
