@@ -28,7 +28,12 @@ namespace SB.TeleramBot.Example.Commands
         /// </summary>
         public override void Execute()
         {
-            _service.DoSomething();
+            var message = "test";
+            var buttons = CreateInlineKeyboardButtonBuilder();
+            buttons.AddRowButton().WithText("test1").WithData(new { name = "test" });
+            buttons.AddRowButton().WithText("test2").WithData(new { name = "test"} );
+
+            SendTextMessageAsync(message, replyMarkup: buttons.Build());
         }
     }
 }

@@ -24,6 +24,20 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// <summary>
         /// 
         /// </summary>
+        protected ITelegramBotServicesContainer TelegramBotServicesContainer { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="telegramBotServicesContainer"></param>
+        public TelegramBotClientManager(ITelegramBotServicesContainer telegramBotServicesContainer)
+        {
+            TelegramBotServicesContainer = telegramBotServicesContainer;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void Initialize()
         {
             Client = new TelegramBotClient(Token);

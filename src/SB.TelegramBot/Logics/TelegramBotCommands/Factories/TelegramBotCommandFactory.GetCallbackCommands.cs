@@ -5,14 +5,14 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
     /// <summary>
     /// 
     /// </summary>
-    public static partial class TelegramBotCommandFactory
+    public partial class TelegramBotCommandFactory
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="commandId"></param>
         /// <returns></returns>
-        public static ITelegramBotCommand GetCallbackCommand(long commandId)
+        public ITelegramBotCommand GetCallbackCommand(long commandId)
         {
             var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.CallbackCommand &&
                                                  s.CommandId == commandId);
@@ -25,7 +25,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static ITelegramBotCommand GetCallbackCommand(string name)
+        public ITelegramBotCommand GetCallbackCommand(string name)
         {
             var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.CallbackCommand &&
                                                  s.CommandName != null &&
@@ -39,7 +39,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// </summary>
         /// <param name="clrName"></param>
         /// <returns></returns>
-        public static ITelegramBotCommand GetCallbackCommandByClrName(string clrName)
+        public ITelegramBotCommand GetCallbackCommandByClrName(string clrName)
         {
             var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.CallbackCommand &&
                                                  s.CommandClrName == clrName);

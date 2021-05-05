@@ -20,9 +20,15 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        public TelegramBotCommandFactoryInitializer()
+        protected ITelegramBotServicesContainer TelegramBotServicesContainer { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TelegramBotCommandFactoryInitializer(ITelegramBotServicesContainer telegramBotServicesContainer)
         {
             _dbCommands = TelegramBotDb.Commands.FindAll().ToList();
+            TelegramBotServicesContainer = telegramBotServicesContainer;
         }
 
         /// <summary>

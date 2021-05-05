@@ -14,7 +14,7 @@ namespace SB.TelegramBot.Logics.TelegramBotAutoDI
         /// 
         /// </summary>
         /// <param name="servicesCollection"></param>
-        public static void Register(ITelegramBotServicesCollection servicesCollection)
+        public static void Register(ITelegramBotServicesContainer servicesCollection)
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
@@ -35,7 +35,7 @@ namespace SB.TelegramBot.Logics.TelegramBotAutoDI
         /// </summary>
         /// <param name="type"></param>
         /// <param name="servicesCollection"></param>
-        private static void RegisterService(Type type, ITelegramBotServicesCollection servicesCollection)
+        private static void RegisterService(Type type, ITelegramBotServicesContainer servicesCollection)
         {
             var attr = type.GetCustomAttribute<BotServiceAttribute>();
 
@@ -63,7 +63,7 @@ namespace SB.TelegramBot.Logics.TelegramBotAutoDI
         /// </summary>
         /// <param name="type"></param>
         /// <param name="servicesCollection"></param>
-        private static void RegisterScopedService(Type type, ITelegramBotServicesCollection servicesCollection)
+        private static void RegisterScopedService(Type type, ITelegramBotServicesContainer servicesCollection)
         {
             var interfaces = type.GetInterfaces().ToList();
             var baseType = type.BaseType;
@@ -81,7 +81,7 @@ namespace SB.TelegramBot.Logics.TelegramBotAutoDI
         /// </summary>
         /// <param name="type"></param>
         /// <param name="servicesCollection"></param>
-        private static void RegisterSingletonService(Type type, ITelegramBotServicesCollection servicesCollection)
+        private static void RegisterSingletonService(Type type, ITelegramBotServicesContainer servicesCollection)
         {
             var interfaces = type.GetInterfaces().ToList();
             var baseType = type.BaseType;
@@ -99,7 +99,7 @@ namespace SB.TelegramBot.Logics.TelegramBotAutoDI
         /// </summary>
         /// <param name="type"></param>
         /// <param name="servicesCollection"></param>
-        private static void RegisterTransientService(Type type, ITelegramBotServicesCollection servicesCollection)
+        private static void RegisterTransientService(Type type, ITelegramBotServicesContainer servicesCollection)
         {
             var interfaces = type.GetInterfaces().ToList();
             var baseType = type.BaseType;

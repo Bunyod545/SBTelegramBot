@@ -12,14 +12,16 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public ITelegramBotCallbackQueryService CallbackQueryService { get; }
+        public ITelegramBotCallbackQueryService CallbackQueryService { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public TelegramBotInlineCommand()
+        /// <param name="container"></param>
+        public override void Initialize(ITelegramBotServicesContainer container)
         {
-            CallbackQueryService = TelegramBotServicesContainer.GetService<ITelegramBotCallbackQueryService>();
+            base.Initialize(container);
+            CallbackQueryService = container.GetService<ITelegramBotCallbackQueryService>();
         }
     }
 }

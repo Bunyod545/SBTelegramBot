@@ -40,6 +40,20 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
+        public ITelegramBotClientManager TelegramBotClientManager { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="telegramBotClientManager"></param>
+        public TelegramBotMessageService(ITelegramBotClientManager telegramBotClientManager)
+        {
+            TelegramBotClientManager = telegramBotClientManager;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="text"></param>
         /// <param name="replyMarkup"></param>
         public virtual void EditMessage(string text, InlineKeyboardMarkup replyMarkup = null)

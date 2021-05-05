@@ -20,6 +20,14 @@ namespace SB.TelegramBot.Logics.TelegramBotConfigs
         /// <summary>
         /// 
         /// </summary>
+        static TelegramBotConfig()
+        {
+            SetDefautOptions(new TelegramBotDefaultOptions());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="defaultOptions"></param>
         public static void SetDefautOptions(TelegramBotOptions defaultOptions)
         {

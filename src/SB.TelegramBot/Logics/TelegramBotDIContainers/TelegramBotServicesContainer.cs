@@ -8,27 +8,22 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
     /// <summary>
     /// 
     /// </summary>
-    public static class TelegramBotServicesContainer
+    public class TelegramBotServicesContainer : ITelegramBotServicesContainer
     {
         /// <summary>
         /// 
         /// </summary>
-        private static ContainerBuilder _containerBuilder;
+        private ContainerBuilder _containerBuilder;
 
         /// <summary>
         /// 
         /// </summary>
-        private static IContainer _container;
+        private IContainer _container;
 
         /// <summary>
         /// 
         /// </summary>
-        private static readonly AsyncLocal<ILifetimeScope> Scope = new AsyncLocal<ILifetimeScope>();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        static TelegramBotServicesContainer()
+        public TelegramBotServicesContainer()
         {
             _containerBuilder = new ContainerBuilder();
         }
@@ -36,29 +31,9 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
-        public static void RequestBegin()
-        {
-            Scope.Value = _container.BeginLifetimeScope();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static void RequestEnd()
-        {
-            if (Scope.Value == null)
-                return;
-
-            Scope.Value.Dispose();
-            Scope.Value = null;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="baseType"></param>
         /// <param name="implementType"></param>
-        public static void AddScoped(Type baseType, Type implementType)
+        public void AddScoped(Type baseType, Type implementType)
         {
             _containerBuilder.RegisterType(implementType).As(baseType).InstancePerLifetimeScope();
         }
@@ -66,11 +41,13 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="TInterface"></typeparam>
-        /// <typeparam name="TImplement"></typeparam>
-        public static void AddScoped<TInterface, TImplement>() where TImplement : TInterface
+        /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementation"></typeparam>
+        public void AddScoped<TService, TImplementation>()
+           where TService : class
+           where TImplementation : class, TService
         {
-            _containerBuilder.RegisterType<TImplement>().As<TInterface>().InstancePerLifetimeScope();
+            _containerBuilder.RegisterType<TImplementation>().As<TService>().InstancePerLifetimeScope();
         }
 
         /// <summary>
@@ -78,7 +55,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// </summary>
         /// <param name="baseType"></param>
         /// <param name="implementType"></param>
-        public static void AddSingleton(Type baseType, Type implementType)
+        public void AddSingleton(Type baseType, Type implementType)
         {
             _containerBuilder.RegisterType(implementType).As(baseType).SingleInstance();
         }
@@ -86,11 +63,22 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="TInterface"></typeparam>
-        /// <typeparam name="TImplement"></typeparam>
-        public static void AddSingleton<TInterface, TImplement>() where TImplement : TInterface
+        /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementation"></typeparam>
+        public void AddSingleton<TService, TImplementation>()
+           where TService : class
+           where TImplementation : class, TService
         {
-            _containerBuilder.RegisterType<TImplement>().As<TInterface>().SingleInstance();
+            _containerBuilder.RegisterType<TImplementation>().As<TService>().SingleInstance();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public void AddSingleton<T>(T data) where T: class
+        {
+            _containerBuilder.RegisterInstance(data).As<T>().SingleInstance();
         }
 
         /// <summary>
@@ -98,7 +86,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// </summary>
         /// <param name="baseType"></param>
         /// <param name="implementType"></param>
-        public static void AddTransient(Type baseType, Type implementType)
+        public void AddTransient(Type baseType, Type implementType)
         {
             _containerBuilder.RegisterType(implementType).As(baseType).InstancePerDependency();
         }
@@ -106,17 +94,19 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="TInterface"></typeparam>
-        /// <typeparam name="TImplement"></typeparam>
-        public static void AddTransient<TInterface, TImplement>() where TImplement : TInterface
+        /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementation"></typeparam>
+        public void AddTransient<TService, TImplementation>()
+           where TService : class
+           where TImplementation : class, TService
         {
-            _containerBuilder.RegisterType<TImplement>().As<TInterface>().InstancePerDependency();
+            _containerBuilder.RegisterType<TImplementation>().As<TService>().InstancePerDependency();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public static void Initialize()
+        public void Initialize()
         {
             _container = _containerBuilder.Build();
         }
@@ -124,85 +114,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static bool IsRegistered<T>()
-        {
-            return IsRegistered(typeof(T));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="serviceType"></param>
-        /// <returns></returns>
-        public static bool IsRegistered(Type serviceType)
-        {
-            return _container.IsRegistered(serviceType);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TInterface"></typeparam>
-        public static TInterface GetService<TInterface>()
-        {
-            return (TInterface)GetService(typeof(TInterface));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TInterface"></typeparam>
-        public static object GetService(Type type)
-        {
-            if (Scope.Value != null)
-                return Scope.Value.Resolve(type);
-
-            return _container.Resolve(type);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static T CreateWithServices<T>()
-        {
-            return (T)CreateWithServices(typeof(T));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static object CreateWithServices(Type type)
-        {
-            var ctors = type.GetConstructors();
-            if (ctors.Length == 0)
-                throw new Exception($"Cannot find any public constructor for {type}");
-
-            if (ctors.Length > 1)
-                throw new Exception($"More public constructors for {type}");
-
-            var ctor = ctors.FirstOrDefault();
-            var ctorParamsInfos = ctor.GetParameters();
-
-            var ctorParams = new object[ctorParamsInfos.Length];
-            for (int index = 0; index < ctorParamsInfos.Length; index++)
-            {
-                var ctorParamInfo = ctorParamsInfos[index];
-                ctorParams[index] = GetService(ctorParamInfo.ParameterType);
-            }
-
-            return Activator.CreateInstance(type, ctorParams);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static void Dispose()
+        public void Dispose()
         {
             _container.Dispose();
             _containerBuilder = null;

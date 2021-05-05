@@ -12,16 +12,6 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        public ITelegramBotCommand Command { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public TelegramBotCommandInfo Info { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         protected readonly ITelegramBotMessageService MessageService;
 
         /// <summary>
@@ -32,10 +22,34 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
+        protected ITelegramBotServicesContainer TelegramBotServicesContainer { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected ITelegramBotCommandFactory TelegramBotCommandFactory { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ITelegramBotCommand Command { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TelegramBotCommandInfo Info { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="command"></param>
-        public TelegramBotCommandService(ITelegramBotCommand command)
+        /// <param name="telegramBotServicesContainer"></param>
+        public TelegramBotCommandService(ITelegramBotCommand command, ITelegramBotServicesContainer telegramBotServicesContainer)
         {
             Command = command;
+            TelegramBotServicesContainer = telegramBotServicesContainer;
+            TelegramBotCommandFactory = telegramBotServicesContainer.GetService<ITelegramBotCommandFactory>();
+
             Info = TelegramBotCommandFactory.GetCommandInfo(command.GetType());
             MessageService = TelegramBotServicesContainer.GetService<ITelegramBotMessageService>();
         }

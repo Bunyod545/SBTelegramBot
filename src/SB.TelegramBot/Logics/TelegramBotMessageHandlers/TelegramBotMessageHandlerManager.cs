@@ -22,7 +22,12 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public TelegramBotMessageHandlerManager()
+        private readonly ITelegramBotServicesContainer servicesContainer;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TelegramBotMessageHandlerManager(ITelegramBotServicesContainer servicesContainer)
         {
             HandlerTypes = new List<Type>();
             AddHandler<BackCommandMessageHandler>();
@@ -33,6 +38,7 @@ namespace SB.TelegramBot
             AddHandler<CurrentCommandMessageHandler>();
             AddHandler<PublicCommandMessageHandler>();
             AddHandler<UnknownMessageHandler>();
+            this.servicesContainer = servicesContainer;
         }
 
         /// <summary>
@@ -85,9 +91,9 @@ namespace SB.TelegramBot
         /// <param name="message"></param>
         public void Handle(Message message)
         {
-            TelegramBotServicesContainer.RequestBegin();
+            servicesContainer.RequestBegin();
             InternalHandle(message);
-            TelegramBotServicesContainer.RequestEnd();
+            servicesContainer.RequestEnd();
         }
 
         /// <summary>
@@ -97,7 +103,7 @@ namespace SB.TelegramBot
         private void InternalHandle(Message message)
         {
             TelegramBotMessageManager.Message.Value = message;
-            var userService = TelegramBotServicesContainer.GetService<ITelegramBotUserService>();
+            var userService = servicesContainer.GetService<ITelegramBotUserService>();
             var currentUser = userService.GetCurrentUserInfo();
 
             if (currentUser == null)
@@ -118,6 +124,7 @@ namespace SB.TelegramBot
                 if (index < handlers.Count - 1)
                     context.NextHandler = handlers[index + 1];
 
+                handler.Initialize(servicesContainer);
                 handler.Handle(context);
                 if (!context.IsCanExecuteNextHandler)
                     break;
@@ -130,7 +137,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public List<ICommandMessageHandler> GetMessageHandlers()
         {
-            return HandlerTypes.Select(s => (ICommandMessageHandler)TelegramBotServicesContainer.CreateWithServices(s)).ToList();
+            return HandlerTypes.Select(s => (ICommandMessageHandler)servicesContainer.CreateWithServices(s)).ToList();
         }
     }
 }

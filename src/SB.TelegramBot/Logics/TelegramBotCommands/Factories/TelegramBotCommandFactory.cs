@@ -11,17 +11,31 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
     /// <summary>
     /// 
     /// </summary>
-    public static partial class TelegramBotCommandFactory
+    public partial class TelegramBotCommandFactory : ITelegramBotCommandFactory
     {
         /// <summary>
         /// 
         /// </summary>
-        private static List<TelegramBotCommandInfo> Infos;
+        private List<TelegramBotCommandInfo> Infos;
 
         /// <summary>
         /// 
         /// </summary>
-        public static void Initialize()
+        public ITelegramBotServicesContainer TelegramBotServicesContainer { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="telegramBotServicesContainer"></param>
+        public TelegramBotCommandFactory(ITelegramBotServicesContainer telegramBotServicesContainer)
+        {
+            TelegramBotServicesContainer = telegramBotServicesContainer;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Initialize()
         {
             Infos = new List<TelegramBotCommandInfo>();
 
@@ -44,7 +58,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// 
         /// </summary>
         /// <param name="commandClrType"></param>
-        private static void InitializeInfo(Type commandClrType)
+        private void InitializeInfo(Type commandClrType)
         {
             if (commandClrType.IsAbstract || commandClrType.IsInterface)
                 return;
@@ -65,7 +79,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// 
         /// </summary>
         /// <param name="info"></param>
-        private static void InitializeHighestCommand(TelegramBotCommandInfo info)
+        private void InitializeHighestCommand(TelegramBotCommandInfo info)
         {
             var attrs = info.ClrType.GetCustomAttribute<TelegramBotHighestCommandAttribute>();
             if (attrs == null)
@@ -78,7 +92,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// 
         /// </summary>
         /// <param name="info"></param>
-        private static void InitializeLowCommands(TelegramBotCommandInfo info)
+        private void InitializeLowCommands(TelegramBotCommandInfo info)
         {
             var attrs = info.ClrType.GetCustomAttributes<TelegramBotLowCommandAttribute>();
             if (attrs == null)
@@ -92,7 +106,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// 
         /// </summary>
         /// <param name="info"></param>
-        private static void InitializeNearCommands(TelegramBotCommandInfo info)
+        private void InitializeNearCommands(TelegramBotCommandInfo info)
         {
             var attrs = info.ClrType.GetCustomAttributes<TelegramBotNearCommandAttribute>();
             if (attrs == null)
@@ -106,7 +120,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public static void IgnoreCommand<T>() where T : ITelegramBotCommand
+        public void IgnoreCommand<T>() where T : ITelegramBotCommand
         {
             Infos.RemoveAll(f => f.ClrType == typeof(T));
         }
@@ -116,20 +130,23 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static ITelegramBotCommand GetCommandInstance(TelegramBotCommandInfo info)
+        public ITelegramBotCommand GetCommandInstance(TelegramBotCommandInfo info)
         {
             if (info == null)
                 return null;
 
             var activator = TelegramBotServicesContainer.GetService<ITelegramBotCommandActivator>();
-            return activator.ActivateCommand(info.ClrType);
+            var command = activator.ActivateCommand(info.ClrType);
+            command.Initialize(TelegramBotServicesContainer);
+
+            return command;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public static List<TelegramBotCommandInfo> GetCommands()
+        public List<TelegramBotCommandInfo> GetCommands()
         {
             return new List<TelegramBotCommandInfo>(Infos);
         }

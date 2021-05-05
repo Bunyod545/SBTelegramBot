@@ -1,6 +1,7 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotAutoDI;
 using SB.TelegramBot.Logics.TelegramBotClients;
 using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
+using SB.TelegramBot.Logics.TelegramBotConfigs;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Services;
 using System;
@@ -12,6 +13,11 @@ namespace SB.TelegramBot
     /// </summary>
     public class TelegramBotApplication : IDisposable
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private ITelegramBotServicesContainer _container;
+
         /// <summary>
         /// 
         /// </summary>
@@ -45,24 +51,39 @@ namespace SB.TelegramBot
         /// </summary>
         public virtual void Run()
         {
-            TelegramBotClientManager.Token = AppConfig.Token;
-            RegisterServices(new TelegramBotServicesCollection());
+            var options = TelegramBotConfig.GetOptions(AppConfig.OptionsName);
+            if (options == null)
+                throw new Exception($"Telegram bot options not configured! Options name: {AppConfig.OptionsName}");
 
-            TelegramBotServicesContainer.Initialize();
-            TelegramBotCommandFactory.Initialize();
+            _container = options.Container;
+            RegisterServices(_container);
+            _container.Initialize();
+
+            var commandFactory = _container.GetService<ITelegramBotCommandFactory>();
+            commandFactory.Initialize();
+
             AppConfig.Configure(this);
 
-            TelegramBotClientManager.Initialize();
+            var clientManager = _container.GetService<ITelegramBotClientManager>();
+            clientManager.Token = AppConfig.Token;
+            clientManager.Initialize();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="services"></param>
-        protected virtual void RegisterServices(ITelegramBotServicesCollection services)
+        protected virtual void RegisterServices(ITelegramBotServicesContainer services)
         {
+            services.AddSingleton(services);
+            services.AddSingleton<ITelegramBotClientManager, TelegramBotClientManager>();
+            services.AddSingleton<ITelegramBotCommandFactory, TelegramBotCommandFactory>();
+            services.AddSingleton<ITelegramBotMessageHandlerManager, TelegramBotMessageHandlerManager>();
+
             services.AddTransient<ITelegramBotCommandName, TelegramBotCommandName>();
             services.AddTransient<ITelegramBotCommandRole, TelegramBotCommandRole>();
+            services.AddTransient<InlineKeyboardButtonBuilder, InlineKeyboardButtonBuilder>();
+            services.AddTransient<KeyboardButtonBuilder, KeyboardButtonBuilder>();
 
             services.AddScoped<ITelegramBotCommandFactoryInitializer, TelegramBotCommandFactoryInitializer>();
             services.AddScoped<ITelegramBotUserService, TelegramBotUserService>();
@@ -86,9 +107,9 @@ namespace SB.TelegramBot
         /// </summary>
         public virtual void Dispose()
         {
-            TelegramBotServicesContainer.Dispose();
-            TelegramBotServicesContainer.Dispose();
-            TelegramBotClientManager.Dispose();
+            var clientManager = _container.GetService<ITelegramBotClientManager>();
+            clientManager?.Dispose();
+            _container?.Dispose();
         }
 
         /// <summary>
