@@ -103,5 +103,14 @@ namespace SB.TelegramBot
             markup.ResizeKeyboard = _isResize;
             return markup;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        public static implicit operator ReplyKeyboardMarkup(KeyboardButtonBuilder builder)
+        {
+            return builder.Build();
+        }
     }
 }

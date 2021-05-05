@@ -53,17 +53,5 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// 
         /// </summary>
         void Initialize();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TInterface"></typeparam>
-        TInterface GetService<TInterface>();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TInterface"></typeparam>
-        object GetService(Type type);
     }
 }

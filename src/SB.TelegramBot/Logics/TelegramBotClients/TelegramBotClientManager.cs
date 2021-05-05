@@ -9,22 +9,22 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
     /// <summary>
     /// 
     /// </summary>
-    public partial class TelegramBotClientManager
+    public class TelegramBotClientManager : ITelegramBotClientManager
     {
         /// <summary>
         /// 
         /// </summary>
-        public static string Token { get; set; }
+        public string Token { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public static TelegramBotClient Client { get; private set; }
+        public TelegramBotClient Client { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public static void Initialize()
+        public void Initialize()
         {
             Client = new TelegramBotClient(Token);
 
@@ -44,7 +44,7 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void Client_OnMessage(object sender, MessageEventArgs e)
+        private void Client_OnMessage(object sender, MessageEventArgs e)
         {
             var handler = TelegramBotServicesContainer.GetService<ITelegramBotMessageHandler>();
             handler.Handle(sender, e);
@@ -55,7 +55,7 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void Client_OnCallbackQuery(object sender, CallbackQueryEventArgs e)
+        private void Client_OnCallbackQuery(object sender, CallbackQueryEventArgs e)
         {
             var handler = TelegramBotServicesContainer.GetService<ITelegramBotCallbackQueryHandler>();
             handler.Handle(sender, e);
@@ -66,7 +66,7 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void Client_OnInlineQuery(object sender, InlineQueryEventArgs e)
+        private void Client_OnInlineQuery(object sender, InlineQueryEventArgs e)
         {
             var handler = TelegramBotServicesContainer.GetService<ITelegramBotInlineQueryHandler>();
             handler.Handle(sender, e);
@@ -77,7 +77,7 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void Client_OnMessageEdited(object sender, MessageEventArgs e)
+        private void Client_OnMessageEdited(object sender, MessageEventArgs e)
         {
             var handler = TelegramBotServicesContainer.GetService<ITelegramBotMessageEditedHandler>();
             handler.Handle(sender, e);
@@ -86,7 +86,7 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// <summary>
         /// 
         /// </summary>
-        public static void Dispose()
+        public void Dispose()
         {
             Client.StopReceiving();
             Client = null;

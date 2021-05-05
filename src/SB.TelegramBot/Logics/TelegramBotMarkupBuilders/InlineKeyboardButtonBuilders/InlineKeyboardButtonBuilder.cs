@@ -80,5 +80,14 @@ namespace SB.TelegramBot
             EndOfColumn();
             return new InlineKeyboardMarkup(_buttons);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        public static implicit operator InlineKeyboardMarkup(InlineKeyboardButtonBuilder builder)
+        {
+            return builder.Build();
+        }
     }
 }

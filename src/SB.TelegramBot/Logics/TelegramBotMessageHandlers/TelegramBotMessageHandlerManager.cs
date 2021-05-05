@@ -12,17 +12,17 @@ namespace SB.TelegramBot
     /// <summary>
     /// 
     /// </summary>
-    public static class TelegramBotMessageHandlerManager
+    public class TelegramBotMessageHandlerManager : ITelegramBotMessageHandlerManager
     {
         /// <summary>
         /// 
         /// </summary>
-        private readonly static List<Type> HandlerTypes;
+        private readonly List<Type> HandlerTypes;
 
         /// <summary>
         /// 
         /// </summary>
-        static TelegramBotMessageHandlerManager()
+        public TelegramBotMessageHandlerManager()
         {
             HandlerTypes = new List<Type>();
             AddHandler<BackCommandMessageHandler>();
@@ -39,7 +39,7 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <typeparam name="THandler"></typeparam>
-        public static void AddHandler<THandler>() where THandler : ICommandMessageHandler
+        public void AddHandler<THandler>() where THandler : ICommandMessageHandler
         {
             HandlerTypes.Add(typeof(THandler));
         }
@@ -49,7 +49,7 @@ namespace SB.TelegramBot
         /// </summary>
         /// <typeparam name="THandler"></typeparam>
         /// <typeparam name="TBeforeHandler"></typeparam>
-        public static void AddBeforeHandler<THandler, TBeforeHandler>() 
+        public void AddBeforeHandler<THandler, TBeforeHandler>() 
             where THandler : ICommandMessageHandler
             where TBeforeHandler : ICommandMessageHandler
         {
@@ -62,7 +62,7 @@ namespace SB.TelegramBot
         /// </summary>
         /// <typeparam name="THandler"></typeparam>
         /// <typeparam name="TAfterHandler"></typeparam>
-        public static void AddAfterHandler<THandler, TAfterHandler>()
+        public void AddAfterHandler<THandler, TAfterHandler>()
             where THandler : ICommandMessageHandler
             where TAfterHandler : ICommandMessageHandler
         {
@@ -74,7 +74,7 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <typeparam name="THandler"></typeparam>
-        public static void RemoveHandler<THandler>() where THandler : ICommandMessageHandler
+        public void RemoveHandler<THandler>() where THandler : ICommandMessageHandler
         {
             HandlerTypes.RemoveAll(r => r == typeof(THandler));
         }
@@ -83,7 +83,7 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <param name="message"></param>
-        public static void Handle(Message message)
+        public void Handle(Message message)
         {
             TelegramBotServicesContainer.RequestBegin();
             InternalHandle(message);
@@ -94,7 +94,7 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <param name="message"></param>
-        private static void InternalHandle(Message message)
+        private void InternalHandle(Message message)
         {
             TelegramBotMessageManager.Message.Value = message;
             var userService = TelegramBotServicesContainer.GetService<ITelegramBotUserService>();
@@ -128,7 +128,7 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <returns></returns>
-        public static List<ICommandMessageHandler> GetMessageHandlers()
+        public List<ICommandMessageHandler> GetMessageHandlers()
         {
             return HandlerTypes.Select(s => (ICommandMessageHandler)TelegramBotServicesContainer.CreateWithServices(s)).ToList();
         }
