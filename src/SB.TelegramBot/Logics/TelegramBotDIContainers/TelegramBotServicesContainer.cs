@@ -1,7 +1,5 @@
 ﻿using Autofac;
 using System;
-using System.Linq;
-using System.Threading;
 
 namespace SB.TelegramBot.Logics.TelegramBotDIContainers
 {
@@ -18,7 +16,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
-        private IContainer _container;
+        public IContainer Container;
 
         /// <summary>
         /// 
@@ -108,7 +106,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// </summary>
         public void Initialize()
         {
-            _container = _containerBuilder.Build();
+            Container = _containerBuilder.Build();
         }
 
         /// <summary>
@@ -116,9 +114,9 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// </summary>
         public void Dispose()
         {
-            _container.Dispose();
+            Container.Dispose();
             _containerBuilder = null;
-            _container = null;
+            Container = null;
         }
     }
 }

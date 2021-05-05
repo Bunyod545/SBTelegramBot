@@ -12,7 +12,10 @@ namespace SB.TelegramBot.Logics.TelegramBotConfigs
         /// </summary>
         public TelegramBotDefaultOptions()
         {
-            Container = new TelegramBotServicesContainer();
+            var container = new TelegramBotServicesContainer();
+
+            Container = container;
+            ServicesProvider = new TelegramBotServicesProvider(container);
         }
     }
 }

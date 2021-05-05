@@ -5,7 +5,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
     /// <summary>
     /// 
     /// </summary>
-    public interface ITelegramBotServicesProvider
+    public interface ITelegramBotServicesProvider : IDisposable
     {
         /// <summary>
         /// 

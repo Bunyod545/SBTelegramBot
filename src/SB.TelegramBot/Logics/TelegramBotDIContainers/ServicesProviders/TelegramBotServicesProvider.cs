@@ -18,15 +18,20 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
-        private IServiceProvider _serviceProvider;
+        public TelegramBotServicesContainer ServicesContainer { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IContainer Container => ServicesContainer.Container;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="serviceProvider"></param>
-        public TelegramBotServicesProvider(IServiceProvider serviceProvider)
+        public TelegramBotServicesProvider(TelegramBotServicesContainer container)
         {
-            _serviceProvider = serviceProvider;
+            ServicesContainer = container;
         }
 
         /// <summary>
@@ -34,7 +39,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// </summary>
         public void RequestBegin()
         {
-            Scope.Value = _container.BeginLifetimeScope();
+            Scope.Value = Container.BeginLifetimeScope();
         }
 
         /// <summary>
@@ -66,7 +71,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <returns></returns>
         public bool IsRegistered(Type serviceType)
         {
-            return true;
+            return Container.IsRegistered(serviceType);
         }
 
         /// <summary>
@@ -86,7 +91,10 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <returns></returns>
         public object GetService(Type type)
         {
-            return _serviceProvider.GetService(type);
+            if (Scope.Value != null)
+                return Scope.Value.Resolve(type);
+
+            return Container.Resolve(type);
         }
 
         /// <summary>
@@ -124,6 +132,14 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
             }
 
             return Activator.CreateInstance(type, ctorParams);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Dispose()
+        {
+
         }
     }
 }

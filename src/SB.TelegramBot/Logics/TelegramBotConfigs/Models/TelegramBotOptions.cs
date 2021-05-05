@@ -10,6 +10,11 @@ namespace SB.TelegramBot.Logics.TelegramBotConfigs
         /// <summary>
         /// 
         /// </summary>
-        public ITelegramBotServicesContainer Container { get; set; } 
+        public ITelegramBotServicesContainer Container { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ITelegramBotServicesProvider ServicesProvider { get; set; }
     }
 }
