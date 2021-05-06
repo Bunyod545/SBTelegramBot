@@ -4,10 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RepositoryUrl>https://github.com/Bunyod545/SBTelegramBot</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
-    <Version>1.0.60</Version>
+    <Version>1.0.61</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/Bunyod545/SBTelegramBot</PackageProjectUrl>
     <AssemblyVersion>1.0.60.0</AssemblyVersion>
+    <Authors>Bunyod545</Authors>
+    <Company>SB</Company>
   </PropertyGroup>
 
   <ItemGroup>
