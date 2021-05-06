@@ -34,7 +34,7 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public ITelegramBotServicesContainer ServicesContainer { get; private set; }
+        public ITelegramBotServicesProvider ServicesProvider { get; private set; }
 
         /// <summary>
         /// 
@@ -46,14 +46,14 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="container"></param>
-        public virtual void Initialize(ITelegramBotServicesContainer container)
+        /// <param name="servicesProvider"></param>
+        public virtual void Initialize(ITelegramBotServicesProvider servicesProvider)
         {
-            ServicesContainer = container;
-            Client = ServicesContainer.GetService<ITelegramBotClientManager>().Client;
-            UserService = ServicesContainer.GetService<ITelegramBotUserService>();
-            MessageService = ServicesContainer.GetService<ITelegramBotMessageService>();
-            CommandService = new TelegramBotCommandService(this, ServicesContainer);
+            ServicesProvider = servicesProvider;
+            Client = ServicesProvider.GetService<ITelegramBotClientManager>().Client;
+            UserService = ServicesProvider.GetService<ITelegramBotUserService>();
+            MessageService = ServicesProvider.GetService<ITelegramBotMessageService>();
+            CommandService = new TelegramBotCommandService(this, ServicesProvider);
         }
 
         /// <summary>

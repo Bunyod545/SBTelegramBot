@@ -65,7 +65,7 @@ namespace SB.TelegramBot.AspNetCore
            where TService : class
            where TImplementation : class, TService
         {
-            _serviceCollection.AddScoped<TService, TImplementation>();
+            _serviceCollection.AddSingleton<TService, TImplementation>();
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace SB.TelegramBot.AspNetCore
         /// <param name="implementType"></param>
         public void AddTransient(Type baseType, Type implementType)
         {
-            _serviceCollection.AddSingleton(baseType, implementType);
+            _serviceCollection.AddTransient(baseType, implementType);
         }
 
         /// <summary>

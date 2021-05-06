@@ -22,12 +22,12 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        private readonly ITelegramBotServicesContainer servicesContainer;
+        private readonly ITelegramBotServicesProvider servicesContainer;
 
         /// <summary>
         /// 
         /// </summary>
-        public TelegramBotMessageHandlerManager(ITelegramBotServicesContainer servicesContainer)
+        public TelegramBotMessageHandlerManager(ITelegramBotServicesProvider servicesContainer)
         {
             HandlerTypes = new List<Type>();
             AddHandler<BackCommandMessageHandler>();

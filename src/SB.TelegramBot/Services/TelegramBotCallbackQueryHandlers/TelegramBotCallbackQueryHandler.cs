@@ -15,7 +15,7 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        protected ITelegramBotServicesContainer TelegramBotServicesContainer { get; private set; }
+        protected ITelegramBotServicesProvider TelegramBotServicesContainer { get; private set; }
 
         /// <summary>
         /// 
@@ -27,7 +27,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="telegramBotServicesContainer"></param>
         /// <param name="telegramBotCommandFactory"></param>
-        public TelegramBotCallbackQueryHandler(ITelegramBotServicesContainer telegramBotServicesContainer, ITelegramBotCommandFactory telegramBotCommandFactory)
+        public TelegramBotCallbackQueryHandler(ITelegramBotServicesProvider telegramBotServicesContainer, ITelegramBotCommandFactory telegramBotCommandFactory)
         {
             TelegramBotServicesContainer = telegramBotServicesContainer;
             TelegramBotCommandFactory = telegramBotCommandFactory;

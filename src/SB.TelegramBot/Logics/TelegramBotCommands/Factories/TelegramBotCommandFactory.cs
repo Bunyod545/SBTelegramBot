@@ -21,15 +21,15 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// <summary>
         /// 
         /// </summary>
-        public ITelegramBotServicesContainer TelegramBotServicesContainer { get; }
+        public ITelegramBotServicesProvider TelegramBotServicesProvider { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="telegramBotServicesContainer"></param>
-        public TelegramBotCommandFactory(ITelegramBotServicesContainer telegramBotServicesContainer)
+        /// <param name="servicesProvider"></param>
+        public TelegramBotCommandFactory(ITelegramBotServicesProvider servicesProvider)
         {
-            TelegramBotServicesContainer = telegramBotServicesContainer;
+            TelegramBotServicesProvider = servicesProvider;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
             Infos.ForEach(InitializeNearCommands);
             Infos.ForEach(InitializeHighestCommand);
 
-            var initializer = TelegramBotServicesContainer.GetService<ITelegramBotCommandFactoryInitializer>();
+            var initializer = TelegramBotServicesProvider.GetService<ITelegramBotCommandFactoryInitializer>();
             initializer.Initialize(new List<TelegramBotCommandInfo>(Infos));
         }
 
@@ -135,9 +135,9 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
             if (info == null)
                 return null;
 
-            var activator = TelegramBotServicesContainer.GetService<ITelegramBotCommandActivator>();
+            var activator = TelegramBotServicesProvider.GetService<ITelegramBotCommandActivator>();
             var command = activator.ActivateCommand(info.ClrType);
-            command.Initialize(TelegramBotServicesContainer);
+            command.Initialize(TelegramBotServicesProvider);
 
             return command;
         }

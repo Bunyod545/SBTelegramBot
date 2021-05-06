@@ -16,4 +16,8 @@
     <PackageReference Include="Telegram.Bot" Version="15.7.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logics\TelegramBotDIContainers\RegisterServices\" />
+  </ItemGroup>
+
 </Project>

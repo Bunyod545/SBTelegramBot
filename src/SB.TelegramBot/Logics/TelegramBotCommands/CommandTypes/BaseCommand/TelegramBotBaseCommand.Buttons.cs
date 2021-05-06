@@ -11,7 +11,7 @@
         /// <returns></returns>
         public KeyboardButtonBuilder CreateKeyboardButtonBuilder()
         {
-            return ServicesContainer.GetService<KeyboardButtonBuilder>();
+            return ServicesProvider.GetService<KeyboardButtonBuilder>();
         }
 
         /// <summary>
@@ -20,7 +20,7 @@
         /// <returns></returns>
         public InlineKeyboardButtonBuilder CreateInlineKeyboardButtonBuilder()
         {
-            return ServicesContainer.GetService<InlineKeyboardButtonBuilder>();
+            return ServicesProvider.GetService<InlineKeyboardButtonBuilder>();
         }
     }
 }

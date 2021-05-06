@@ -16,7 +16,7 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public string OptionsName = TelegramBotConfig.DefaultOptions;
+        public string OptionsName { get; set; } = TelegramBotConfig.DefaultOptions;
 
         /// <summary>
         /// 
@@ -33,15 +33,6 @@ namespace SB.TelegramBot
         public TelegramBotAppConfig(string token)
         {
             Token = token;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="services"></param>
-        public virtual void RegisterServices(ITelegramBotServicesContainer services)
-        {
-
         }
 
         /// <summary>

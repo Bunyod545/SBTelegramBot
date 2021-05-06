@@ -11,7 +11,7 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <param name="container"></param>
-        void Initialize(ITelegramBotServicesContainer container);
+        void Initialize(ITelegramBotServicesProvider container);
 
         /// <summary>
         /// 

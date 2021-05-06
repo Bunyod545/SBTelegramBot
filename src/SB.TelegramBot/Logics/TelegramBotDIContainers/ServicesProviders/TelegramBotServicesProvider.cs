@@ -29,9 +29,9 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// 
         /// </summary>
         /// <param name="serviceProvider"></param>
-        public TelegramBotServicesProvider(TelegramBotServicesContainer container)
+        public TelegramBotServicesProvider(TelegramBotServicesContainer servicesContainer)
         {
-            ServicesContainer = container;
+            ServicesContainer = servicesContainer;
         }
 
         /// <summary>

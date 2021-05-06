@@ -1,5 +1,8 @@
-﻿using SB.TelegramBot.Logics.TelegramBotDIContainers;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using System;
+using System.Linq;
+using System.Threading;
 
 namespace SB.TelegramBot.AspNetCore
 {
@@ -11,9 +14,28 @@ namespace SB.TelegramBot.AspNetCore
         /// <summary>
         /// 
         /// </summary>
+        private static readonly AsyncLocal<IServiceScope> Scope = new AsyncLocal<IServiceScope>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IServiceProvider ServiceProvider { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TelegramBotAspNetCoreServicesProvider()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void RequestBegin()
         {
-            throw new NotImplementedException();
+            var scopeFactory = ServiceProvider.GetRequiredService<IServiceScopeFactory>();
+            Scope.Value = scopeFactory.CreateScope();
         }
 
         /// <summary>
@@ -21,7 +43,11 @@ namespace SB.TelegramBot.AspNetCore
         /// </summary>
         public void RequestEnd()
         {
-            throw new NotImplementedException();
+            if (Scope.Value == null)
+                return;
+
+            Scope.Value.Dispose();
+            Scope.Value = null;
         }
 
         /// <summary>
@@ -31,7 +57,7 @@ namespace SB.TelegramBot.AspNetCore
         /// <returns></returns>
         public T CreateWithServices<T>()
         {
-            throw new NotImplementedException();
+            return (T)CreateWithServices(typeof(T));
         }
 
         /// <summary>
@@ -41,7 +67,24 @@ namespace SB.TelegramBot.AspNetCore
         /// <returns></returns>
         public object CreateWithServices(Type type)
         {
-            throw new NotImplementedException();
+            var ctors = type.GetConstructors();
+            if (ctors.Length == 0)
+                throw new Exception($"Cannot find any public constructor for {type}");
+
+            if (ctors.Length > 1)
+                throw new Exception($"More public constructors for {type}");
+
+            var ctor = ctors.FirstOrDefault();
+            var ctorParamsInfos = ctor.GetParameters();
+
+            var ctorParams = new object[ctorParamsInfos.Length];
+            for (int index = 0; index < ctorParamsInfos.Length; index++)
+            {
+                var ctorParamInfo = ctorParamsInfos[index];
+                ctorParams[index] = GetService(ctorParamInfo.ParameterType);
+            }
+
+            return Activator.CreateInstance(type, ctorParams);
         }
 
         /// <summary>
@@ -49,7 +92,7 @@ namespace SB.TelegramBot.AspNetCore
         /// </summary>
         public void Dispose()
         {
-            throw new NotImplementedException();
+
         }
 
         /// <summary>
@@ -59,7 +102,7 @@ namespace SB.TelegramBot.AspNetCore
         /// <returns></returns>
         public TService GetService<TService>()
         {
-            throw new NotImplementedException();
+            return (TService)GetService(typeof(TService));
         }
 
         /// <summary>
@@ -69,7 +112,10 @@ namespace SB.TelegramBot.AspNetCore
         /// <returns></returns>
         public object GetService(Type type)
         {
-            throw new NotImplementedException();
+            if (Scope.Value != null)
+                return Scope.Value.ServiceProvider.GetService(type);
+
+            return ServiceProvider.GetService(type);
         }
 
         /// <summary>

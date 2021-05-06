@@ -17,11 +17,11 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="container"></param>
-        public override void Initialize(ITelegramBotServicesContainer container)
+        /// <param name="servicesProvider"></param>
+        public override void Initialize(ITelegramBotServicesProvider servicesProvider)
         {
-            base.Initialize(container);
-            CallbackQueryService = container.GetService<ITelegramBotCallbackQueryService>();
+            base.Initialize(servicesProvider);
+            CallbackQueryService = servicesProvider.GetService<ITelegramBotCallbackQueryService>();
         }
     }
 }

@@ -11,13 +11,13 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        protected ITelegramBotServicesContainer TelegramBotServicesContainer { get; private set; }
+        protected ITelegramBotServicesProvider TelegramBotServicesContainer { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="container"></param>
-        public void Initialize(ITelegramBotServicesContainer container)
+        public void Initialize(ITelegramBotServicesProvider container)
         {
             TelegramBotServicesContainer = container;
         }

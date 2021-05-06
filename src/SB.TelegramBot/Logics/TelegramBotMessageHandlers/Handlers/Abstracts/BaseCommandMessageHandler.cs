@@ -17,16 +17,16 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        protected ITelegramBotServicesContainer TelegramBotServicesContainer { get; private set; }
+        protected ITelegramBotServicesProvider ServicesProvider { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="container"></param>
-        public virtual void Initialize(ITelegramBotServicesContainer container)
+        /// <param name="servicesProvider"></param>
+        public virtual void Initialize(ITelegramBotServicesProvider servicesProvider)
         {
-            TelegramBotServicesContainer = container;
-            TelegramBotCommandFactory = container.GetService<ITelegramBotCommandFactory>();
+            ServicesProvider = servicesProvider;
+            TelegramBotCommandFactory = servicesProvider.GetService<ITelegramBotCommandFactory>();
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace SB.TelegramBot
             if (command is ICommandMessageExceptionHandler exceptionHandler)
                 exceptionHandler.HandleExecuteException(messageContext, ex);
 
-            var handlerService = TelegramBotServicesContainer.GetService<ICommandMessageExceptionHandler>();
+            var handlerService = ServicesProvider.GetService<ICommandMessageExceptionHandler>();
             handlerService?.HandleExecuteException(messageContext, ex);
         }
     }

@@ -22,7 +22,7 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        protected ITelegramBotServicesContainer TelegramBotServicesContainer { get; private set; }
+        protected ITelegramBotServicesProvider TelegramBotServicesProvider { get; private set; }
 
         /// <summary>
         /// 
@@ -43,15 +43,15 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <param name="command"></param>
-        /// <param name="telegramBotServicesContainer"></param>
-        public TelegramBotCommandService(ITelegramBotCommand command, ITelegramBotServicesContainer telegramBotServicesContainer)
+        /// <param name="servicesProvider"></param>
+        public TelegramBotCommandService(ITelegramBotCommand command, ITelegramBotServicesProvider servicesProvider)
         {
             Command = command;
-            TelegramBotServicesContainer = telegramBotServicesContainer;
-            TelegramBotCommandFactory = telegramBotServicesContainer.GetService<ITelegramBotCommandFactory>();
+            TelegramBotServicesProvider = servicesProvider;
+            TelegramBotCommandFactory = servicesProvider.GetService<ITelegramBotCommandFactory>();
 
             Info = TelegramBotCommandFactory.GetCommandInfo(command.GetType());
-            MessageService = TelegramBotServicesContainer.GetService<ITelegramBotMessageService>();
+            MessageService = TelegramBotServicesProvider.GetService<ITelegramBotMessageService>();
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace SB.TelegramBot.Services
         /// <typeparam name="T"></typeparam>
         public virtual T CreateCommand<T>() where T : ITelegramBotCommand
         {
-            return TelegramBotServicesContainer.CreateWithServices<T>();
+            return TelegramBotServicesProvider.CreateWithServices<T>();
         }
     }
 }

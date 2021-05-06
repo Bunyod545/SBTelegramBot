@@ -15,7 +15,7 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        protected ITelegramBotServicesContainer TelegramBotServicesContainer { get; private set; }
+        protected ITelegramBotServicesProvider TelegramBotServicesContainer { get; private set; }
 
         /// <summary>
         /// 
@@ -35,7 +35,7 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        public TelegramBotCommandName(ITelegramBotServicesContainer telegramBotServicesContainer)
+        public TelegramBotCommandName(ITelegramBotServicesProvider telegramBotServicesContainer)
         {
             Names = new Dictionary<string, string>();
             TelegramBotServicesContainer = telegramBotServicesContainer;

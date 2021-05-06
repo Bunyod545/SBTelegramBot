@@ -64,8 +64,13 @@ namespace SB.TelegramBot.Logics.TelegramBotConfigs
         /// <param name="optionKey"></param>
         public static TelegramBotOptions GetOptions(string optionKey)
         {
-            Options.TryGetValue(optionKey, out var defaultOptions);
-            return defaultOptions;
+            if(Options.TryGetValue(optionKey, out var options))
+                return options;
+
+            options = new TelegramBotOptions();
+            AddOrReplaceOption(optionKey, options);
+
+            return options;
         }
     }
 }
