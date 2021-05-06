@@ -16,6 +16,7 @@ namespace SB.TelegramBot.Logics.TelegramBotConfigs
 
             Container = container;
             ServicesProvider = new TelegramBotServicesProvider(container);
+            ServicesRegistrator = new TelegramBotServicesRegistrator();
         }
     }
 }

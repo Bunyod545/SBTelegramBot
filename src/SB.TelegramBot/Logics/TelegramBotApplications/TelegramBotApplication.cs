@@ -60,6 +60,8 @@ namespace SB.TelegramBot
 
             _container = options.Container;
             _servicesProvider = options.ServicesProvider;
+
+            options.ServicesRegistrator?.Register(_container, options);
             _container.Initialize();
 
             var commandFactory = _servicesProvider.GetService<ITelegramBotCommandFactory>();

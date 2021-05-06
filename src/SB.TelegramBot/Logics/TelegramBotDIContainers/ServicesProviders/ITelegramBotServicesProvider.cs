@@ -20,20 +20,6 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        bool IsRegistered<T>();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="serviceType"></param>
-        /// <returns></returns>
-        bool IsRegistered(Type serviceType);
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <typeparam name="TService"></typeparam>
         /// <returns></returns>
         TService GetService<TService>();

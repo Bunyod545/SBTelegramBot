@@ -110,10 +110,10 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         protected virtual void InitializeNameWithService(TelegramBotCommandInfo info)
         {
-            if (!TelegramBotServicesContainer.IsRegistered<ITelegramBotCommandName>())
+            var commandName = TelegramBotServicesContainer.GetService<ITelegramBotCommandName>();
+            if (commandName == null)
                 return;
 
-            var commandName = TelegramBotServicesContainer.GetService<ITelegramBotCommandName>();
             info.CommandName = commandName;
             commandName.Initialize(info);
         }
@@ -125,10 +125,10 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         protected virtual void InitializeRole(TelegramBotCommandInfo info)
         {
-            if (!TelegramBotServicesContainer.IsRegistered<ITelegramBotCommandRole>())
+            var commandrole = TelegramBotServicesContainer.GetService<ITelegramBotCommandRole>();
+            if (commandrole == null)
                 return;
 
-            var commandrole = TelegramBotServicesContainer.GetService<ITelegramBotCommandRole>();
             info.CommandRole = commandrole;
             commandrole.Initialize(info);
         }

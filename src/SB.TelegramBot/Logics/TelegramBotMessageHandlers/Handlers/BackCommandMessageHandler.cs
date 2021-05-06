@@ -1,6 +1,4 @@
-﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
-
-namespace SB.TelegramBot
+﻿namespace SB.TelegramBot
 {
     /// <summary>
     /// 

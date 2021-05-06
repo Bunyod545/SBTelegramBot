@@ -81,6 +81,16 @@ namespace SB.TelegramBot.AspNetCore
         /// <summary>
         /// 
         /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <param name="implementationFactory"></param>
+        public void AddSingleton<TService>(Func<TService> implementationFactory) where TService : class
+        {
+            _serviceCollection.AddSingleton(s => implementationFactory());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="baseType"></param>
         /// <param name="implementType"></param>
         public void AddTransient(Type baseType, Type implementType)

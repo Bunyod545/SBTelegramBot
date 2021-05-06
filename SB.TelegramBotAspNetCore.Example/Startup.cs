@@ -55,7 +55,6 @@ namespace SB.TelegramBotAspNetCore.Example
             }
 
             var token = Configuration.GetValue<string>("BotToken");
-
             app.UseTelegramBot(token);
             app.UseRouting();
             app.UseAuthorization();

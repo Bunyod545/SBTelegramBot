@@ -32,14 +32,16 @@ namespace Microsoft.Extensions.DependencyInjection
             var container = new TelegramBotAspNetCoreServicesContainer(services);
             var provider = new TelegramBotAspNetCoreServicesProvider();
 
-            var option = TelegramBotConfig.GetOptions(optionKey);
-            option.Container = container;
-            option.ServicesProvider = provider;
+            var options = TelegramBotConfig.GetOptions(optionKey);
+            options.Container = container;
+            options.ServicesProvider = provider;
+            options.ServicesRegistrator = null;
 
-            services.AddSingleton<ITelegramBotServicesProvider>((s) => provider);
+            container.AddSingleton<ITelegramBotServicesProvider>(() => provider);
             container.AddSingleton<ITelegramBotClientManager, TelegramBotClientManager>();
             container.AddSingleton<ITelegramBotCommandFactory, TelegramBotCommandFactory>();
             container.AddSingleton<ITelegramBotMessageHandlerManager, TelegramBotMessageHandlerManager>();
+            container.AddSingleton<ITelegramBotMessageHandler, TelegramBotMessageHandler>();
 
             container.AddTransient<ITelegramBotCommandName, TelegramBotCommandName>();
             container.AddTransient<ITelegramBotCommandRole, TelegramBotCommandRole>();
@@ -53,7 +55,6 @@ namespace Microsoft.Extensions.DependencyInjection
             container.AddScoped<ITelegramBotCommandActivator, TelegramBotCommandActivator>();
             container.AddScoped<ITelegramBotUnknownMessageService, TelegramBotUnknownMessageService>();
 
-            container.AddScoped<ITelegramBotMessageHandler, TelegramBotMessageHandler>();
             container.AddScoped<ITelegramBotCallbackQueryHandler, TelegramBotCallbackQueryHandler>();
             container.AddScoped<ITelegramBotMessageEditedHandler, TelegramBotMessageEditedHandler>();
             container.AddScoped<ITelegramBotInlineQueryHandler, TelegramBotInlineQueryHandler>();

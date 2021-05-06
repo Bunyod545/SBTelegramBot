@@ -73,6 +73,16 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// <summary>
         /// 
         /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <param name="implementationFactory"></param>
+        public void AddSingleton<TService>(Func<TService> implementationFactory) where TService : class
+        {
+            _containerBuilder.RegisterInstance(implementationFactory()).As<TService>().SingleInstance();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         public void AddSingleton<T>(T data) where T: class
         {

@@ -16,5 +16,10 @@ namespace SB.TelegramBot.Logics.TelegramBotConfigs
         /// 
         /// </summary>
         public ITelegramBotServicesProvider ServicesProvider { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ITelegramBotServicesRegistrator ServicesRegistrator { get; set; }
     }
 }

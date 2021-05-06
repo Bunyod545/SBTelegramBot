@@ -34,6 +34,13 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         /// 
         /// </summary>
         /// <typeparam name="TService"></typeparam>
+        /// <param name="implementationFactory"></param>
+        void AddSingleton<TService>(Func<TService> implementationFactory) where TService : class;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
         /// <typeparam name="TImplementation"></typeparam>
         void AddSingleton<TService, TImplementation>()
            where TService : class
