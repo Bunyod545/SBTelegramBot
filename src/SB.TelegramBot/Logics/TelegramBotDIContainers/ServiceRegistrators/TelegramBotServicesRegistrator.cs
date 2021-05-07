@@ -20,26 +20,26 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
         {
             servicesContainer.AddSingleton(() => options.ServicesProvider);
             servicesContainer.AddSingleton<ITelegramBotClientManager, TelegramBotClientManager>();
-            servicesContainer.AddSingleton<ITelegramBotCommandFactory, TelegramBotCommandFactory>();
             servicesContainer.AddSingleton<ITelegramBotMessageHandlerManager, TelegramBotMessageHandlerManager>();
             servicesContainer.AddSingleton<ITelegramBotMessageHandler, TelegramBotMessageHandler>();
+            servicesContainer.AddSingleton<ITelegramBotCommandFactory, TelegramBotCommandFactory>();
+            servicesContainer.AddSingleton<ITelegramBotCommandFactoryInitializer, TelegramBotCommandFactoryInitializer>();
+
+            servicesContainer.AddSingleton<ITelegramBotCallbackQueryHandler, TelegramBotCallbackQueryHandler>();
+            servicesContainer.AddSingleton<ITelegramBotMessageEditedHandler, TelegramBotMessageEditedHandler>();
+            servicesContainer.AddSingleton<ITelegramBotInlineQueryHandler, TelegramBotInlineQueryHandler>();
+            servicesContainer.AddSingleton<ICommandMessageExceptionHandler, CommandMessageExceptionHandler>();
 
             servicesContainer.AddTransient<ITelegramBotCommandName, TelegramBotCommandName>();
             servicesContainer.AddTransient<ITelegramBotCommandRole, TelegramBotCommandRole>();
             servicesContainer.AddTransient<InlineKeyboardButtonBuilder, InlineKeyboardButtonBuilder>();
             servicesContainer.AddTransient<KeyboardButtonBuilder, KeyboardButtonBuilder>();
 
-            servicesContainer.AddSingleton<ITelegramBotCommandFactoryInitializer, TelegramBotCommandFactoryInitializer>();
             servicesContainer.AddScoped<ITelegramBotUserService, TelegramBotUserService>();
             servicesContainer.AddScoped<ITelegramBotMessageService, TelegramBotMessageService>();
             servicesContainer.AddScoped<ITelegramBotCallbackQueryService, TelegramBotCallbackQueryService>();
             servicesContainer.AddScoped<ITelegramBotCommandActivator, TelegramBotCommandActivator>();
             servicesContainer.AddScoped<ITelegramBotUnknownMessageService, TelegramBotUnknownMessageService>();
-
-            servicesContainer.AddScoped<ITelegramBotCallbackQueryHandler, TelegramBotCallbackQueryHandler>();
-            servicesContainer.AddScoped<ITelegramBotMessageEditedHandler, TelegramBotMessageEditedHandler>();
-            servicesContainer.AddScoped<ITelegramBotInlineQueryHandler, TelegramBotInlineQueryHandler>();
-            servicesContainer.AddScoped<ICommandMessageExceptionHandler, CommandMessageExceptionHandler>();
 
             TelegramBotAutoDIManager.Register(servicesContainer);
         }
