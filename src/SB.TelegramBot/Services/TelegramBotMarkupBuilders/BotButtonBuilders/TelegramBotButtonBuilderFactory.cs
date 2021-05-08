@@ -28,7 +28,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public KeyboardButtonBuilder CreateKeyboardButtonBuilder()
         {
-            return new KeyboardButtonBuilder();
+            return new KeyboardButtonBuilder(_commandFactory);
         }
 
         /// <summary>
