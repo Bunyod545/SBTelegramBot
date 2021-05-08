@@ -37,13 +37,6 @@ namespace SB.TelegramBot
         public KeyboardButtonBuilder(ITelegramBotCommandFactory commandFactory)
         {
             _commandFactory = commandFactory;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public KeyboardButtonBuilder()
-        {
             _buttons = new List<List<KeyboardButton>>();
         }
 
