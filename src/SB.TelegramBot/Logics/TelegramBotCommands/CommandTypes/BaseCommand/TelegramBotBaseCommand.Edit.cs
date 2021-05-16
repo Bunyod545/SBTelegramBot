@@ -160,33 +160,6 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="messageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task<Message> EditMessageReplyMarkupAsync(ChatId chatId, int messageId, InlineKeyboardMarkup replyMarkup = null, CancellationToken cancellationToken = default)
-        {
-            return Client.EditMessageReplyMarkupAsync(chatId, messageId, replyMarkup, cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="parseMode"></param>
-        /// <param name="disableWebPagePreview"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task<Message> EditMessageTextAsync(string text, InlineKeyboardButtonBuilder replyMarkup = null, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
-        {
-            return Client.EditMessageTextAsync(ChatId, MessageId, text, parseMode, disableWebPagePreview, replyMarkup?.Build(), cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="text"></param>
         /// <param name="parseMode"></param>
         /// <param name="disableWebPagePreview"></param>
