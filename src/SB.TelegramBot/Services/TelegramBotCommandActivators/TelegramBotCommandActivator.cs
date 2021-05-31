@@ -11,6 +11,20 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
+        protected ITelegramBotServicesProvider TelegramBotServicesContainer { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="telegramBotServicesContainer"></param>
+        public TelegramBotCommandActivator(ITelegramBotServicesProvider telegramBotServicesContainer)
+        {
+            TelegramBotServicesContainer = telegramBotServicesContainer;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="commandClrType"></param>
         /// <returns></returns>
         public virtual ITelegramBotCommand ActivateCommand(Type commandClrType)

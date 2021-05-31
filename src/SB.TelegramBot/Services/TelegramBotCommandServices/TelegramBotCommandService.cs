@@ -12,16 +12,6 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        public ITelegramBotCommand Command { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public TelegramBotCommandInfo Info { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         protected readonly ITelegramBotMessageService MessageService;
 
         /// <summary>
@@ -32,12 +22,36 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
+        protected ITelegramBotServicesProvider TelegramBotServicesProvider { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected ITelegramBotCommandFactory TelegramBotCommandFactory { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ITelegramBotCommand Command { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TelegramBotCommandInfo Info { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="command"></param>
-        public TelegramBotCommandService(ITelegramBotCommand command)
+        /// <param name="servicesProvider"></param>
+        public TelegramBotCommandService(ITelegramBotCommand command, ITelegramBotServicesProvider servicesProvider)
         {
             Command = command;
+            TelegramBotServicesProvider = servicesProvider;
+            TelegramBotCommandFactory = servicesProvider.GetService<ITelegramBotCommandFactory>();
+
             Info = TelegramBotCommandFactory.GetCommandInfo(command.GetType());
-            MessageService = TelegramBotServicesContainer.GetService<ITelegramBotMessageService>();
+            MessageService = TelegramBotServicesProvider.GetService<ITelegramBotMessageService>();
         }
 
         /// <summary>
@@ -102,7 +116,7 @@ namespace SB.TelegramBot.Services
         /// <typeparam name="T"></typeparam>
         public virtual T CreateCommand<T>() where T : ITelegramBotCommand
         {
-            return TelegramBotServicesContainer.CreateWithServices<T>();
+            return TelegramBotServicesProvider.CreateWithServices<T>();
         }
     }
 }

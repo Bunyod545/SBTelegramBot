@@ -15,6 +15,27 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
+        protected ITelegramBotServicesProvider TelegramBotServicesContainer { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected ITelegramBotCommandFactory TelegramBotCommandFactory { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="telegramBotServicesContainer"></param>
+        /// <param name="telegramBotCommandFactory"></param>
+        public TelegramBotCallbackQueryHandler(ITelegramBotServicesProvider telegramBotServicesContainer, ITelegramBotCommandFactory telegramBotCommandFactory)
+        {
+            TelegramBotServicesContainer = telegramBotServicesContainer;
+            TelegramBotCommandFactory = telegramBotCommandFactory;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public virtual void Handle(object sender, CallbackQueryEventArgs e)

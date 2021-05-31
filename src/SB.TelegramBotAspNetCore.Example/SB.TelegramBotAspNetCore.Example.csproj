@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TelegramBot-log.db" />
+    <None Remove="TelegramBot.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Api\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SB.TelegramBot.AspNetCore\SB.TelegramBot.AspNetCore.csproj" />
+  </ItemGroup>
+
+</Project>

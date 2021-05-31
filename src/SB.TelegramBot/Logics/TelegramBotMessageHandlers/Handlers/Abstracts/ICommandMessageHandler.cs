@@ -1,10 +1,18 @@
-﻿namespace SB.TelegramBot
+﻿using SB.TelegramBot.Logics.TelegramBotDIContainers;
+
+namespace SB.TelegramBot
 {
     /// <summary>
     /// 
     /// </summary>
     public interface ICommandMessageHandler
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="container"></param>
+        void Initialize(ITelegramBotServicesProvider container);
+
         /// <summary>
         /// 
         /// </summary>

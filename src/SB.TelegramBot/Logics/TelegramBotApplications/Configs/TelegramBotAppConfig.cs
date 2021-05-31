@@ -1,4 +1,5 @@
-﻿using SB.TelegramBot.Logics.TelegramBotDIContainers;
+﻿using SB.TelegramBot.Logics.TelegramBotConfigs;
+using SB.TelegramBot.Logics.TelegramBotDIContainers;
 
 namespace SB.TelegramBot
 {
@@ -15,6 +16,11 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
+        public string OptionsName { get; set; } = TelegramBotConfig.DefaultOptions;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public TelegramBotAppConfig()
         {
 
@@ -27,15 +33,6 @@ namespace SB.TelegramBot
         public TelegramBotAppConfig(string token)
         {
             Token = token;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="services"></param>
-        public virtual void RegisterServices(ITelegramBotServicesCollection services)
-        {
-
         }
 
         /// <summary>

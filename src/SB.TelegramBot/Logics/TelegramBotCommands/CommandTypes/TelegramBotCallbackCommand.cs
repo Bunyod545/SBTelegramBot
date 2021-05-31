@@ -1,5 +1,6 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Services;
+using Telegram.Bot.Types;
 
 namespace SB.TelegramBot
 {
@@ -12,14 +13,41 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public ITelegramBotCallbackQueryService CallbackQueryService { get; }
+        public ITelegramBotCallbackQueryService CallbackQueryService { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public TelegramBotCallbackCommand()
+        public CallbackQuery CallbackQuery => CallbackQueryService?.CallbackQuery;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string CallbackQueryId => CallbackQuery?.Id;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public User From => CallbackQuery?.From;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="servicesProvider"></param>
+        public override void Initialize(ITelegramBotServicesProvider servicesProvider)
         {
-            CallbackQueryService = TelegramBotServicesContainer.GetService<ITelegramBotCallbackQueryService>();
+            base.Initialize(servicesProvider);
+            CallbackQueryService = servicesProvider.GetService<ITelegramBotCallbackQueryService>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        protected T GetData<T>() where T : class, new()
+        {
+            return CallbackQueryService.GetData<T>();
         }
     }
 }

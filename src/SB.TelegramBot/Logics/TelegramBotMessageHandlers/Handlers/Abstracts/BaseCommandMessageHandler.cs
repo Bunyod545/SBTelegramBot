@@ -1,4 +1,5 @@
-﻿using SB.TelegramBot.Logics.TelegramBotDIContainers;
+﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
+using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using System;
 
 namespace SB.TelegramBot
@@ -8,6 +9,26 @@ namespace SB.TelegramBot
     /// </summary>
     public abstract class BaseCommandMessageHandler : ICommandMessageHandler
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        protected ITelegramBotCommandFactory TelegramBotCommandFactory { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected ITelegramBotServicesProvider ServicesProvider { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="servicesProvider"></param>
+        public virtual void Initialize(ITelegramBotServicesProvider servicesProvider)
+        {
+            ServicesProvider = servicesProvider;
+            TelegramBotCommandFactory = servicesProvider.GetService<ITelegramBotCommandFactory>();
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -52,7 +73,7 @@ namespace SB.TelegramBot
             if (command is ICommandMessageExceptionHandler exceptionHandler)
                 exceptionHandler.HandleExecuteException(messageContext, ex);
 
-            var handlerService = TelegramBotServicesContainer.GetService<ICommandMessageExceptionHandler>();
+            var handlerService = ServicesProvider.GetService<ICommandMessageExceptionHandler>();
             handlerService?.HandleExecuteException(messageContext, ex);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
+using System.Collections.Generic;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SB.TelegramBot
@@ -21,9 +22,16 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public InlineKeyboardButtonBuilder()
+        public ITelegramBotCommandFactory CommandFactory { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commandFactory"></param>
+        public InlineKeyboardButtonBuilder(ITelegramBotCommandFactory commandFactory)
         {
             _buttons = new List<List<InlineKeyboardButton>>();
+            CommandFactory = commandFactory;
         }
 
         /// <summary>
@@ -40,7 +48,7 @@ namespace SB.TelegramBot
 
             var currentButton = new InlineKeyboardButton();
             currentRowButtons.Add(currentButton);
-            return new InlineKeyboardButtonInfo(currentButton);
+            return new InlineKeyboardButtonInfo(currentButton, CommandFactory);
         }
 
         /// <summary>
@@ -54,7 +62,7 @@ namespace SB.TelegramBot
 
             var currentButton = new InlineKeyboardButton();
             _columnButtons.Add(currentButton);
-            return new InlineKeyboardButtonInfo(currentButton);
+            return new InlineKeyboardButtonInfo(currentButton, CommandFactory);
         }
 
         /// <summary>
@@ -79,6 +87,15 @@ namespace SB.TelegramBot
         {
             EndOfColumn();
             return new InlineKeyboardMarkup(_buttons);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        public static implicit operator InlineKeyboardMarkup(InlineKeyboardButtonBuilder builder)
+        {
+            return builder.Build();
         }
     }
 }

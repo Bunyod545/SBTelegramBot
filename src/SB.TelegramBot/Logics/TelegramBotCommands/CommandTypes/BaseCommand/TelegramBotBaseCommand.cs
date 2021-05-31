@@ -1,4 +1,5 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotClients;
+using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Services;
 using Telegram.Bot;
@@ -13,32 +14,46 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public TelegramBotClient Client { get; }
+        public TelegramBotClient Client { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ITelegramBotUserService UserService { get; }
+        public ITelegramBotUserService UserService { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ITelegramBotCommandService CommandService { get; }
+        public ITelegramBotCommandService CommandService { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ITelegramBotMessageService MessageService { get; }
+        public ITelegramBotMessageService MessageService { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ITelegramBotServicesProvider ServicesProvider { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
         protected TelegramBotBaseCommand()
         {
-            Client = TelegramBotClientManager.Client;
-            UserService = TelegramBotServicesContainer.GetService<ITelegramBotUserService>();
-            CommandService = new TelegramBotCommandService(this);
-            MessageService = TelegramBotServicesContainer.GetService<ITelegramBotMessageService>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="servicesProvider"></param>
+        public virtual void Initialize(ITelegramBotServicesProvider servicesProvider)
+        {
+            ServicesProvider = servicesProvider;
+            Client = ServicesProvider.GetService<ITelegramBotClientManager>().Client;
+            UserService = ServicesProvider.GetService<ITelegramBotUserService>();
+            MessageService = ServicesProvider.GetService<ITelegramBotMessageService>();
+            CommandService = new TelegramBotCommandService(this, ServicesProvider);
         }
 
         /// <summary>

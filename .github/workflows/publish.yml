@@ -1,7 +1,7 @@
 name: publish to nuget
 on:
   push:
-    branches:
+    branches: 
       - master # Default release branch
 jobs:
   publish:
@@ -15,3 +15,19 @@ jobs:
         with:
           PROJECT_FILE_PATH: src/SB.TelegramBot/SB.TelegramBot.csproj
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          
+      - uses: actions/checkout@v2
+      - name: publish on version change
+        id: publish_nuget_SB_Telegram_Bot_AspNetCore
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: src/SB.TelegramBot.AspNetCore/SB.TelegramBot.AspNetCore.csproj
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+      
+      - uses: up9cloud/action-notify@master
+        name: Notify Telegram
+        if: always()
+        env:
+          GITHUB_JOB_STATUS: ${{ job.status }}
+          TELEGRAM_BOT_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
+          TELEGRAM_CHAT_ID: ${{secrets.TELEGRAM_USER}}

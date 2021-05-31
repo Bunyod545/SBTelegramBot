@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotMarkupBuilders.KeyboardButtonBuilders.Models;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -27,9 +28,26 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public KeyboardButtonBuilder()
+        private ITelegramBotCommandFactory _commandFactory;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commandFactory"></param>
+        public KeyboardButtonBuilder(ITelegramBotCommandFactory commandFactory)
         {
+            _commandFactory = commandFactory;
             _buttons = new List<List<KeyboardButton>>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public KeyboardButtonInfo AddRowButton<TCommand>() where TCommand : ITelegramBotCommand
+        {
+            var commandInfo = _commandFactory.GetCommandInfo(typeof(TCommand));
+            return AddRowButton(commandInfo?.CommandName?.GetName());
         }
 
         /// <summary>
@@ -48,6 +66,16 @@ namespace SB.TelegramBot
             currentButton.Text = text;
             currentRowButtons.Add(currentButton);
             return new KeyboardButtonInfo(currentButton);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public KeyboardButtonInfo AddColumnButton<TCommand>() where TCommand : ITelegramBotCommand
+        {
+            var commandInfo = _commandFactory.GetCommandInfo(typeof(TCommand));
+            return AddColumnButton(commandInfo?.CommandName?.GetName());
         }
 
         /// <summary>
@@ -102,6 +130,15 @@ namespace SB.TelegramBot
             var markup = new ReplyKeyboardMarkup(_buttons);
             markup.ResizeKeyboard = _isResize;
             return markup;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        public static implicit operator ReplyKeyboardMarkup(KeyboardButtonBuilder builder)
+        {
+            return builder.Build();
         }
     }
 }

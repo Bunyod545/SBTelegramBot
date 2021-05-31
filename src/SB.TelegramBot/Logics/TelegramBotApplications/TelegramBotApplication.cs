@@ -1,8 +1,7 @@
-﻿using SB.TelegramBot.Logics.TelegramBotAutoDI;
-using SB.TelegramBot.Logics.TelegramBotClients;
+﻿using SB.TelegramBot.Logics.TelegramBotClients;
 using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
+using SB.TelegramBot.Logics.TelegramBotConfigs;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
-using SB.TelegramBot.Services;
 using System;
 
 namespace SB.TelegramBot
@@ -12,6 +11,16 @@ namespace SB.TelegramBot
     /// </summary>
     public class TelegramBotApplication : IDisposable
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private ITelegramBotServicesContainer _container;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private ITelegramBotServicesProvider _servicesProvider;
+
         /// <summary>
         /// 
         /// </summary>
@@ -45,40 +54,23 @@ namespace SB.TelegramBot
         /// </summary>
         public virtual void Run()
         {
-            TelegramBotClientManager.Token = AppConfig.Token;
-            RegisterServices(new TelegramBotServicesCollection());
+            var options = TelegramBotConfig.GetOptions(AppConfig.OptionsName);
+            if (options == null)
+                throw new Exception($"Telegram bot options not configured! Options name: {AppConfig.OptionsName}");
 
-            TelegramBotServicesContainer.Initialize();
-            TelegramBotCommandFactory.Initialize();
+            _container = options.Container;
+            _servicesProvider = options.ServicesProvider;
+
+            options.ServicesRegistrator?.Register(_container, options);
+            _container.Initialize();
+
+            var commandFactory = _servicesProvider.GetService<ITelegramBotCommandFactory>();
+            commandFactory.Initialize();
             AppConfig.Configure(this);
 
-            TelegramBotClientManager.Initialize();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="services"></param>
-        protected virtual void RegisterServices(ITelegramBotServicesCollection services)
-        {
-            services.AddTransient<ITelegramBotCommandName, TelegramBotCommandName>();
-            services.AddTransient<ITelegramBotCommandRole, TelegramBotCommandRole>();
-
-            services.AddScoped<ITelegramBotCommandFactoryInitializer, TelegramBotCommandFactoryInitializer>();
-            services.AddScoped<ITelegramBotUserService, TelegramBotUserService>();
-            services.AddScoped<ITelegramBotMessageService, TelegramBotMessageService>();
-            services.AddScoped<ITelegramBotCallbackQueryService, TelegramBotCallbackQueryService>();
-            services.AddScoped<ITelegramBotCommandActivator, TelegramBotCommandActivator>();
-            services.AddScoped<ITelegramBotUnknownMessageService, TelegramBotUnknownMessageService>();
-
-            services.AddScoped<ITelegramBotMessageHandler, TelegramBotMessageHandler>();
-            services.AddScoped<ITelegramBotCallbackQueryHandler, TelegramBotCallbackQueryHandler>();
-            services.AddScoped<ITelegramBotMessageEditedHandler, TelegramBotMessageEditedHandler>();
-            services.AddScoped<ITelegramBotInlineQueryHandler, TelegramBotInlineQueryHandler>();
-            services.AddScoped<ICommandMessageExceptionHandler, CommandMessageExceptionHandler>();
-
-            TelegramBotAutoDIManager.Register(services);
-            AppConfig.RegisterServices(services);
+            var clientManager = _servicesProvider.GetService<ITelegramBotClientManager>();
+            clientManager.Token = AppConfig.Token;
+            clientManager.Initialize();
         }
 
         /// <summary>
@@ -86,9 +78,9 @@ namespace SB.TelegramBot
         /// </summary>
         public virtual void Dispose()
         {
-            TelegramBotServicesContainer.Dispose();
-            TelegramBotServicesContainer.Dispose();
-            TelegramBotClientManager.Dispose();
+            var clientManager = _servicesProvider.GetService<ITelegramBotClientManager>();
+            clientManager?.Dispose();
+            _container?.Dispose();
         }
 
         /// <summary>

@@ -5,14 +5,14 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
     /// <summary>
     /// 
     /// </summary>
-    public static partial class TelegramBotCommandFactory
+    public partial class TelegramBotCommandFactory
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static ITelegramBotCommand GetInternalCommand(string name)
+        public ITelegramBotCommand GetInternalCommand(string name)
         {
             var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.InternalCommand &&
                                                  s.CommandName != null &&
@@ -26,7 +26,7 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// </summary>
         /// <param name="clrName"></param>
         /// <returns></returns>
-        public static ITelegramBotCommand GetInternalCommandByClrName(string clrName)
+        public ITelegramBotCommand GetInternalCommandByClrName(string clrName)
         {
             var info = Infos.FirstOrDefault(s => s.CommandType == TelegramBotCommandType.InternalCommand &&
                                                  s.CommandClrName == clrName);
