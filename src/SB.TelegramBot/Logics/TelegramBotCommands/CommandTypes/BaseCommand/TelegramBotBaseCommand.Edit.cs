@@ -198,7 +198,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task<Message> EditMessageTextAsync(ChatId chatId, int messageId, string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, InlineKeyboardButtonBuilder replyMarkup = null, CancellationToken cancellationToken = default)
         {
-            return Client.EditMessageTextAsync(chatId, messageId, text, parseMode, disableWebPagePreview, replyMarkup, cancellationToken);
+            return Client.EditMessageTextAsync(chatId, messageId, text, parseMode, disableWebPagePreview, replyMarkup?.Build(), cancellationToken);
         }
 
         /// <summary>
@@ -214,7 +214,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task<Message> EditMessageTextAsync(ChatId chatId, int messageId, string text, InlineKeyboardButtonBuilder replyMarkup = null, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
         {
-            return Client.EditMessageTextAsync(chatId, messageId, text, parseMode, disableWebPagePreview, replyMarkup, cancellationToken);
+            return Client.EditMessageTextAsync(chatId, messageId, text, parseMode, disableWebPagePreview, replyMarkup?.Build(), cancellationToken);
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task EditMessageTextAsync(string inlineMessageId, string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, InlineKeyboardButtonBuilder replyMarkup = null, CancellationToken cancellationToken = default)
         {
-            return Client.EditMessageTextAsync(inlineMessageId, text, parseMode, disableWebPagePreview, replyMarkup, cancellationToken);
+            return Client.EditMessageTextAsync(inlineMessageId, text, parseMode, disableWebPagePreview, replyMarkup?.Build(), cancellationToken);
         }
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task EditMessageTextAsync(string inlineMessageId, string text, InlineKeyboardButtonBuilder replyMarkup = null, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, CancellationToken cancellationToken = default)
         {
-            return Client.EditMessageTextAsync(inlineMessageId, text, parseMode, disableWebPagePreview, replyMarkup, cancellationToken);
+            return Client.EditMessageTextAsync(inlineMessageId, text, parseMode, disableWebPagePreview, replyMarkup?.Build(), cancellationToken);
         }
 
         /// <summary>
