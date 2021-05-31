@@ -16,7 +16,7 @@ namespace SB.TelegramBot
             if (string.IsNullOrEmpty(context.User.CurrentCommandClrName))
                 return;
 
-            var currentCommand = TelegramBotCommandFactory.GetPublicOrInternalCommand(context.User.CurrentCommandClrName);
+            var currentCommand = TelegramBotCommandFactory.GetPublicOrInternalCommandByClrName(context.User.CurrentCommandClrName);
             ExecuteCommand(context, currentCommand);
         }
     }
