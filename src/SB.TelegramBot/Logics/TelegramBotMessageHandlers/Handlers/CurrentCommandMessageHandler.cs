@@ -1,6 +1,4 @@
-﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
-
-namespace SB.TelegramBot
+﻿namespace SB.TelegramBot
 {
     /// <summary>
     /// 
@@ -16,7 +14,7 @@ namespace SB.TelegramBot
             if (string.IsNullOrEmpty(context.User.CurrentCommandClrName))
                 return;
 
-            var currentCommand = TelegramBotCommandFactory.GetPublicOrInternalCommand(context.User.CurrentCommandClrName);
+            var currentCommand = TelegramBotCommandFactory.GetPublicOrInternalCommandByClrName(context.User.CurrentCommandClrName);
             ExecuteCommand(context, currentCommand);
         }
     }
