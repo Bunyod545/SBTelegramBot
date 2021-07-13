@@ -116,7 +116,10 @@ namespace SB.TelegramBot.Services
         /// <typeparam name="T"></typeparam>
         public virtual T CreateCommand<T>() where T : ITelegramBotCommand
         {
-            return TelegramBotServicesProvider.CreateWithServices<T>();
+            var command = TelegramBotServicesProvider.CreateWithServices<T>();
+            command.Initialize(TelegramBotServicesProvider);
+
+            return command;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="TCommand"></typeparam>
+        /// <typeparam name="TCommand"></typeparam>`
         /// <param name="chatId"></param>
         public virtual void SetCurrentCommand<TCommand>(long chatId) where TCommand : ITelegramBotCommand
         {
