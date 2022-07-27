@@ -30,8 +30,8 @@ namespace SB.TeleramBot.AspNetCore.Example.Commands
         {
             var message = "test";
             var buttons = CreateInlineKeyboardButtonBuilder();
-            buttons.AddRowButton().WithText("test1").WithData(new { name = "test" });
-            buttons.AddRowButton().WithText("test2").WithData(new { name = "test"} );
+            buttons.AddRowButton("test1").WithData(new { name = "test11" });
+            buttons.AddRowButton("test2").WithData(new { name = "test12"} );
 
             SendTextMessageAsync(message, replyMarkup: buttons.Build());
         }

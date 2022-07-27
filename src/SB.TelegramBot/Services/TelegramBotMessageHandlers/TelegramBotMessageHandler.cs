@@ -1,5 +1,5 @@
 ﻿using Telegram.Bot.Args;
-
+using Telegram.Bot.Types;
 
 namespace SB.TelegramBot.Services
 {
@@ -27,7 +27,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public virtual void Handle(object sender, MessageEventArgs e)
+        public virtual void Handle(Update e)
         {
             _handlerManager.Handle(e.Message);
         }

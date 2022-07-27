@@ -1,5 +1,4 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
-using System.Collections.Generic;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SB.TelegramBot
@@ -38,7 +37,7 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <returns></returns>
-        public InlineKeyboardButtonInfo AddRowButton()
+        public InlineKeyboardButtonInfo AddRowButton(string text)
         {
             if (_columnButtons != null)
                 EndOfColumn();
@@ -46,7 +45,7 @@ namespace SB.TelegramBot
             var currentRowButtons = new List<InlineKeyboardButton>();
             _buttons.Add(currentRowButtons);
 
-            var currentButton = new InlineKeyboardButton();
+            var currentButton = new InlineKeyboardButton(text);
             currentRowButtons.Add(currentButton);
             return new InlineKeyboardButtonInfo(currentButton, CommandFactory);
         }
@@ -55,12 +54,12 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <returns></returns>
-        public InlineKeyboardButtonInfo AddColumnButton()
+        public InlineKeyboardButtonInfo AddColumnButton(string text)
         {
             if (_columnButtons == null)
                 _columnButtons = new List<InlineKeyboardButton>();
 
-            var currentButton = new InlineKeyboardButton();
+            var currentButton = new InlineKeyboardButton(text);
             _columnButtons.Add(currentButton);
             return new InlineKeyboardButtonInfo(currentButton, CommandFactory);
         }

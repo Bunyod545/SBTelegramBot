@@ -45,7 +45,7 @@ namespace SB.TelegramBot.Services
         /// <param name="replyToMessageId"></param>
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
-        void SendMessage(string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default);
+        void SendMessage(string text, ParseMode parseMode = 0, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 

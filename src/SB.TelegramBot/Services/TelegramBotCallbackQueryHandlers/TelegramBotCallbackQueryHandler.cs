@@ -4,6 +4,7 @@ using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Logics.TelegramBotMessages;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types;
 
 namespace SB.TelegramBot.Services
 {
@@ -36,12 +37,11 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public virtual void Handle(object sender, CallbackQueryEventArgs e)
+        /// <param name="callbackQuery"></param>
+        public virtual void Handle(CallbackQuery callbackQuery)
         {
             TelegramBotServicesContainer.RequestBegin();
-            InternalHandle(sender, e);
+            InternalHandle(callbackQuery);
             TelegramBotServicesContainer.RequestEnd();
         }
 
@@ -49,10 +49,10 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected virtual void InternalHandle(object sender, CallbackQueryEventArgs e)
+        /// <param name="callbackQuery"></param>
+        protected virtual void InternalHandle(CallbackQuery callbackQuery)
         {
-            TelegramBotMessageManager.Message.Value = e.CallbackQuery.Message;
+            TelegramBotMessageManager.Message.Value = callbackQuery.Message;
 
             var userService = TelegramBotServicesContainer.GetService<ITelegramBotUserService>();
             var currentUser = userService.GetCurrentUserInfo();
@@ -61,7 +61,7 @@ namespace SB.TelegramBot.Services
                 currentUser = userService.RegisterUser();
 
             TelegramBotLanguageHelper.InitializeCulture(currentUser.Language);
-            var commandId = GetCommandId(e.CallbackQuery.Data);
+            var commandId = GetCommandId(callbackQuery.Data);
             if (commandId == null)
                 return;
 
@@ -69,8 +69,8 @@ namespace SB.TelegramBot.Services
             if (command == null)
                 return;
 
-            e.CallbackQuery.Data = RemoveCommandId(e.CallbackQuery.Data);
-            TelegramBotCallbackQueryManager.CallbackQuery.Value = e.CallbackQuery;
+            callbackQuery.Data = RemoveCommandId(callbackQuery.Data);
+            TelegramBotCallbackQueryManager.CallbackQuery.Value = callbackQuery;
             command.Execute();
         }
 

@@ -1,7 +1,7 @@
-﻿using SB.TelegramBot.Requests;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using SB.TelegramBot.Logics.TelegramBot.Requests;
+using SB.TelegramBot.Requests;
 using Telegram.Bot;
+using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -108,5 +108,86 @@ namespace SB.TelegramBot
                 ParseMode = parseMode,
                 Entities = entities
             }, cancellationToken);
+
+        /// <summary>
+        /// Use this method to delete a message, including service messages, with the following limitations:
+        /// <list type="bullet">
+        /// <item>A message can only be deleted if it was sent less than 48 hours ago</item>
+        /// <item>A dice message in a private chat can only be deleted if it was sent more than 24 hours ago</item>
+        /// <item>Bots can delete outgoing messages in private chats, groups, and supergroups</item>
+        /// <item>Bots can delete incoming messages in private chats</item>
+        /// <item>Bots granted can_post_messages permissions can delete outgoing messages in channels</item>
+        /// <item>If the bot is an administrator of a group, it can delete any message there</item>
+        /// <item>
+        /// If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="botClient">An instance of <see cref="ITelegramBotClient"/></param>
+        /// <param name="chatId">
+        /// Unique identifier for the target chat or username of the target channel
+        /// (in the format <c>@channelusername</c>)
+        /// </param>
+        /// <param name="messageId">Identifier of the message to delete</param>
+        /// <param name="cancellationToken">
+        /// A cancellation token that can be used by other objects or threads to receive notice of cancellation
+        /// </param>
+        public static Task DeleteMessageAsync(
+            this ITelegramBotClient botClient,
+            ChatId chatId,
+            int messageId,
+            CancellationToken cancellationToken = default)
+        => botClient.MakeRequestAsync(request: new SbDeleteMessageRequest(chatId, messageId), cancellationToken);
+
+        /// <summary>
+        /// Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an
+        /// administrator in the chat for this to work and must have the appropriate admin rights
+        /// </summary>
+        /// <param name="botClient">An instance of <see cref="ITelegramBotClient"/></param>
+        /// <param name="chatId">
+        /// Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+        /// </param>
+        /// <param name="cancellationToken">
+        /// A cancellation token that can be used by other objects or threads to receive notice of cancellation
+        /// </param>
+        public static Task DeleteChatPhotoAsync(
+            this ITelegramBotClient botClient,
+            ChatId chatId,
+            CancellationToken cancellationToken = default
+        ) => botClient.MakeRequestAsync(request: new SbDeleteChatPhotoRequest(chatId), cancellationToken);
+
+        /// <summary>
+        /// Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the
+        /// chat for this to work and must have the appropriate admin rights. Use the field
+        /// <see cref="Chat.CanSetStickerSet"/> optionally returned in <see cref="GetChatAsync"/> requests to
+        /// check if the bot can use this method
+        /// </summary>
+        /// <param name="botClient">An instance of <see cref="ITelegramBotClient"/></param>
+        /// <param name="chatId">
+        /// Unique identifier for the target chat or username of the target channel
+        /// (in the format <c>@channelusername</c>)
+        /// </param>
+        /// <param name="cancellationToken">
+        /// A cancellation token that can be used by other objects or threads to receive notice of cancellation
+        /// </param>
+        public static Task DeleteChatStickerSetAsync(
+            this ITelegramBotClient botClient,
+            ChatId chatId,
+            CancellationToken cancellationToken = default
+        ) => botClient.MakeRequestAsync(request: new DeleteChatStickerSetRequest(chatId), cancellationToken);
+
+        /// <summary>
+        /// Use this method to delete a sticker from a set created by the bot.
+        /// </summary>
+        /// <param name="botClient">An instance of <see cref="ITelegramBotClient"/></param>
+        /// <param name="sticker">File identifier of the sticker</param>
+        /// <param name="cancellationToken">
+        /// A cancellation token that can be used by other objects or threads to receive notice of cancellation
+        /// </param>
+        public static Task DeleteStickerFromSetAsync(
+            this ITelegramBotClient botClient,
+            string sticker,
+            CancellationToken cancellationToken = default
+        ) => botClient.MakeRequestAsync(request: new DeleteStickerFromSetRequest(sticker), cancellationToken);
     }
 }
