@@ -1,4 +1,5 @@
 ﻿using Telegram.Bot.Args;
+using Telegram.Bot.Types;
 
 namespace SB.TelegramBot.Services
 {
@@ -12,6 +13,6 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Handle(object sender, InlineQueryEventArgs e);
+        void Handle(Update update);
     }
 }

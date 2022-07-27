@@ -1,8 +1,9 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Services;
-using System;
 using Telegram.Bot;
-using Telegram.Bot.Args;
+using Telegram.Bot.Exceptions;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace SB.TelegramBot.Logics.TelegramBotClients
 {
@@ -45,56 +46,117 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
             var name = Client.GetMeAsync().Result.Username;
             Console.WriteLine($"Telegram bot name: {name}");
 
-            Client.OnMessage += Client_OnMessage;
-            Client.OnCallbackQuery += Client_OnCallbackQuery;
-            Client.OnInlineQuery += Client_OnInlineQuery;
-            Client.OnMessageEdited += Client_OnMessageEdited;
-
-            Client.StartReceiving();
+            Client.StartReceiving(updateHandler: TryHandleUpdateAsync, pollingErrorHandler: HandlePollingErrorAsync);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Client_OnMessage(object sender, MessageEventArgs e)
+        /// <param name="client"></param>
+        /// <param name="update"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        private async Task TryHandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken cancellationToken)
+        {
+            try
+            {
+                await HandleUpdateAsync(client, update, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                await HandlePollingErrorAsync(client, ex, cancellationToken);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="update"></param>
+        /// <param name="cancellationToken"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private Task HandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken cancellationToken)
+        {
+            return update.Type switch
+            {
+                UpdateType.Message => Client_OnMessage(update),
+                UpdateType.CallbackQuery => Client_OnCallbackQuery(update),
+                UpdateType.InlineQuery => Client_OnInlineQuery(update),
+                UpdateType.EditedMessage => Client_OnMessageEdited(update)
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="exception"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        private Task HandlePollingErrorAsync(ITelegramBotClient client, Exception exception, CancellationToken cancellationToken)
+        {
+            var ErrorMessage = exception switch
+            {
+                ApiRequestException apiRequestException
+                    => $"Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}",
+                _ => exception.ToString()
+            };
+
+            Console.WriteLine(ErrorMessage);
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="update"></param>
+        /// <returns></returns>
+        private Task Client_OnMessage(Update update)
         {
             var handler = ServicesProvider.GetService<ITelegramBotMessageHandler>();
-            handler.Handle(sender, e);
+            handler.Handle(update);
+
+            return Task.CompletedTask;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Client_OnCallbackQuery(object sender, CallbackQueryEventArgs e)
+        /// <param name="update"></param>
+        /// <returns></returns>
+        private Task Client_OnCallbackQuery(Update update)
         {
             var handler = ServicesProvider.GetService<ITelegramBotCallbackQueryHandler>();
-            handler.Handle(sender, e);
+            handler.Handle(update.CallbackQuery);
+
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Client_OnInlineQuery(object sender, InlineQueryEventArgs e)
+        /// <param name="update"></param>
+        /// <returns></returns>
+        private Task Client_OnInlineQuery(Update update)
         {
             var handler = ServicesProvider.GetService<ITelegramBotInlineQueryHandler>();
-            handler.Handle(sender, e);
+            handler.Handle(update);
+
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Client_OnMessageEdited(object sender, MessageEventArgs e)
+        /// <param name="update"></param>
+        /// <returns></returns>
+        private Task Client_OnMessageEdited(Update update)
         {
             var handler = ServicesProvider.GetService<ITelegramBotMessageEditedHandler>();
-            handler.Handle(sender, e);
+            handler.Handle(update);
+
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -102,7 +164,6 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// </summary>
         public void Dispose()
         {
-            Client.StopReceiving();
             Client = null;
         }
     }

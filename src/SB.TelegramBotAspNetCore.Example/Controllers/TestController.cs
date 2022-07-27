@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SB.TelegramBot.Logics.TelegramBotClients;
-using System.Threading.Tasks;
 
 namespace SB.TelegramBotAspNetCore.Example.Controllers
 {
@@ -30,10 +29,11 @@ namespace SB.TelegramBotAspNetCore.Example.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public  async Task<string> GetName()
+        public async Task<string> GetName()
         {
-            var me = await _clientManager.Client.GetMeAsync();
-            return me.Username;
+            //var me = await _clientManager.Client.GetMeAsync();
+            //return me.Username;
+            return "test";
         }
     }
 }

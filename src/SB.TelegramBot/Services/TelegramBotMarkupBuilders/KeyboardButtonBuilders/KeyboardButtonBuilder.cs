@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
+﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotMarkupBuilders.KeyboardButtonBuilders.Models;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -62,7 +61,7 @@ namespace SB.TelegramBot
             var currentRowButtons = new List<KeyboardButton>();
             _buttons.Add(currentRowButtons);
 
-            var currentButton = new KeyboardButton();
+            var currentButton = new KeyboardButton(text);
             currentButton.Text = text;
             currentRowButtons.Add(currentButton);
             return new KeyboardButtonInfo(currentButton);
@@ -88,7 +87,7 @@ namespace SB.TelegramBot
             if (_columnButtons == null)
                 _columnButtons = new List<KeyboardButton>();
 
-            var currentButton = new KeyboardButton();
+            var currentButton = new KeyboardButton(text);
             currentButton.Text = text;
             _columnButtons.Add(currentButton);
             return new KeyboardButtonInfo(currentButton);
