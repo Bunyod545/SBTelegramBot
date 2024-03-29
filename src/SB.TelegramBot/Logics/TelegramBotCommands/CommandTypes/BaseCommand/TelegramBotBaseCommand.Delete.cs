@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 
 namespace SB.TelegramBot
@@ -17,7 +18,8 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task DeleteChatPhotoAsync(ChatId chatId, CancellationToken cancellationToken = default)
         {
-            return Client.DeleteChatPhotoAsync(chatId, cancellationToken);
+            var request = new DeleteChatPhotoRequest(chatId);
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -28,7 +30,8 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task DeleteChatStickerSetAsync(ChatId chatId, CancellationToken cancellationToken = default)
         {
-            return Client.DeleteChatStickerSetAsync(chatId, cancellationToken);
+            var request = new DeleteChatStickerSetRequest(chatId);
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -40,7 +43,8 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task DeleteMessageAsync(CancellationToken cancellationToken = default)
         {
-            return Client.DeleteMessageAsync(ChatId, MessageId, cancellationToken);
+            var request = new DeleteMessageRequest(ChatId, MessageId);
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -52,7 +56,8 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task DeleteMessageAsync(ChatId chatId, int messageId, CancellationToken cancellationToken = default)
         {
-            return Client.DeleteMessageAsync(chatId, messageId, cancellationToken);
+            var request = new DeleteMessageRequest(chatId, messageId);
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -61,9 +66,10 @@ namespace SB.TelegramBot
         /// <param name="sticker"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task DeleteStickerFromSetAsync(string sticker, CancellationToken cancellationToken = default)
+        public Task DeleteStickerFromSetAsync(InputFileId sticker, CancellationToken cancellationToken = default)
         {
-            return Client.DeleteStickerFromSetAsync(sticker, cancellationToken);
+            var request = new DeleteStickerFromSetRequest(sticker);
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
     }
 }

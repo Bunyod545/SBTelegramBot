@@ -46,7 +46,7 @@ namespace SB.TelegramBot
             var currentRowButtons = new List<InlineKeyboardButton>();
             _buttons.Add(currentRowButtons);
 
-            var currentButton = new InlineKeyboardButton();
+            var currentButton = new InlineKeyboardButton(string.Empty);
             currentRowButtons.Add(currentButton);
             return new InlineKeyboardButtonInfo(currentButton, CommandFactory);
         }
@@ -60,7 +60,7 @@ namespace SB.TelegramBot
             if (_columnButtons == null)
                 _columnButtons = new List<InlineKeyboardButton>();
 
-            var currentButton = new InlineKeyboardButton();
+            var currentButton = new InlineKeyboardButton(string.Empty);
             _columnButtons.Add(currentButton);
             return new InlineKeyboardButtonInfo(currentButton, CommandFactory);
         }

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.Payments;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -30,9 +31,20 @@ namespace SB.TelegramBot
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendAnimationAsync(InputOnlineFile animation, int duration = 0, int width = 0, int height = 0, InputMedia thumb = null, string caption = null, ParseMode parseMode = ParseMode.Default, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public Task<Message> SendAnimationAsync(InputFile animation, int duration = 0, int width = 0, int height = 0, InputFile thumb = null, string caption = null, ParseMode parseMode = ParseMode.Markdown, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
-            return Client.SendAnimationAsync(ChatId, animation, duration, width, height, thumb, caption, parseMode, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
+            var request = new SendAnimationRequest(ChatId, animation);
+            request.Duration = duration;
+            request.Width = width;
+            request.Height = height;
+            request.Thumbnail = thumb;
+            request.Caption = caption;
+            request.ParseMode = parseMode;
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+
+            return Client.MakeRequestAsync(request, cancellationToken); 
         }
 
         /// <summary>
@@ -51,9 +63,20 @@ namespace SB.TelegramBot
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendAnimationAsync(ChatId chatId, InputOnlineFile animation, int duration = 0, int width = 0, int height = 0, InputMedia thumb = null, string caption = null, ParseMode parseMode = ParseMode.Default, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public Task<Message> SendAnimationAsync(ChatId chatId, InputFile animation, int duration = 0, int width = 0, int height = 0, InputFile thumb = null, string caption = null, ParseMode parseMode = ParseMode.Markdown, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
-            return Client.SendAnimationAsync(chatId, animation, duration, width, height, thumb, caption, parseMode, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
+            var request = new SendAnimationRequest(chatId, animation);
+            request.Duration = duration;
+            request.Width = width;
+            request.Height = height;
+            request.Thumbnail = thumb;
+            request.Caption = caption;
+            request.ParseMode = parseMode;
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -72,9 +95,20 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken"></param>
         /// <param name="thumb"></param>
         /// <returns></returns>
-        public Task<Message> SendAudioAsync(InputOnlineFile audio, string caption = null, ParseMode parseMode = ParseMode.Default, int duration = 0, string performer = null, string title = null, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputMedia thumb = null)
+        public Task<Message> SendAudioAsync(InputFile audio, string caption = null, ParseMode parseMode = ParseMode.Markdown, int duration = 0, string performer = null, string title = null, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputFile thumb = null)
         {
-            return Client.SendAudioAsync(ChatId, audio, caption, parseMode, duration, performer, title, disableNotification, replyToMessageId, replyMarkup, cancellationToken, thumb);
+            var request = new SendAudioRequest(ChatId, audio);
+            request.Duration = duration;
+            request.Caption = caption;
+            request.Performer = performer;
+            request.Title = title;
+            request.ParseMode = parseMode;
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+            request.Thumbnail = thumb;
+
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -93,9 +127,20 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken"></param>
         /// <param name="thumb"></param>
         /// <returns></returns>
-        public Task<Message> SendAudioAsync(ChatId chatId, InputOnlineFile audio, string caption = null, ParseMode parseMode = ParseMode.Default, int duration = 0, string performer = null, string title = null, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputMedia thumb = null)
+        public Task<Message> SendAudioAsync(ChatId chatId, InputFile audio, string caption = null, ParseMode parseMode = ParseMode.Markdown, int duration = 0, string performer = null, string title = null, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputFile thumb = null)
         {
-            return Client.SendAudioAsync(chatId, audio, caption, parseMode, duration, performer, title, disableNotification, replyToMessageId, replyMarkup, cancellationToken, thumb);
+            var request = new SendAudioRequest(chatId, audio);
+            request.Duration = duration;
+            request.Caption = caption;
+            request.Performer = performer;
+            request.Title = title;
+            request.ParseMode = parseMode;
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+            request.Thumbnail = thumb;
+
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -107,7 +152,8 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task SendChatActionAsync(ChatAction chatAction, CancellationToken cancellationToken = default)
         {
-            return Client.SendChatActionAsync(ChatId, chatAction, cancellationToken);
+            var request = new SendChatActionRequest(ChatId, chatAction);
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -119,7 +165,8 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task SendChatActionAsync(ChatId chatId, ChatAction chatAction, CancellationToken cancellationToken = default)
         {
-            return Client.SendChatActionAsync(chatId, chatAction, cancellationToken);
+            var request = new SendChatActionRequest(chatId, chatAction);
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -137,7 +184,14 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task<Message> SendContactAsync(string phoneNumber, string firstName, string lastName = null, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, string vCard = null)
         {
-            return Client.SendContactAsync(ChatId, phoneNumber, firstName, lastName, disableNotification, replyToMessageId, replyMarkup, cancellationToken, vCard);
+            var request = new SendContactRequest(ChatId, phoneNumber, firstName);
+            request.LastName = lastName;
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+            request.Vcard = vCard;
+
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -155,7 +209,14 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task<Message> SendContactAsync(ChatId chatId, string phoneNumber, string firstName, string lastName = null, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, string vCard = null)
         {
-            return Client.SendContactAsync(chatId, phoneNumber, firstName, lastName, disableNotification, replyToMessageId, replyMarkup, cancellationToken, vCard);
+            var request = new SendContactRequest(chatId, phoneNumber, firstName);
+            request.LastName = lastName;
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+            request.Vcard = vCard;
+
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -170,7 +231,13 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task<Message> SendDiceAsync(bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, Emoji? emoji = null)
         {
-            return Client.SendDiceAsync(ChatId, disableNotification, replyToMessageId, replyMarkup, cancellationToken, emoji);
+            var request = new SendDiceRequest(ChatId);
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+            request.Emoji = emoji;
+
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -185,7 +252,13 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task<Message> SendDiceAsync(ChatId chatId, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, Emoji? emoji = null)
         {
-            return Client.SendDiceAsync(chatId, disableNotification, replyToMessageId, replyMarkup, cancellationToken, emoji);
+            var request = new SendDiceRequest(chatId);
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+            request.Emoji = emoji;
+
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -201,9 +274,17 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken"></param>
         /// <param name="thumb"></param>
         /// <returns></returns>
-        public Task<Message> SendDocumentAsync(InputOnlineFile document, string caption = null, ParseMode parseMode = ParseMode.Default, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputMedia thumb = null)
+        public Task<Message> SendDocumentAsync(InputFile document, string caption = null, ParseMode parseMode = ParseMode.Markdown, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputFile thumb = null)
         {
-            return Client.SendDocumentAsync(ChatId, document, caption, parseMode, disableNotification, replyToMessageId, replyMarkup, cancellationToken, thumb);
+            var request = new SendDocumentRequest(ChatId, document);
+            request.Caption = caption;
+            request.ParseMode = parseMode;
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+            request.Thumbnail = thumb;
+
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -219,9 +300,17 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken"></param>
         /// <param name="thumb"></param>
         /// <returns></returns>
-        public Task<Message> SendDocumentAsync(ChatId chatId, InputOnlineFile document, string caption = null, ParseMode parseMode = ParseMode.Default, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputMedia thumb = null)
+        public Task<Message> SendDocumentAsync(ChatId chatId, InputFile document, string caption = null, ParseMode parseMode = ParseMode.Markdown, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputFile thumb = null)
         {
-            return Client.SendDocumentAsync(chatId, document, caption, parseMode, disableNotification, replyToMessageId, replyMarkup, cancellationToken, thumb);
+            var request = new SendDocumentRequest(chatId, document);
+            request.Caption = caption;
+            request.ParseMode = parseMode;
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+            request.Thumbnail = thumb;
+
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -236,7 +325,12 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task<Message> SendGameAsync(string gameShortName, bool disableNotification = false, int replyToMessageId = 0, InlineKeyboardMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
-            return Client.SendGameAsync(ChatId, gameShortName, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
+            var request = new SendGameRequest(ChatId, gameShortName);
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -251,281 +345,13 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task<Message> SendGameAsync(long chatId, string gameShortName, bool disableNotification = false, int replyToMessageId = 0, InlineKeyboardMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
-            return Client.SendGameAsync(chatId, gameShortName, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
-        }
+            var request = new SendGameRequest(chatId, gameShortName);
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="title"></param>
-        /// <param name="description"></param>
-        /// <param name="payload"></param>
-        /// <param name="providerToken"></param>
-        /// <param name="startParameter"></param>
-        /// <param name="currency"></param>
-        /// <param name="prices"></param>
-        /// <param name="providerData"></param>
-        /// <param name="photoUrl"></param>
-        /// <param name="photoSize"></param>
-        /// <param name="photoWidth"></param>
-        /// <param name="photoHeight"></param>
-        /// <param name="needName"></param>
-        /// <param name="needPhoneNumber"></param>
-        /// <param name="needEmail"></param>
-        /// <param name="needShippingAddress"></param>
-        /// <param name="isFlexible"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <param name="sendPhoneNumberToProvider"></param>
-        /// <param name="sendEmailToProvider"></param>
-        /// <returns></returns>
-        public Task<Message> SendInvoiceAsync(string title, string description, string payload, string providerToken, string startParameter, string currency, IEnumerable<LabeledPrice> prices, string providerData = null, string photoUrl = null, int photoSize = 0, int photoWidth = 0, int photoHeight = 0, bool needName = false, bool needPhoneNumber = false, bool needEmail = false, bool needShippingAddress = false, bool isFlexible = false, bool disableNotification = false, int replyToMessageId = 0, InlineKeyboardMarkup replyMarkup = null, CancellationToken cancellationToken = default, bool sendPhoneNumberToProvider = false, bool sendEmailToProvider = false)
-        {
-            return Client.SendInvoiceAsync((int)ChatId, title, description, payload, providerToken, startParameter, currency, prices, providerData, photoUrl, photoSize, photoWidth, photoHeight, needName, needPhoneNumber, needEmail, needShippingAddress, isFlexible, disableNotification, replyToMessageId, replyMarkup, cancellationToken, sendPhoneNumberToProvider, sendEmailToProvider);
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="title"></param>
-        /// <param name="description"></param>
-        /// <param name="payload"></param>
-        /// <param name="providerToken"></param>
-        /// <param name="startParameter"></param>
-        /// <param name="currency"></param>
-        /// <param name="prices"></param>
-        /// <param name="providerData"></param>
-        /// <param name="photoUrl"></param>
-        /// <param name="photoSize"></param>
-        /// <param name="photoWidth"></param>
-        /// <param name="photoHeight"></param>
-        /// <param name="needName"></param>
-        /// <param name="needPhoneNumber"></param>
-        /// <param name="needEmail"></param>
-        /// <param name="needShippingAddress"></param>
-        /// <param name="isFlexible"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <param name="sendPhoneNumberToProvider"></param>
-        /// <param name="sendEmailToProvider"></param>
-        /// <returns></returns>
-        public Task<Message> SendInvoiceAsync(int chatId, string title, string description, string payload, string providerToken, string startParameter, string currency, IEnumerable<LabeledPrice> prices, string providerData = null, string photoUrl = null, int photoSize = 0, int photoWidth = 0, int photoHeight = 0, bool needName = false, bool needPhoneNumber = false, bool needEmail = false, bool needShippingAddress = false, bool isFlexible = false, bool disableNotification = false, int replyToMessageId = 0, InlineKeyboardMarkup replyMarkup = null, CancellationToken cancellationToken = default, bool sendPhoneNumberToProvider = false, bool sendEmailToProvider = false)
-        {
-            return Client.SendInvoiceAsync(chatId, title, description, payload, providerToken, startParameter, currency, prices, providerData, photoUrl, photoSize, photoWidth, photoHeight, needName, needPhoneNumber, needEmail, needShippingAddress, isFlexible, disableNotification, replyToMessageId, replyMarkup, cancellationToken, sendPhoneNumberToProvider, sendEmailToProvider);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="latitude"></param>
-        /// <param name="longitude"></param>
-        /// <param name="livePeriod"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task<Message> SendLocationAsync(float latitude, float longitude, int livePeriod = 0, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
-        {
-            return Client.SendLocationAsync(ChatId, latitude, longitude, livePeriod, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="latitude"></param>
-        /// <param name="longitude"></param>
-        /// <param name="livePeriod"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task<Message> SendLocationAsync(ChatId chatId, float latitude, float longitude, int livePeriod = 0, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
-        {
-            return Client.SendLocationAsync(chatId, latitude, longitude, livePeriod, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="inputMedia"></param>
-        /// <param name="chatId"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task<Message[]> SendMediaGroupAsync(IEnumerable<IAlbumInputMedia> inputMedia, bool disableNotification = false, int replyToMessageId = 0, CancellationToken cancellationToken = default)
-        {
-            return Client.SendMediaGroupAsync(inputMedia, ChatId, disableNotification, replyToMessageId, cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="inputMedia"></param>
-        /// <param name="chatId"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task<Message[]> SendMediaGroupAsync(IEnumerable<IAlbumInputMedia> inputMedia, ChatId chatId, bool disableNotification = false, int replyToMessageId = 0, CancellationToken cancellationToken = default)
-        {
-            return Client.SendMediaGroupAsync(inputMedia, chatId, disableNotification, replyToMessageId, cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="media"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        [Obsolete("Use the other overload of this method instead. Only photo and video input types are allowed.")]
-        public Task<Message[]> SendMediaGroupAsync(IEnumerable<InputMediaBase> media, bool disableNotification = false, int replyToMessageId = 0, CancellationToken cancellationToken = default)
-        {
-            return Client.SendMediaGroupAsync(ChatId, media, disableNotification, replyToMessageId, cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="media"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        [Obsolete("Use the other overload of this method instead. Only photo and video input types are allowed.")]
-        public Task<Message[]> SendMediaGroupAsync(ChatId chatId, IEnumerable<InputMediaBase> media, bool disableNotification = false, int replyToMessageId = 0, CancellationToken cancellationToken = default)
-        {
-            return Client.SendMediaGroupAsync(chatId, media, disableNotification, replyToMessageId, cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="photo"></param>
-        /// <param name="caption"></param>
-        /// <param name="parseMode"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task<Message> SendPhotoAsync(InputOnlineFile photo, string caption = null, ParseMode parseMode = ParseMode.Default, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
-        {
-            return Client.SendPhotoAsync(ChatId, photo, caption, parseMode, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="photo"></param>
-        /// <param name="caption"></param>
-        /// <param name="parseMode"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task<Message> SendPhotoAsync(ChatId chatId, InputOnlineFile photo, string caption = null, ParseMode parseMode = ParseMode.Default, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
-        {
-            return Client.SendPhotoAsync(chatId, photo, caption, parseMode, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="question"></param>
-        /// <param name="options"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <param name="isAnonymous"></param>
-        /// <param name="type"></param>
-        /// <param name="allowsMultipleAnswers"></param>
-        /// <param name="correctOptionId"></param>
-        /// <param name="isClosed"></param>
-        /// <param name="explanation"></param>
-        /// <param name="explanationParseMode"></param>
-        /// <param name="openPeriod"></param>
-        /// <param name="closeDate"></param>
-        /// <returns></returns>
-        public Task<Message> SendPollAsync(string question, IEnumerable<string> options, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, bool? isAnonymous = null, PollType? type = null, bool? allowsMultipleAnswers = null, int? correctOptionId = null, bool? isClosed = null, string explanation = null, ParseMode explanationParseMode = ParseMode.Default, int? openPeriod = null, DateTime? closeDate = null)
-        {
-            return Client.SendPollAsync(ChatId, question, options, disableNotification, replyToMessageId, replyMarkup, cancellationToken, isAnonymous, type, allowsMultipleAnswers, correctOptionId, isClosed, explanation, explanationParseMode, openPeriod, closeDate);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="question"></param>
-        /// <param name="options"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <param name="isAnonymous"></param>
-        /// <param name="type"></param>
-        /// <param name="allowsMultipleAnswers"></param>
-        /// <param name="correctOptionId"></param>
-        /// <param name="isClosed"></param>
-        /// <param name="explanation"></param>
-        /// <param name="explanationParseMode"></param>
-        /// <param name="openPeriod"></param>
-        /// <param name="closeDate"></param>
-        /// <returns></returns>
-        public Task<Message> SendPollAsync(ChatId chatId, string question, IEnumerable<string> options, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, bool? isAnonymous = null, PollType? type = null, bool? allowsMultipleAnswers = null, int? correctOptionId = null, bool? isClosed = null, string explanation = null, ParseMode explanationParseMode = ParseMode.Default, int? openPeriod = null, DateTime? closeDate = null)
-        {
-            return Client.SendPollAsync(chatId, question, options, disableNotification, replyToMessageId, replyMarkup, cancellationToken, isAnonymous, type, allowsMultipleAnswers, correctOptionId, isClosed, explanation, explanationParseMode, openPeriod, closeDate);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="sticker"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task<Message> SendStickerAsync(InputOnlineFile sticker, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
-        {
-            return Client.SendStickerAsync(ChatId, sticker, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="sticker"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task<Message> SendStickerAsync(ChatId chatId, InputOnlineFile sticker, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
-        {
-            return Client.SendStickerAsync(chatId, sticker, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -538,7 +364,7 @@ namespace SB.TelegramBot
         /// <param name="entities"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendTextMessageV2Async(string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
+        public Task<Message> SendTextMessageV2Async(string text, ParseMode parseMode = ParseMode.Markdown, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
         {
             return Client.SendTextMessageV2Async(ChatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, entities, cancellationToken);
         }
@@ -554,9 +380,16 @@ namespace SB.TelegramBot
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendTextMessageAsync(string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public Task<Message> SendTextMessageAsync(string text, ParseMode parseMode = ParseMode.Markdown, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
-            return Client.SendTextMessageAsync(ChatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
+            var request = new SendMessageRequest(ChatId, text);
+            request.ParseMode = parseMode;
+            request.DisableWebPagePreview = disableWebPagePreview;
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -571,9 +404,16 @@ namespace SB.TelegramBot
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendTextMessageAsync(ChatId chatId, string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public Task<Message> SendTextMessageAsync(ChatId chatId, string text, ParseMode parseMode = ParseMode.Markdown, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
-            return Client.SendTextMessageAsync(chatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
+            var request = new SendMessageRequest(chatId, text);
+            request.ParseMode = parseMode;
+            request.DisableWebPagePreview = disableWebPagePreview;
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -589,165 +429,9 @@ namespace SB.TelegramBot
         /// <param name="entities"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendTextMessageV2Async(ChatId chatId, string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
+        public Task<Message> SendTextMessageV2Async(ChatId chatId, string text, ParseMode parseMode = ParseMode.Markdown, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
         {
             return Client.SendTextMessageV2Async(chatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, entities, cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="latitude"></param>
-        /// <param name="longitude"></param>
-        /// <param name="title"></param>
-        /// <param name="address"></param>
-        /// <param name="foursquareId"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <param name="foursquareType"></param>
-        /// <returns></returns>
-        public Task<Message> SendVenueAsync(float latitude, float longitude, string title, string address, string foursquareId = null, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, string foursquareType = null)
-        {
-            return Client.SendVenueAsync(ChatId, latitude, longitude, title, address, foursquareId, disableNotification, replyToMessageId, replyMarkup, cancellationToken, foursquareType);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="latitude"></param>
-        /// <param name="longitude"></param>
-        /// <param name="title"></param>
-        /// <param name="address"></param>
-        /// <param name="foursquareId"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <param name="foursquareType"></param>
-        /// <returns></returns>
-        public Task<Message> SendVenueAsync(ChatId chatId, float latitude, float longitude, string title, string address, string foursquareId = null, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, string foursquareType = null)
-        {
-            return Client.SendVenueAsync(chatId, latitude, longitude, title, address, foursquareId, disableNotification, replyToMessageId, replyMarkup, cancellationToken, foursquareType);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="video"></param>
-        /// <param name="duration"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="caption"></param>
-        /// <param name="parseMode"></param>
-        /// <param name="supportsStreaming"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <param name="thumb"></param>
-        /// <returns></returns>
-        public Task<Message> SendVideoAsync(InputOnlineFile video, int duration = 0, int width = 0, int height = 0, string caption = null, ParseMode parseMode = ParseMode.Default, bool supportsStreaming = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputMedia thumb = null)
-        {
-            return Client.SendVideoAsync(ChatId, video, duration, width, height, caption, parseMode, supportsStreaming, disableNotification, replyToMessageId, replyMarkup, cancellationToken, thumb);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="video"></param>
-        /// <param name="duration"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="caption"></param>
-        /// <param name="parseMode"></param>
-        /// <param name="supportsStreaming"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <param name="thumb"></param>
-        /// <returns></returns>
-        public Task<Message> SendVideoAsync(ChatId chatId, InputOnlineFile video, int duration = 0, int width = 0, int height = 0, string caption = null, ParseMode parseMode = ParseMode.Default, bool supportsStreaming = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputMedia thumb = null)
-        {
-            return Client.SendVideoAsync(chatId, video, duration, width, height, caption, parseMode, supportsStreaming, disableNotification, replyToMessageId, replyMarkup, cancellationToken, thumb);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="videoNote"></param>
-        /// <param name="duration"></param>
-        /// <param name="length"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <param name="thumb"></param>
-        /// <returns></returns>
-        public Task<Message> SendVideoNoteAsync(InputTelegramFile videoNote, int duration = 0, int length = 0, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputMedia thumb = null)
-        {
-            return Client.SendVideoNoteAsync(ChatId, videoNote, duration, length, disableNotification, replyToMessageId, replyMarkup, cancellationToken, thumb);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="videoNote"></param>
-        /// <param name="duration"></param>
-        /// <param name="length"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <param name="thumb"></param>
-        /// <returns></returns>
-        public Task<Message> SendVideoNoteAsync(ChatId chatId, InputTelegramFile videoNote, int duration = 0, int length = 0, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputMedia thumb = null)
-        {
-            return Client.SendVideoNoteAsync(chatId, videoNote, duration, length, disableNotification, replyToMessageId, replyMarkup, cancellationToken, thumb);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="voice"></param>
-        /// <param name="caption"></param>
-        /// <param name="parseMode"></param>
-        /// <param name="duration"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task<Message> SendVoiceAsync(InputOnlineFile voice, string caption = null, ParseMode parseMode = ParseMode.Default, int duration = 0, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
-        {
-            return Client.SendVoiceAsync(ChatId, voice, caption, parseMode, duration, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chatId"></param>
-        /// <param name="voice"></param>
-        /// <param name="caption"></param>
-        /// <param name="parseMode"></param>
-        /// <param name="duration"></param>
-        /// <param name="disableNotification"></param>
-        /// <param name="replyToMessageId"></param>
-        /// <param name="replyMarkup"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public Task<Message> SendVoiceAsync(ChatId chatId, InputOnlineFile voice, string caption = null, ParseMode parseMode = ParseMode.Default, int duration = 0, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
-        {
-            return Client.SendVoiceAsync(chatId, voice, caption, parseMode, duration, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
         }
     }
 }

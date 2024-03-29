@@ -1,9 +1,11 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotClients;
 using SB.TelegramBot.Logics.TelegramBotMessages;
 using System.Threading;
+using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SB.TelegramBot.Services
 {
@@ -59,7 +61,8 @@ namespace SB.TelegramBot.Services
         public virtual void EditMessage(string text, InlineKeyboardMarkup replyMarkup = null)
         {
             var client = TelegramBotClientManager.Client;
-            client.EditMessageTextAsync(ChatId, MessageId, text, replyMarkup: replyMarkup);
+            var request = new EditMessageTextRequest(ChatId, MessageId, text);
+            client.MakeRequestAsync(request);
         }
 
         /// <summary>
@@ -68,7 +71,8 @@ namespace SB.TelegramBot.Services
         public virtual void RemoveMessage()
         {
             var client = TelegramBotClientManager.Client;
-            client.DeleteMessageAsync(ChatId, MessageId);
+            var request = new DeleteMessageRequest(ChatId, MessageId);
+            client.MakeRequestAsync(request);
         }
 
         /// <summary>
@@ -81,10 +85,17 @@ namespace SB.TelegramBot.Services
         /// <param name="replyToMessageId"></param>
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
-        public virtual void SendMessage(string text, ParseMode parseMode = ParseMode.Default, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public virtual void SendMessage(string text, ParseMode parseMode = ParseMode.Markdown, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
-            var client = TelegramBotClientManager.Client;
-            client.SendTextMessageAsync(Message.Chat.Id, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, cancellationToken);
+            var client = TelegramBotClientManager.Client; 
+            var request = new SendMessageRequest(ChatId, text);
+            request.ParseMode = parseMode;
+            request.DisableWebPagePreview = disableWebPagePreview;
+            request.DisableNotification = disableNotification;
+            request.ReplyToMessageId = replyToMessageId;
+            request.ReplyMarkup = replyMarkup;
+
+            client.MakeRequestAsync(request, cancellationToken);
         }
     }
 }

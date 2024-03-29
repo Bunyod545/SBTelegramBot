@@ -14,7 +14,7 @@ namespace SB.TeleramBot.Example
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            TelegramBotApplication.Run("1777270229:AAEiHcIxWMxymgffTx57TxecEbBvalkNfL4");
+            TelegramBotApplication.Run("7117747622:AAEK6rtTtZFpM9Ck21B61Mm9dCbd-5-p1Yg");
 
             Console.WriteLine("Telegram bot started!");
             Console.WriteLine("Press enter to close!");

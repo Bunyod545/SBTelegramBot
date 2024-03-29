@@ -1,8 +1,14 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Services;
 using System;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using Telegram.Bot.Polling;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace SB.TelegramBot.Logics.TelegramBotClients
 {
@@ -45,56 +51,64 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
             var name = Client.GetMeAsync().Result.Username;
             Console.WriteLine($"Telegram bot name: {name}");
 
-            Client.OnMessage += Client_OnMessage;
-            Client.OnCallbackQuery += Client_OnCallbackQuery;
-            Client.OnInlineQuery += Client_OnInlineQuery;
-            Client.OnMessageEdited += Client_OnMessageEdited;
 
-            Client.StartReceiving();
+            var cts = new CancellationTokenSource();
+            var receiverOptions = new ReceiverOptions()
+            {
+                AllowedUpdates = Array.Empty<UpdateType>()
+            };
+
+            Client.StartReceiving(
+                updateHandler: HandleUpdateAsync,
+                pollingErrorHandler: HandlePollingErrorAsync,
+                receiverOptions: receiverOptions,
+                cancellationToken: cts.Token
+            );
+        }
+
+        private Task HandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken token)
+        {
+            if (update.Type == UpdateType.Message)
+            {
+                var messageHandler = ServicesProvider.GetService<ITelegramBotMessageHandler>();
+                messageHandler.Handle(client, update);
+                return Task.CompletedTask;
+            }
+
+            if (update.Type == UpdateType.CallbackQuery)
+            {
+                var callbackQueryHandler = ServicesProvider.GetService<ITelegramBotCallbackQueryHandler>();
+                callbackQueryHandler.Handle(client, update);
+                return Task.CompletedTask;
+            }
+
+            if (update.Type == UpdateType.InlineQuery)
+            {
+                var inlineQueryHandler = ServicesProvider.GetService<ITelegramBotInlineQueryHandler>();
+                inlineQueryHandler.Handle(client, update);
+                return Task.CompletedTask;
+            }
+
+            if (update.Type == UpdateType.EditedMessage)
+            {
+                var messageEditedHandler = ServicesProvider.GetService<ITelegramBotMessageEditedHandler>();
+                messageEditedHandler.Handle(client, update);
+                return Task.CompletedTask;
+            }
+            
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Client_OnMessage(object sender, MessageEventArgs e)
+        /// <param name="client"></param>
+        /// <param name="exception"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        private Task HandlePollingErrorAsync(ITelegramBotClient client, Exception exception, CancellationToken token)
         {
-            var handler = ServicesProvider.GetService<ITelegramBotMessageHandler>();
-            handler.Handle(sender, e);
-        }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Client_OnCallbackQuery(object sender, CallbackQueryEventArgs e)
-        {
-            var handler = ServicesProvider.GetService<ITelegramBotCallbackQueryHandler>();
-            handler.Handle(sender, e);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Client_OnInlineQuery(object sender, InlineQueryEventArgs e)
-        {
-            var handler = ServicesProvider.GetService<ITelegramBotInlineQueryHandler>();
-            handler.Handle(sender, e);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Client_OnMessageEdited(object sender, MessageEventArgs e)
-        {
-            var handler = ServicesProvider.GetService<ITelegramBotMessageEditedHandler>();
-            handler.Handle(sender, e);
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -102,7 +116,6 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// </summary>
         public void Dispose()
         {
-            Client.StopReceiving();
             Client = null;
         }
     }

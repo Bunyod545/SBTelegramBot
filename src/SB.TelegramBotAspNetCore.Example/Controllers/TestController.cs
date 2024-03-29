@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SB.TelegramBot.Logics.TelegramBotClients;
 using System.Threading.Tasks;
+using Telegram.Bot;
 
 namespace SB.TelegramBotAspNetCore.Example.Controllers
 {

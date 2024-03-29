@@ -1,5 +1,7 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Services;
+using System.Threading.Tasks;
+using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 
 namespace SB.TelegramBot
@@ -48,6 +50,21 @@ namespace SB.TelegramBot
         protected T GetData<T>() where T : class, new()
         {
             return CallbackQueryService.GetData<T>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public Task<bool> SendAnswerText(string text, bool? showAlert = default, string url = default)
+        {
+            var request = new AnswerCallbackQueryRequest(CallbackQueryId);
+            request.Text = text;
+            request.ShowAlert = showAlert;
+            request.Url = url;
+
+            return Client.MakeRequestAsync(request);
         }
     }
 }

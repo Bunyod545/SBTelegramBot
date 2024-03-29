@@ -1,4 +1,5 @@
 ﻿using SB.TelegramBot;
+using SB.TelegramBot.Example.Commands;
 using SB.TelegramBot.Example.Services.Users;
 
 namespace SB.TeleramBot.Example.Commands
@@ -30,8 +31,8 @@ namespace SB.TeleramBot.Example.Commands
         {
             var message = "test";
             var buttons = CreateInlineKeyboardButtonBuilder();
-            buttons.AddRowButton().WithText("test1").WithData(new { name = "test" });
-            buttons.AddRowButton().WithText("test2").WithData(new { name = "test"} );
+            buttons.AddRowButton().WithCommand<CallbackTestCommand>().WithText("test1").WithData(new { name = "test" });
+            buttons.AddRowButton().WithCommand<CallbackTestCommand>().WithText("test2").WithData(new { name = "test"} );
 
             SendTextMessageAsync(message, replyMarkup: buttons.Build());
         }
