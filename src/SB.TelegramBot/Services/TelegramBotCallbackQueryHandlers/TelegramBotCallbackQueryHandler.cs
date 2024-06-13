@@ -3,6 +3,7 @@ using SB.TelegramBot.Logics.TelegramBotCallbackQueries;
 using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Logics.TelegramBotMessages;
+using System;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 
@@ -72,6 +73,11 @@ namespace SB.TelegramBot.Services
 
             e.CallbackQuery.Data = RemoveCommandId(e.CallbackQuery.Data);
             TelegramBotCallbackQueryManager.CallbackQuery.Value = e.CallbackQuery;
+
+            var currentCommand = TelegramBotServicesContainer.GetService<ITelegramBotCurrentCommand>();
+            currentCommand?.SetCurrentCommand(command);
+
+            command.Initialize(TelegramBotServicesContainer);
             command.Execute();
         }
 

@@ -1,11 +1,9 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Services;
 using System;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot;
-using Telegram.Bot.Args;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -51,7 +49,6 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
             var name = Client.GetMeAsync().Result.Username;
             Console.WriteLine($"Telegram bot name: {name}");
 
-
             var cts = new CancellationTokenSource();
             var receiverOptions = new ReceiverOptions()
             {
@@ -66,6 +63,13 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
             );
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="update"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         private Task HandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken token)
         {
             if (update.Type == UpdateType.Message)
@@ -95,7 +99,7 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
                 messageEditedHandler.Handle(client, update);
                 return Task.CompletedTask;
             }
-            
+
             return Task.CompletedTask;
         }
 

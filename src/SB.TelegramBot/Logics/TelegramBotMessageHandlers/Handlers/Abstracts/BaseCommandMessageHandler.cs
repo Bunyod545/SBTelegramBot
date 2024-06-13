@@ -1,5 +1,6 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
+using SB.TelegramBot.Services;
 using System;
 
 namespace SB.TelegramBot
@@ -60,6 +61,10 @@ namespace SB.TelegramBot
             messageContext.IsCanExecuteNextHandler = false;
             messageContext.HandlerCommand = command;
 
+            var currentCommand = ServicesProvider.GetService<ITelegramBotCurrentCommand>();
+            currentCommand?.SetCurrentCommand(command);
+            
+            command?.Initialize(ServicesProvider);
             command?.Execute();
         }
 

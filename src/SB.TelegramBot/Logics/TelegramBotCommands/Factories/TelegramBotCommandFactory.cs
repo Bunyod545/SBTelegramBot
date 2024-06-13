@@ -137,7 +137,6 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
 
             var activator = TelegramBotServicesProvider.GetService<ITelegramBotCommandActivator>();
             var command = activator.ActivateCommand(info.ClrType);
-            command.Initialize(TelegramBotServicesProvider);
 
             return command;
         }

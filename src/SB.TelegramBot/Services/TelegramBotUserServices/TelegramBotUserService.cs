@@ -1,6 +1,7 @@
 ﻿using SB.TelegramBot.Databases;
 using SB.TelegramBot.Databases.Tables;
 using SB.TelegramBot.Helpers;
+using SB.TelegramBot.Repositories.UsersRepositories;
 
 namespace SB.TelegramBot.Services
 {
@@ -17,10 +18,16 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
+        protected readonly ITelegramBotUserRepository UserRepository;
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="messageService"></param>
-        public TelegramBotUserService(ITelegramBotMessageService messageService)
+        public TelegramBotUserService(ITelegramBotMessageService messageService, ITelegramBotUserRepository userRepository)
         {
             MessageService = messageService;
+            UserRepository = userRepository;
         }
 
         /// <summary>
@@ -29,12 +36,11 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public virtual TelegramBotUserInfo RegisterUser()
         {
-            var user = new TelegramBotDbUser();
+            var user = new TelegramBotUserInfo();
             user.ChatId = MessageService.Message.Chat.Id;
             user.Language = "uz-Latn-UZ";
 
-            TelegramBotDb.Users.Insert(user);
-            return new TelegramBotUserInfo(user.ChatId);
+            return UserRepository.Insert(user);
         }
 
         /// <summary>
@@ -53,19 +59,7 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public virtual TelegramBotUserInfo GetUserInfo(long chatId)
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
-            if (user == null)
-                return null;
-
-            var userInfo = new TelegramBotUserInfo();
-            userInfo.ChatId = chatId;
-            userInfo.Language = user.Language;
-            userInfo.CurrentCommandClrName = user.CurrentCommand;
-            userInfo.BackCommandClrName = user.BackCommand;
-            userInfo.BackCommandHandlerClrName = user.BackCommandHandler;
-            userInfo.PriorityCommands = user.PriorityCommands;
-
-            return userInfo;
+            return UserRepository.GetUserByChatId(chatId);
         }
 
         /// <summary>
@@ -83,12 +77,12 @@ namespace SB.TelegramBot.Services
         /// <param name="language"></param>
         public virtual void SetUserLanguage(long chatId, string language)
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return;
 
             user.Language = language;
-            TelegramBotDb.Users.Update(user);
+            UserRepository.Update(user);
             TelegramBotLanguageHelper.InitializeCulture(user.Language);
         }
 
@@ -108,7 +102,7 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public virtual string GetUserRole(long chatId)
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             return user?.UserRole;
         }
 
@@ -129,7 +123,7 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public virtual bool IsInRole(long chatId, string role)
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             return user?.UserRole == role;
         }
 
@@ -149,12 +143,12 @@ namespace SB.TelegramBot.Services
         /// <param name="role"></param>
         public virtual void SetUserRole(long chatId, string role)
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return;
 
             user.UserRole = role;
-            TelegramBotDb.Users.Update(user);
+            UserRepository.Update(user);
         }
     }
 }

@@ -2,6 +2,7 @@
 using SB.TelegramBot.Logics.TelegramBotClients;
 using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotConfigs;
+using SB.TelegramBot.Repositories.UsersRepositories;
 using SB.TelegramBot.Services;
 
 namespace SB.TelegramBot.Logics.TelegramBotDIContainers
@@ -35,7 +36,9 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
             servicesContainer.AddTransient<InlineKeyboardButtonBuilder, InlineKeyboardButtonBuilder>();
             servicesContainer.AddTransient<KeyboardButtonBuilder, KeyboardButtonBuilder>();
 
+            servicesContainer.AddScoped<ITelegramBotCurrentCommand, TelegramBotCurrentCommand>();
             servicesContainer.AddScoped<ITelegramBotUserService, TelegramBotUserService>();
+            servicesContainer.AddScoped<ITelegramBotUserRepository, TelegramBotUserRepository>();
             servicesContainer.AddScoped<ITelegramBotMessageService, TelegramBotMessageService>();
             servicesContainer.AddScoped<ITelegramBotCallbackQueryService, TelegramBotCallbackQueryService>();
             servicesContainer.AddScoped<ITelegramBotCommandActivator, TelegramBotCommandActivator>();

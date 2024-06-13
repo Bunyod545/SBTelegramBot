@@ -1,6 +1,7 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotCommands.Factories.Models;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
+using SB.TelegramBot.Repositories.UsersRepositories;
 
 namespace SB.TelegramBot.Services
 {
@@ -13,6 +14,11 @@ namespace SB.TelegramBot.Services
         /// 
         /// </summary>
         protected readonly ITelegramBotMessageService MessageService;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected readonly ITelegramBotUserRepository UserRepository;
 
         /// <summary>
         /// 
@@ -44,14 +50,18 @@ namespace SB.TelegramBot.Services
         /// </summary>
         /// <param name="command"></param>
         /// <param name="servicesProvider"></param>
-        public TelegramBotCommandService(ITelegramBotCommand command, ITelegramBotServicesProvider servicesProvider)
+        public TelegramBotCommandService(
+            ITelegramBotCurrentCommand currentCommand, 
+            ITelegramBotServicesProvider servicesProvider, 
+            ITelegramBotUserRepository userRepository)
         {
-            Command = command;
+            Command = currentCommand.GetCurrentCommand();
             TelegramBotServicesProvider = servicesProvider;
             TelegramBotCommandFactory = servicesProvider.GetService<ITelegramBotCommandFactory>();
 
-            Info = TelegramBotCommandFactory.GetCommandInfo(command.GetType());
+            Info = TelegramBotCommandFactory.GetCommandInfo(Command.GetType());
             MessageService = TelegramBotServicesProvider.GetService<ITelegramBotMessageService>();
+            UserRepository = userRepository;
         }
 
         /// <summary>

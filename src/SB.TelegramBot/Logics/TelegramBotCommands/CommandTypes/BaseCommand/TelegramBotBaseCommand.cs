@@ -53,7 +53,7 @@ namespace SB.TelegramBot
             Client = ServicesProvider.GetService<ITelegramBotClientManager>().Client;
             UserService = ServicesProvider.GetService<ITelegramBotUserService>();
             MessageService = ServicesProvider.GetService<ITelegramBotMessageService>();
-            CommandService = new TelegramBotCommandService(this, ServicesProvider);
+            CommandService = ServicesProvider.GetService<ITelegramBotCommandService>();
         }
 
         /// <summary>

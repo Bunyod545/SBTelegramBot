@@ -1,7 +1,4 @@
-﻿using SB.TelegramBot.Databases;
-using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
-
-namespace SB.TelegramBot.Services
+﻿namespace SB.TelegramBot.Services
 {
     /// <summary>
     /// 
@@ -24,12 +21,12 @@ namespace SB.TelegramBot.Services
         /// <param name="chatId"></param>
         public virtual void SetBackCommandHandler<TCommand>(long chatId) where TCommand : ITelegramBotCommand
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return;
 
             user.BackCommandHandler = typeof(TCommand).Name;
-            TelegramBotDb.Users.Update(user);
+            UserRepository.Update(user);
         }
 
         /// <summary>
@@ -39,11 +36,7 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public virtual T GetBackCommandHandler<T>() where T : class, ITelegramBotCommand
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == MessageService.Message.Chat.Id);
-            if (user == null)
-                return default(T);
-
-            return TelegramBotCommandFactory.GetCommandByClrName(user.BackCommandHandler) as T;
+            return GetBackCommandHandler<T>(ChatId);
         }
 
         /// <summary>
@@ -54,7 +47,7 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public virtual T GetBackCommandHandler<T>(long chatId) where T : class, ITelegramBotCommand
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId); ;
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return default(T);
 
@@ -83,12 +76,12 @@ namespace SB.TelegramBot.Services
         /// </summary>
         public virtual void ClearBackCommandHandler(long chatId)
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == MessageService.Message.Chat.Id);
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return;
 
             user.BackCommandHandler = null;
-            TelegramBotDb.Users.Update(user);
+            UserRepository.Update(user);
         }
     }
 }

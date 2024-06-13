@@ -76,7 +76,7 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public string GetCurrentCommandDataString(long chatId)
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return null;
 
@@ -121,12 +121,12 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public void SetCurrentCommandDataString(long chatId, string data)
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return;
 
             user.CurrentCommandData = data;
-            TelegramBotDb.Users.Update(user);
+            UserRepository.Update(user);
         }
     }
 }

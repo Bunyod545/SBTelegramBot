@@ -1,5 +1,4 @@
 ﻿using SB.TelegramBot.Databases;
-using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 
 namespace SB.TelegramBot.Services
 {
@@ -24,12 +23,12 @@ namespace SB.TelegramBot.Services
         /// <param name="chatId"></param>
         public virtual void SetBackCommand<TCommand>(long chatId) where TCommand : ITelegramBotCommand
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return;
 
             user.BackCommand = typeof(TCommand).Name;
-            TelegramBotDb.Users.Update(user);
+            UserRepository.Update(user);
         }
 
         /// <summary>
@@ -50,7 +49,7 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public virtual T GetBackCommand<T>(long chatId) where T : class, ITelegramBotCommand
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return default(T);
 
@@ -80,12 +79,12 @@ namespace SB.TelegramBot.Services
         /// <param name="chatId"></param>
         public virtual void ClearBackCommand(long chatId)
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return;
 
             user.BackCommand = null;
-            TelegramBotDb.Users.Update(user);
+            UserRepository.Update(user);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace SB.TelegramBot.Services
         /// <param name="chatId"></param>
         public virtual void AddPriorityCommand<TCommand>(long chatId) where TCommand : ITelegramBotCommand
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return;
 
@@ -37,7 +37,7 @@ namespace SB.TelegramBot.Services
                 user.PriorityCommands = new List<long>();
 
             user.PriorityCommands.Add(command.CommandId);
-            TelegramBotDb.Users.Update(user);
+            UserRepository.Update(user);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace SB.TelegramBot.Services
         /// </summary>
         public virtual void RemovePriorityCommand<TCommand>(long chatId) where TCommand : ITelegramBotCommand
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return;
             
@@ -65,7 +65,7 @@ namespace SB.TelegramBot.Services
                 return;
 
             user.PriorityCommands.RemoveAll(r => r == command.CommandId);
-            TelegramBotDb.Users.Update(user);
+            UserRepository.Update(user);
         }
 
         /// <summary>
@@ -82,12 +82,12 @@ namespace SB.TelegramBot.Services
         /// <param name="chatId"></param>
         public virtual void ClearPriorityCommands(long chatId)
         {
-            var user = TelegramBotDb.Users.FindOne(f => f.ChatId == chatId);
+            var user = UserRepository.GetUserByChatId(chatId);
             if (user == null)
                 return;
 
             user.PriorityCommands = null;
-            TelegramBotDb.Users.Update(user);
+            UserRepository.Update(user);
         }
     }
 }
