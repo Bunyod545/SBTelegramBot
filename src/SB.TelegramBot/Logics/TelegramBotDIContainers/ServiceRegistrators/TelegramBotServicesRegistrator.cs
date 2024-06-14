@@ -26,6 +26,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
             servicesContainer.AddSingleton<ITelegramBotCommandFactory, TelegramBotCommandFactory>();
             servicesContainer.AddSingleton<ITelegramBotCommandFactoryInitializer, TelegramBotCommandFactoryInitializer>();
 
+            servicesContainer.AddSingleton<ITelegramBotErrorHandler, TelegramBotErrorHandler>();
             servicesContainer.AddSingleton<ITelegramBotCallbackQueryHandler, TelegramBotCallbackQueryHandler>();
             servicesContainer.AddSingleton<ITelegramBotMessageEditedHandler, TelegramBotMessageEditedHandler>();
             servicesContainer.AddSingleton<ITelegramBotInlineQueryHandler, TelegramBotInlineQueryHandler>();
