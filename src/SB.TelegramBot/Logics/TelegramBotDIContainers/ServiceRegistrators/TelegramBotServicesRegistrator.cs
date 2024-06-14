@@ -36,6 +36,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
             servicesContainer.AddTransient<InlineKeyboardButtonBuilder, InlineKeyboardButtonBuilder>();
             servicesContainer.AddTransient<KeyboardButtonBuilder, KeyboardButtonBuilder>();
 
+            servicesContainer.AddScoped<ITelegramBotCommandService, TelegramBotCommandService>();
             servicesContainer.AddScoped<ITelegramBotCurrentCommand, TelegramBotCurrentCommand>();
             servicesContainer.AddScoped<ITelegramBotUserService, TelegramBotUserService>();
             servicesContainer.AddScoped<ITelegramBotUserRepository, TelegramBotUserRepository>();
