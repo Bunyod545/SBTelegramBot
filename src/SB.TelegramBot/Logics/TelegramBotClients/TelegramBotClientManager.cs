@@ -33,10 +33,16 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// <summary>
         /// 
         /// </summary>
+        protected ITelegramBotErrorHandler ErrorHandler { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="servicesProvider"></param>
-        public TelegramBotClientManager(ITelegramBotServicesProvider servicesProvider)
+        public TelegramBotClientManager(ITelegramBotServicesProvider servicesProvider, ITelegramBotErrorHandler errorHandler)
         {
             ServicesProvider = servicesProvider;
+            ErrorHandler = errorHandler;
         }
 
         /// <summary>
@@ -71,6 +77,26 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// <param name="token"></param>
         /// <returns></returns>
         private Task HandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken token)
+        {
+            try
+            {
+                return TryHandleUpdateAsync(client, update, token); 
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.Handle(ex);
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="update"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        private Task TryHandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken token)
         {
             if (update.Type == UpdateType.Message)
             {
@@ -112,6 +138,9 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// <returns></returns>
         private Task HandlePollingErrorAsync(ITelegramBotClient client, Exception exception, CancellationToken token)
         {
+            if (exception != null)
+                ErrorHandler.Handle(exception);
+
             return Task.CompletedTask;
         }
 
