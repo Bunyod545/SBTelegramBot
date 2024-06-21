@@ -121,6 +121,7 @@ namespace SB.TelegramBot.Repositories.UsersRepositories
             user.BackCommand = userInfo.BackCommand;
             user.BackCommandHandler = userInfo.BackCommandHandler;
             user.UserRole = userInfo.UserRole;
+            user.CurrentCommandData = userInfo.CurrentCommandData;
         }
 
         /// <summary>
