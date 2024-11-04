@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SB.TelegramBot.AspNetCore",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SB.TelegramBotAspNetCore.Example", "src\SB.TelegramBotAspNetCore.Example\SB.TelegramBotAspNetCore.Example.csproj", "{A9175100-0898-4ACF-86DA-0AED8343347D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SB.TelegramBot.Dotnet.Example", "src\SB.TelegramBot.Dotnet.Example\SB.TelegramBot.Dotnet.Example.csproj", "{531E8151-D437-485B-9069-32FC6D873D13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{A9175100-0898-4ACF-86DA-0AED8343347D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9175100-0898-4ACF-86DA-0AED8343347D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9175100-0898-4ACF-86DA-0AED8343347D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{531E8151-D437-485B-9069-32FC6D873D13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{531E8151-D437-485B-9069-32FC6D873D13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{531E8151-D437-485B-9069-32FC6D873D13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{531E8151-D437-485B-9069-32FC6D873D13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{22183E4B-E838-4AA3-9026-89E57BC5D973} = {4E08F340-CE88-457D-898D-49D38907D4CE}
 		{964AC080-59CC-48AC-9DE7-6254A8EFAA76} = {6B45FD98-2B33-4D3F-AB7B-75C61D048AA9}
 		{A9175100-0898-4ACF-86DA-0AED8343347D} = {6B45FD98-2B33-4D3F-AB7B-75C61D048AA9}
+		{531E8151-D437-485B-9069-32FC6D873D13} = {6B45FD98-2B33-4D3F-AB7B-75C61D048AA9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8D1136AC-01DF-4F6A-901D-0EB9E9F9AB66}
