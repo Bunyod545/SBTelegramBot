@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using Telegram.Bot;
 
 namespace SB.TelegramBot.Logics.TelegramBotClients
@@ -12,6 +13,11 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// 
         /// </summary>
         string Token { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        HttpClient HttpClient { get; set; }
 
         /// <summary>
         /// 

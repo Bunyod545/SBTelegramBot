@@ -1,6 +1,7 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Services;
 using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -19,6 +20,11 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// 
         /// </summary>
         public string Token { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public HttpClient HttpClient { get; set; }
 
         /// <summary>
         /// 
@@ -50,7 +56,7 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// </summary>
         public void Initialize()
         {
-            Client = new TelegramBotClient(Token);
+            Client = new TelegramBotClient(Token, HttpClient);
 
             var name = Client.GetMeAsync().Result.Username;
             Console.WriteLine($"Telegram bot name: {name}");

@@ -1,5 +1,6 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotConfigs;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
+using System.Net.Http;
 
 namespace SB.TelegramBot
 {
@@ -12,6 +13,11 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         public string Token { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public HttpClient HttpClient { get; set; }
 
         /// <summary>
         /// 

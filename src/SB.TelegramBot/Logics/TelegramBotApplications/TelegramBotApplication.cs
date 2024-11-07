@@ -3,6 +3,7 @@ using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotConfigs;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using System;
+using System.Net.Http;
 
 namespace SB.TelegramBot
 {
@@ -70,6 +71,7 @@ namespace SB.TelegramBot
 
             var clientManager = _servicesProvider.GetService<ITelegramBotClientManager>();
             clientManager.Token = AppConfig.Token;
+            clientManager.HttpClient = AppConfig.HttpClient;
             clientManager.Initialize();
         }
 
@@ -88,12 +90,12 @@ namespace SB.TelegramBot
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static TelegramBotApplication Run(string token)
+        public static TelegramBotApplication Run(string token, HttpClient httpClient = null)
         {
-            var telegramBotApp = new TelegramBotApplication(token);
-            telegramBotApp.Run();
+            var config = new TelegramBotAppConfig(token);
+            config.HttpClient = httpClient;
 
-            return telegramBotApp;
+            return Run(config);
         }
 
         /// <summary>
