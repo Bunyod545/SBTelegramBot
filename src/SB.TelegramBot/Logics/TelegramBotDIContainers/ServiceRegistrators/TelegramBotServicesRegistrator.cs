@@ -2,6 +2,7 @@
 using SB.TelegramBot.Logics.TelegramBotClients;
 using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotConfigs;
+using SB.TelegramBot.Repositories;
 using SB.TelegramBot.Repositories.UsersRepositories;
 using SB.TelegramBot.Services;
 
@@ -23,6 +24,7 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
             servicesContainer.AddSingleton<ITelegramBotClientManager, TelegramBotClientManager>();
             servicesContainer.AddSingleton<ITelegramBotMessageHandlerManager, TelegramBotMessageHandlerManager>();
             servicesContainer.AddSingleton<ITelegramBotMessageHandler, TelegramBotMessageHandler>();
+            servicesContainer.AddSingleton<ITelegramBotPollHandler, TelegramBotPollHandler>();
             servicesContainer.AddSingleton<ITelegramBotCommandFactory, TelegramBotCommandFactory>();
             servicesContainer.AddSingleton<ITelegramBotCommandFactoryInitializer, TelegramBotCommandFactoryInitializer>();
 
@@ -39,8 +41,11 @@ namespace SB.TelegramBot.Logics.TelegramBotDIContainers
 
             servicesContainer.AddScoped<ITelegramBotCommandService, TelegramBotCommandService>();
             servicesContainer.AddScoped<ITelegramBotCurrentCommand, TelegramBotCurrentCommand>();
+            servicesContainer.AddScoped<ITelegramBotCurrentUpdate, TelegramBotCurrentUpdate>();
             servicesContainer.AddScoped<ITelegramBotUserService, TelegramBotUserService>();
+            servicesContainer.AddScoped<ITelegramBotPollService, TelegramBotPollService>();
             servicesContainer.AddScoped<ITelegramBotUserRepository, TelegramBotUserRepository>();
+            servicesContainer.AddScoped<ITelegramBotPollRepository, TelegramBotPollRepository>();
             servicesContainer.AddScoped<ITelegramBotMessageService, TelegramBotMessageService>();
             servicesContainer.AddScoped<ITelegramBotCallbackQueryService, TelegramBotCallbackQueryService>();
             servicesContainer.AddScoped<ITelegramBotCommandActivator, TelegramBotCommandActivator>();

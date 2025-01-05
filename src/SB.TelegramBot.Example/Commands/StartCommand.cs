@@ -27,14 +27,15 @@ namespace SB.TeleramBot.Example.Commands
         /// <summary>
         /// 
         /// </summary>
-        public override void Execute()
+        public async override void Execute()
         {
             var message = "test";
             var buttons = CreateInlineKeyboardButtonBuilder();
             buttons.AddRowButton().WithCommand<CallbackTestCommand>().WithText("test1").WithData(new { name = "test" });
             buttons.AddRowButton().WithCommand<CallbackTestCommand>().WithText("test2").WithData(new { name = "test"} );
 
-            SendTextMessageAsync(message, replyMarkup: buttons.Build());
+            await SendTextMessageAsync(message, replyMarkup: buttons.Build());
+            await SendPoolMesssage<PollTestCommand>(ChatId, "Test question", new string[] { "Yes", "No"}, isAnonymous: false);
         }
     }
 }

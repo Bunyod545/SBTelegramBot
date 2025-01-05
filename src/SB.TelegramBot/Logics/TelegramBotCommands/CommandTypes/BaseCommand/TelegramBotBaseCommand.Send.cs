@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml.Linq;
+using Telegram.Bot;
 using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.Payments;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SB.TelegramBot
@@ -44,7 +43,7 @@ namespace SB.TelegramBot
             request.ReplyToMessageId = replyToMessageId;
             request.ReplyMarkup = replyMarkup;
 
-            return Client.MakeRequestAsync(request, cancellationToken); 
+            return Client.MakeRequestAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -432,6 +431,49 @@ namespace SB.TelegramBot
         public Task<Message> SendTextMessageV2Async(ChatId chatId, string text, ParseMode parseMode = ParseMode.Markdown, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
         {
             return Client.SendTextMessageV2Async(chatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, entities, cancellationToken);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="poll"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<Message> SendPoolMesssage<T>(
+            ChatId chatId,
+            string question,
+            IEnumerable<string> options,
+            string pollCommandData = null,
+            int? messageThreadId = null,
+            bool? isAnonymous = null,
+            PollType? pollType = null,
+            bool? allowsMultipleAnswers = null,
+            int? correctOptionId = null,
+            string explanation = null,
+            IEnumerable<MessageEntity> explanationEntities = null,
+            int? openPeriod = null,
+            ParseMode? explanationParseMode = null,
+            DateTime? closeDate = null,
+            bool? isClosed = null,
+            bool? disableNotification = null,
+            bool? protectContent = null,
+            int? replyToMessageId = null,
+            bool? allowSendingWithoutReply = null,
+            IReplyMarkup replyMarkup = null,
+            CancellationToken cancellationToken = default)
+            where T : TelegramBotPollCommand
+        {
+            var result = await Client.SendPollAsync(chatId, question, options, messageThreadId,
+                                        isAnonymous, pollType, allowsMultipleAnswers,
+                                        correctOptionId, explanation, explanationParseMode,
+                                        explanationEntities, openPeriod, closeDate,
+                                        isClosed, disableNotification, protectContent,
+                                        replyToMessageId, allowSendingWithoutReply,
+                                        replyMarkup, cancellationToken);
+
+            PollService.HandleSend<T>(chatId.ToString(), messageThreadId?.ToString(), result.Poll.Id, question, pollCommandData);
+            return result;
         }
     }
 }

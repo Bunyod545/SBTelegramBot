@@ -1,43 +1,43 @@
-﻿namespace SB.TelegramBot
+﻿namespace SB.TelegramBot.Databases.Tables
 {
     /// <summary>
     /// 
     /// </summary>
-    public enum TelegramBotCommandType
+    public class TelegramBotDbPoll
     {
         /// <summary>
         /// 
         /// </summary>
-        Unknown,
+        public long Id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        PublicCommand,
+        public string ChatId { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        InternalCommand,
+        public string TopicId { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        CallbackCommand,
+        public string PollId { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        InlineCommand,
+        public string Question { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        BackCommand,
+        public string PollCommand { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        PollCommand
+        public string PollCommandData { get; set; }
     }
 }

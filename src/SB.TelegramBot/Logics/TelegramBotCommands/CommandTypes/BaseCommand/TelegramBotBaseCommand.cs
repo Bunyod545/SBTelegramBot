@@ -1,8 +1,8 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotClients;
-using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Services;
 using Telegram.Bot;
+using Telegram.Bot.Types;
 
 namespace SB.TelegramBot
 {
@@ -19,6 +19,11 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
+        public Update Update { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ITelegramBotUserService UserService { get; private set; }
 
         /// <summary>
@@ -30,6 +35,11 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         public ITelegramBotMessageService MessageService { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ITelegramBotPollService PollService { get; private set; }
 
         /// <summary>
         /// 
@@ -54,6 +64,8 @@ namespace SB.TelegramBot
             UserService = ServicesProvider.GetService<ITelegramBotUserService>();
             MessageService = ServicesProvider.GetService<ITelegramBotMessageService>();
             CommandService = ServicesProvider.GetService<ITelegramBotCommandService>();
+            PollService = ServicesProvider.GetService<ITelegramBotPollService>();
+            Update = ServicesProvider.GetService<ITelegramBotCurrentUpdate>().GetCurrentUpdate();
         }
 
         /// <summary>

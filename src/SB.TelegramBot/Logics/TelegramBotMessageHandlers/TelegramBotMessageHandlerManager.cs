@@ -91,9 +91,7 @@ namespace SB.TelegramBot
         /// <param name="message"></param>
         public void Handle(Message message)
         {
-            servicesContainer.RequestBegin();
             InternalHandle(message);
-            servicesContainer.RequestEnd();
         }
 
         /// <summary>

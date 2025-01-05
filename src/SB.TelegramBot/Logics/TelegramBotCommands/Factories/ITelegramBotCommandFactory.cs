@@ -43,6 +43,13 @@ namespace SB.TelegramBot.Logics.TelegramBotCommands.Factories
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        TelegramBotCommandInfo GetPollCommandHandler(string name);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="commandId"></param>
         /// <returns></returns>
         ITelegramBotCommand GetCallbackCommand(long commandId);

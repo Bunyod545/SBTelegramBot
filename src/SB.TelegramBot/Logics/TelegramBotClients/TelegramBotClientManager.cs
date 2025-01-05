@@ -2,6 +2,7 @@
 using SB.TelegramBot.Services;
 using System;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -104,6 +105,25 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// <returns></returns>
         private Task TryHandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken token)
         {
+            ServicesProvider.RequestBegin();
+            var result = HandleWithRequestScope(client, update, token);
+            ServicesProvider.RequestEnd();
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="update"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        private Task HandleWithRequestScope(ITelegramBotClient client, Update update, CancellationToken token)
+        {
+            var currentUpdate = ServicesProvider.GetService<ITelegramBotCurrentUpdate>();
+            currentUpdate.SetCurrentUpdate(update);
+
             if (update.Type == UpdateType.Message)
             {
                 var messageHandler = ServicesProvider.GetService<ITelegramBotMessageHandler>();
@@ -129,6 +149,20 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
             {
                 var messageEditedHandler = ServicesProvider.GetService<ITelegramBotMessageEditedHandler>();
                 messageEditedHandler.Handle(client, update);
+                return Task.CompletedTask;
+            }
+
+            if (update.Type == UpdateType.Poll)
+            {
+                var pollHandler = ServicesProvider.GetService<ITelegramBotPollHandler>();
+                pollHandler.Handle(client, update);
+                return Task.CompletedTask;
+            }
+
+            if (update.Type == UpdateType.PollAnswer)
+            {
+                var pollHandler = ServicesProvider.GetService<ITelegramBotPollHandler>();
+                pollHandler.Handle(client, update);
                 return Task.CompletedTask;
             }
 

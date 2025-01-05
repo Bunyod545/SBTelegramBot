@@ -26,6 +26,11 @@ namespace SB.TelegramBot.Databases
         /// <summary>
         /// 
         /// </summary>
+        public static ILiteCollection<TelegramBotDbPoll> Polls { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static ILiteCollection<TelegramBotDbCommand> Commands { get; }
 
         /// <summary>
@@ -34,6 +39,7 @@ namespace SB.TelegramBot.Databases
         static TelegramBotDb()
         {
             Database = new LiteDatabase(DatabaseFileName);
+            Polls = Database.GetCollection<TelegramBotDbPoll>(nameof(Polls));
             Users = Database.GetCollection<TelegramBotDbUser>(nameof(Users));
             Commands = Database.GetCollection<TelegramBotDbCommand>(nameof(Commands));
         }

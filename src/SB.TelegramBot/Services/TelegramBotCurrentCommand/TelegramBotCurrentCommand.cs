@@ -1,6 +1,4 @@
-﻿using SB.TelegramBot.Logics.TelegramBotDIContainers;
-
-namespace SB.TelegramBot.Services
+﻿namespace SB.TelegramBot.Services
 {
     /// <summary>
     /// 
@@ -10,21 +8,7 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        protected ITelegramBotServicesProvider TelegramBotServicesContainer { get; private set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         protected ITelegramBotCommand TelegramBotCommand { get; private set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="telegramBotServicesContainer"></param>
-        public TelegramBotCurrentCommand(ITelegramBotServicesProvider telegramBotServicesContainer)
-        {
-            TelegramBotServicesContainer = telegramBotServicesContainer;
-        }
 
         /// <summary>
         /// 

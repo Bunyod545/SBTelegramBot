@@ -42,9 +42,7 @@ namespace SB.TelegramBot.Services
         /// <param name="e"></param>
         public virtual void Handle(object sender, Update e)
         {
-            TelegramBotServicesContainer.RequestBegin();
             InternalHandle(sender, e);
-            TelegramBotServicesContainer.RequestEnd();
         }
 
         /// <summary>
