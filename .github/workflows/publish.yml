@@ -8,7 +8,7 @@ jobs:
     name: build, pack & publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4.2.2
       - name: publish on version change
         id: publish_nuget
         uses: alirezanet/publish-nuget@v3.1.0
@@ -16,7 +16,7 @@ jobs:
           PROJECT_FILE_PATH: src/SB.TelegramBot/SB.TelegramBot.csproj
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4.2.2
       - name: publish on version change
         id: publish_nuget_SB_Telegram_Bot_AspNetCore
         uses: alirezanet/publish-nuget@v3.1.0
