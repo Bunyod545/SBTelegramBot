@@ -19,26 +19,18 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
-        private ITelegramBotPollRepository _repository;
-
-        /// <summary>
-        /// 
-        /// </summary>
         private ITelegramBotCommandFactory _commandFactory;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
-        /// <param name="commandFactory"></param>
         /// <param name="currentCommand"></param>
         public TelegramBotPollHandler(
             ITelegramBotServicesProvider serviceProvider,
-            ITelegramBotPollRepository repository, 
             ITelegramBotCommandFactory commandFactory)
         {
             _serviceProvider = serviceProvider;
-            _repository = repository;
             _commandFactory = commandFactory;
         }
 
@@ -50,12 +42,13 @@ namespace SB.TelegramBot.Services
         public virtual void Handle(object sender, Update e)
         {
             var pollId = e.Poll?.Id ?? e.PollAnswer?.PollId;
-            var poll = _repository.GetPollById(pollId);
+            var repository = _serviceProvider.GetService<ITelegramBotPollRepository>();
+            var poll = repository.GetPollById(pollId);
             if (poll == null)
                 return;
 
             var commandInfo = _commandFactory.GetPollCommandHandler(poll.PollCommand);
-            if (commandInfo == null) 
+            if (commandInfo == null)
                 return;
 
             var handlerCommand = _commandFactory.GetCommandInstance(commandInfo);
