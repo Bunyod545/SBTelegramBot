@@ -1,5 +1,7 @@
 ﻿using LiteDB;
 using SB.TelegramBot.Databases.Tables;
+using System;
+using System.IO;
 
 namespace SB.TelegramBot.Databases
 {
@@ -12,6 +14,11 @@ namespace SB.TelegramBot.Databases
         /// 
         /// </summary>
         public const string DatabaseFileName = "TelegramBot.db";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string DatabaseFolder = "";
 
         /// <summary>
         /// 
@@ -38,7 +45,15 @@ namespace SB.TelegramBot.Databases
         /// </summary>
         static TelegramBotDb()
         {
-            Database = new LiteDatabase(DatabaseFileName);
+            var path = string.Empty;
+            if (!string.IsNullOrEmpty(DatabaseFolder))
+            {
+                Directory.CreateDirectory(DatabaseFolder);
+                path = DatabaseFolder;
+            }
+
+            var dbFile = Path.Combine(path, DatabaseFileName);
+            Database = new LiteDatabase(dbFile);
             Polls = Database.GetCollection<TelegramBotDbPoll>(nameof(Polls));
             Users = Database.GetCollection<TelegramBotDbUser>(nameof(Users));
             Commands = Database.GetCollection<TelegramBotDbCommand>(nameof(Commands));

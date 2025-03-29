@@ -2,6 +2,7 @@
 using SB.TelegramBot.Databases.Tables;
 using SB.TelegramBot.Logics.TelegramBotCommands.Factories.Models;
 using SB.TelegramBot.Logics.TelegramBotDIContainers;
+using SB.TelegramBot.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,6 +21,11 @@ namespace SB.TelegramBot.Services
         /// <summary>
         /// 
         /// </summary>
+        private readonly ITelegramDbCommandRepository _dbCommandRepository;
+
+        /// <summary>
+        /// 
+        /// </summary>
         protected ITelegramBotServicesProvider TelegramBotServicesContainer { get; private set; }
 
         /// <summary>
@@ -27,8 +33,9 @@ namespace SB.TelegramBot.Services
         /// </summary>
         public TelegramBotCommandFactoryInitializer(ITelegramBotServicesProvider telegramBotServicesContainer)
         {
-            _dbCommands = TelegramBotDb.Commands.FindAll().ToList();
             TelegramBotServicesContainer = telegramBotServicesContainer;
+            _dbCommandRepository = telegramBotServicesContainer.GetService<ITelegramDbCommandRepository>();
+            _dbCommands = _dbCommandRepository.FindAll();
         }
 
         /// <summary>
@@ -62,7 +69,7 @@ namespace SB.TelegramBot.Services
             {
                 dbCommand = new TelegramBotDbCommand();
                 dbCommand.ClrName = info.ClrType.Name;
-                TelegramBotDb.Commands.Insert(dbCommand);
+                _dbCommandRepository.Insert(dbCommand);
             }
 
             info.CommandId = dbCommand.Id;
