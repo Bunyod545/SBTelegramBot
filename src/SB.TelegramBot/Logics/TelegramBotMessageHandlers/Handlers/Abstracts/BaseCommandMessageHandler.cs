@@ -58,14 +58,24 @@ namespace SB.TelegramBot
         /// <param name="command"></param>
         protected virtual void TryExecuteCommand(MessageContext messageContext, ITelegramBotCommand command)
         {
+            PrePostExecute(messageContext, command);
+            command?.Execute();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="messageContext"></param>
+        /// <param name="command"></param>
+        protected virtual void PrePostExecute(MessageContext messageContext, ITelegramBotCommand command)
+        {
             messageContext.IsCanExecuteNextHandler = false;
             messageContext.HandlerCommand = command;
 
             var currentCommand = ServicesProvider.GetService<ITelegramBotCurrentCommand>();
             currentCommand?.SetCurrentCommand(command);
-            
+
             command?.Initialize(ServicesProvider);
-            command?.Execute();
         }
 
         /// <summary>
