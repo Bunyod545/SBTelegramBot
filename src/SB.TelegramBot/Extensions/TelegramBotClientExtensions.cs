@@ -35,19 +35,19 @@ namespace SB.TelegramBot
             bool disableWebPagePreview = default,
             bool disableNotification = default,
             int replyToMessageId = default,
-            IReplyMarkup replyMarkup = default,
+            ReplyMarkup replyMarkup = default,
             MessageEntity[] entities = default,
             CancellationToken cancellationToken = default
         ) =>
-            client.MakeRequestAsync(new SbSendMessageRequest(chatId, text)
-            {
-                ParseMode = parseMode,
-                DisableWebPagePreview = disableWebPagePreview,
-                DisableNotification = disableNotification,
-                ReplyToMessageId = replyToMessageId,
-                ReplyMarkup = replyMarkup,
-                Entities = entities
-            }, cancellationToken);
+            client.SendMessage(
+                chatId,
+                text: text,
+                parseMode: parseMode,
+                disableNotification: disableNotification,
+                replyParameters: replyToMessageId,
+                replyMarkup: replyMarkup,
+                entities: entities,
+                cancellationToken: cancellationToken);
 
         /// <summary>
         /// 
@@ -71,13 +71,14 @@ namespace SB.TelegramBot
             MessageEntity[] entities = default,
             CancellationToken cancellationToken = default
         ) =>
-            client.MakeRequestAsync(new SbEditMessageTextRequest(chatId, messageId, text)
-            {
-                ParseMode = parseMode,
-                DisableWebPagePreview = disableWebPagePreview,
-                ReplyMarkup = replyMarkup,
-                Entities = entities
-            }, cancellationToken);
+            client.EditMessageText(
+                chatId,
+                messageId,
+                text,
+                parseMode: parseMode,
+                replyMarkup: replyMarkup,
+                entities: entities,
+                cancellationToken: cancellationToken);
 
         /// <summary>
         /// 
@@ -101,15 +102,12 @@ namespace SB.TelegramBot
             MessageEntity[] entities = default,
             CancellationToken cancellationToken = default
         ) =>
-            client.MakeRequestAsync(new SbEditInlineMessageTextRequest(inlineMessageId, text)
-            {
-                DisableWebPagePreview = disableWebPagePreview,
-                ReplyMarkup = replyMarkup,
-                ParseMode = parseMode,
-                Entities = entities
-            }, cancellationToken);
-
-
-
+            client.EditMessageText(
+                replyMarkup: replyMarkup,
+                parseMode: parseMode,
+                entities: entities,
+                inlineMessageId: inlineMessageId,
+                text: text,
+                cancellationToken: cancellationToken);
     }
 }

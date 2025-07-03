@@ -21,8 +21,11 @@ namespace SB.TelegramBot.Requests
         /// <param name="chatId"></param>
         /// <param name="messageId"></param>
         /// <param name="text"></param>
-        public SbEditMessageTextRequest(ChatId chatId, int messageId, string text) : base(chatId, messageId, text)
+        public SbEditMessageTextRequest(ChatId chatId, int messageId, string text)
         {
+            ChatId = chatId;
+            MessageId = messageId;
+            Text = text;
         }
     }
 }

@@ -59,7 +59,7 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         {
             Client = new TelegramBotClient(Token, HttpClient);
 
-            var name = Client.GetMeAsync().Result.Username;
+            var name = Client.GetMe().Result.Username;
             Console.WriteLine($"Telegram bot name: {name}");
 
             var cts = new CancellationTokenSource();
@@ -70,7 +70,7 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
 
             Client.StartReceiving(
                 updateHandler: HandleUpdateAsync,
-                pollingErrorHandler: HandlePollingErrorAsync,
+                errorHandler: HandlePollingErrorAsync,
                 receiverOptions: receiverOptions,
                 cancellationToken: cts.Token
             );

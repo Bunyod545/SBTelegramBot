@@ -20,8 +20,10 @@ namespace SB.TelegramBot.Requests
         /// </summary>
         /// <param name="inlineMessageId"></param>
         /// <param name="text"></param>
-        public SbEditInlineMessageTextRequest(string inlineMessageId, string text) : base(inlineMessageId, text)
+        public SbEditInlineMessageTextRequest(string inlineMessageId, string text)
         {
+            InlineMessageId = inlineMessageId;
+            Text = text;
         }
     }
 }

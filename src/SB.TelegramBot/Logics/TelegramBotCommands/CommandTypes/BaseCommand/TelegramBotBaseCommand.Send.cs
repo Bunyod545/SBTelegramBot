@@ -30,20 +30,24 @@ namespace SB.TelegramBot
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendAnimationAsync(InputFile animation, int duration = 0, int width = 0, int height = 0, InputFile thumb = null, string caption = null, ParseMode parseMode = ParseMode.Markdown, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public Task<Message> SendAnimationAsync(InputFile animation, int duration = 0, int width = 0, int height = 0,
+            InputFile thumb = null, string caption = null, ParseMode parseMode = ParseMode.Markdown,
+            bool disableNotification = false, int replyToMessageId = 0, ReplyMarkup replyMarkup = null,
+            CancellationToken cancellationToken = default)
         {
-            var request = new SendAnimationRequest(ChatId, animation);
-            request.Duration = duration;
-            request.Width = width;
-            request.Height = height;
-            request.Thumbnail = thumb;
-            request.Caption = caption;
-            request.ParseMode = parseMode;
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendAnimation(
+                ChatId,
+                animation,
+                caption,
+                parseMode,
+                replyToMessageId,
+                replyMarkup: replyMarkup,
+                duration,
+                width,
+                height,
+                thumb,
+                disableNotification: disableNotification,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -62,20 +66,24 @@ namespace SB.TelegramBot
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendAnimationAsync(ChatId chatId, InputFile animation, int duration = 0, int width = 0, int height = 0, InputFile thumb = null, string caption = null, ParseMode parseMode = ParseMode.Markdown, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public Task<Message> SendAnimationAsync(ChatId chatId, InputFile animation, int duration = 0, int width = 0,
+            int height = 0, InputFile thumb = null, string caption = null, ParseMode parseMode = ParseMode.Markdown,
+            bool disableNotification = false, int replyToMessageId = 0, ReplyMarkup replyMarkup = null,
+            CancellationToken cancellationToken = default)
         {
-            var request = new SendAnimationRequest(chatId, animation);
-            request.Duration = duration;
-            request.Width = width;
-            request.Height = height;
-            request.Thumbnail = thumb;
-            request.Caption = caption;
-            request.ParseMode = parseMode;
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendAnimation(
+                chatId,
+                animation,
+                caption,
+                parseMode,
+                replyToMessageId,
+                replyMarkup: replyMarkup,
+                duration,
+                width,
+                height,
+                thumb,
+                disableNotification: disableNotification,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -94,20 +102,24 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken"></param>
         /// <param name="thumb"></param>
         /// <returns></returns>
-        public Task<Message> SendAudioAsync(InputFile audio, string caption = null, ParseMode parseMode = ParseMode.Markdown, int duration = 0, string performer = null, string title = null, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputFile thumb = null)
+        public Task<Message> SendAudioAsync(InputFile audio, string caption = null,
+            ParseMode parseMode = ParseMode.Markdown, int duration = 0, string performer = null, string title = null,
+            bool disableNotification = false, int replyToMessageId = 0, ReplyMarkup replyMarkup = null,
+            CancellationToken cancellationToken = default, InputFile thumb = null)
         {
-            var request = new SendAudioRequest(ChatId, audio);
-            request.Duration = duration;
-            request.Caption = caption;
-            request.Performer = performer;
-            request.Title = title;
-            request.ParseMode = parseMode;
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-            request.Thumbnail = thumb;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendAudio(
+                ChatId,
+                audio,
+                caption,
+                parseMode,
+                replyToMessageId,
+                replyMarkup,
+                duration,
+                performer,
+                title,
+                thumb,
+                disableNotification: disableNotification,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -126,20 +138,24 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken"></param>
         /// <param name="thumb"></param>
         /// <returns></returns>
-        public Task<Message> SendAudioAsync(ChatId chatId, InputFile audio, string caption = null, ParseMode parseMode = ParseMode.Markdown, int duration = 0, string performer = null, string title = null, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputFile thumb = null)
+        public Task<Message> SendAudioAsync(ChatId chatId, InputFile audio, string caption = null,
+            ParseMode parseMode = ParseMode.Markdown, int duration = 0, string performer = null, string title = null,
+            bool disableNotification = false, int replyToMessageId = 0, ReplyMarkup replyMarkup = null,
+            CancellationToken cancellationToken = default, InputFile thumb = null)
         {
-            var request = new SendAudioRequest(chatId, audio);
-            request.Duration = duration;
-            request.Caption = caption;
-            request.Performer = performer;
-            request.Title = title;
-            request.ParseMode = parseMode;
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-            request.Thumbnail = thumb;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendAudio(
+                chatId,
+                audio,
+                caption,
+                parseMode,
+                replyToMessageId,
+                replyMarkup,
+                duration,
+                performer,
+                title,
+                thumb,
+                disableNotification: disableNotification,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -151,8 +167,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public Task SendChatActionAsync(ChatAction chatAction, CancellationToken cancellationToken = default)
         {
-            var request = new SendChatActionRequest(ChatId, chatAction);
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendChatAction(ChatId, chatAction, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -162,10 +177,10 @@ namespace SB.TelegramBot
         /// <param name="chatAction"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task SendChatActionAsync(ChatId chatId, ChatAction chatAction, CancellationToken cancellationToken = default)
+        public Task SendChatActionAsync(ChatId chatId, ChatAction chatAction,
+            CancellationToken cancellationToken = default)
         {
-            var request = new SendChatActionRequest(chatId, chatAction);
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendChatAction(chatId, chatAction, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -181,16 +196,20 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken"></param>
         /// <param name="vCard"></param>
         /// <returns></returns>
-        public Task<Message> SendContactAsync(string phoneNumber, string firstName, string lastName = null, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, string vCard = null)
+        public Task<Message> SendContactAsync(string phoneNumber, string firstName, string lastName = null,
+            bool disableNotification = false, int replyToMessageId = 0, ReplyMarkup replyMarkup = null,
+            CancellationToken cancellationToken = default, string vCard = null)
         {
-            var request = new SendContactRequest(ChatId, phoneNumber, firstName);
-            request.LastName = lastName;
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-            request.Vcard = vCard;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendContact(
+                ChatId,
+                phoneNumber,
+                firstName,
+                lastName,
+                vCard,
+                replyToMessageId,
+                replyMarkup,
+                disableNotification: disableNotification,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -206,16 +225,20 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken"></param>
         /// <param name="vCard"></param>
         /// <returns></returns>
-        public Task<Message> SendContactAsync(ChatId chatId, string phoneNumber, string firstName, string lastName = null, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, string vCard = null)
+        public Task<Message> SendContactAsync(ChatId chatId, string phoneNumber, string firstName,
+            string lastName = null, bool disableNotification = false, int replyToMessageId = 0,
+            ReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, string vCard = null)
         {
-            var request = new SendContactRequest(chatId, phoneNumber, firstName);
-            request.LastName = lastName;
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-            request.Vcard = vCard;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendContact(
+                chatId,
+                phoneNumber,
+                firstName,
+                lastName,
+                vCard,
+                replyToMessageId,
+                replyMarkup,
+                disableNotification: disableNotification,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -228,15 +251,15 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken"></param>
         /// <param name="emoji"></param>
         /// <returns></returns>
-        public Task<Message> SendDiceAsync(bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, Emoji? emoji = null)
+        public Task<Message> SendDiceAsync(bool disableNotification = false, int replyToMessageId = 0,
+            ReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, string? emoji = null)
         {
-            var request = new SendDiceRequest(ChatId);
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-            request.Emoji = emoji;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendDice(
+                ChatId,
+                emoji,
+                replyToMessageId,
+                replyMarkup,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -249,15 +272,15 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken"></param>
         /// <param name="emoji"></param>
         /// <returns></returns>
-        public Task<Message> SendDiceAsync(ChatId chatId, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, Emoji? emoji = null)
+        public Task<Message> SendDiceAsync(ChatId chatId, bool disableNotification = false, int replyToMessageId = 0,
+            ReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, string? emoji = null)
         {
-            var request = new SendDiceRequest(chatId);
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-            request.Emoji = emoji;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendDice(
+                chatId,
+                emoji,
+                replyToMessageId,
+                replyMarkup,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -273,17 +296,20 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken"></param>
         /// <param name="thumb"></param>
         /// <returns></returns>
-        public Task<Message> SendDocumentAsync(InputFile document, string caption = null, ParseMode parseMode = ParseMode.Markdown, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputFile thumb = null)
+        public Task<Message> SendDocumentAsync(InputFile document, string caption = null,
+            ParseMode parseMode = ParseMode.Markdown, bool disableNotification = false, int replyToMessageId = 0,
+            ReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputFile thumb = null)
         {
-            var request = new SendDocumentRequest(ChatId, document);
-            request.Caption = caption;
-            request.ParseMode = parseMode;
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-            request.Thumbnail = thumb;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendDocument(
+                ChatId,
+                document,
+                caption,
+                parseMode,
+                replyToMessageId,
+                replyMarkup,
+                thumb,
+                disableNotification: disableNotification,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -299,17 +325,20 @@ namespace SB.TelegramBot
         /// <param name="cancellationToken"></param>
         /// <param name="thumb"></param>
         /// <returns></returns>
-        public Task<Message> SendDocumentAsync(ChatId chatId, InputFile document, string caption = null, ParseMode parseMode = ParseMode.Markdown, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputFile thumb = null)
+        public Task<Message> SendDocumentAsync(ChatId chatId, InputFile document, string caption = null,
+            ParseMode parseMode = ParseMode.Markdown, bool disableNotification = false, int replyToMessageId = 0,
+            ReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default, InputFile thumb = null)
         {
-            var request = new SendDocumentRequest(chatId, document);
-            request.Caption = caption;
-            request.ParseMode = parseMode;
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-            request.Thumbnail = thumb;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendDocument(
+                chatId,
+                document,
+                caption,
+                parseMode,
+                replyToMessageId,
+                replyMarkup,
+                thumb,
+                disableNotification: disableNotification,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -322,14 +351,17 @@ namespace SB.TelegramBot
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendGameAsync(string gameShortName, bool disableNotification = false, int replyToMessageId = 0, InlineKeyboardMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public Task<Message> SendGameAsync(string gameShortName, bool disableNotification = false,
+            int replyToMessageId = 0, InlineKeyboardMarkup replyMarkup = null,
+            CancellationToken cancellationToken = default)
         {
-            var request = new SendGameRequest(ChatId, gameShortName);
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendGame(
+                ChatId,
+                gameShortName,
+                replyToMessageId,
+                replyMarkup,
+                disableNotification: disableNotification,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -342,15 +374,19 @@ namespace SB.TelegramBot
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendGameAsync(long chatId, string gameShortName, bool disableNotification = false, int replyToMessageId = 0, InlineKeyboardMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public Task<Message> SendGameAsync(long chatId, string gameShortName, bool disableNotification = false,
+            int replyToMessageId = 0, InlineKeyboardMarkup replyMarkup = null,
+            CancellationToken cancellationToken = default)
         {
-            var request = new SendGameRequest(chatId, gameShortName);
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendGame(
+                chatId,
+                gameShortName,
+                replyToMessageId,
+                replyMarkup,
+                disableNotification: disableNotification,
+                cancellationToken: cancellationToken);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -363,9 +399,13 @@ namespace SB.TelegramBot
         /// <param name="entities"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendTextMessageV2Async(string text, ParseMode parseMode = ParseMode.Markdown, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
+        public Task<Message> SendTextMessageV2Async(string text, ParseMode parseMode = ParseMode.Markdown,
+            bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0,
+            ReplyMarkup replyMarkup = null, MessageEntity[] entities = default,
+            CancellationToken cancellationToken = default)
         {
-            return Client.SendTextMessageV2Async(ChatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, entities, cancellationToken);
+            return Client.SendTextMessageV2Async(ChatId, text, parseMode, disableWebPagePreview, disableNotification,
+                replyToMessageId, replyMarkup, entities, cancellationToken);
         }
 
         /// <summary>
@@ -379,16 +419,18 @@ namespace SB.TelegramBot
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendTextMessageAsync(string text, ParseMode parseMode = ParseMode.Markdown, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public Task<Message> SendTextMessageAsync(string text, ParseMode parseMode = ParseMode.Markdown,
+            bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0,
+            ReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
-            var request = new SendMessageRequest(ChatId, text);
-            request.ParseMode = parseMode;
-            request.DisableWebPagePreview = disableWebPagePreview;
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendMessage(
+                ChatId,
+                text,
+                parseMode,
+                replyToMessageId,
+                replyMarkup,
+                disableNotification: disableNotification,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -403,16 +445,18 @@ namespace SB.TelegramBot
         /// <param name="replyMarkup"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendTextMessageAsync(ChatId chatId, string text, ParseMode parseMode = ParseMode.Markdown, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
+        public Task<Message> SendTextMessageAsync(ChatId chatId, string text, ParseMode parseMode = ParseMode.Markdown,
+            bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0,
+            ReplyMarkup replyMarkup = null, CancellationToken cancellationToken = default)
         {
-            var request = new SendMessageRequest(chatId, text);
-            request.ParseMode = parseMode;
-            request.DisableWebPagePreview = disableWebPagePreview;
-            request.DisableNotification = disableNotification;
-            request.ReplyToMessageId = replyToMessageId;
-            request.ReplyMarkup = replyMarkup;
-
-            return Client.MakeRequestAsync(request, cancellationToken);
+            return Client.SendMessage(
+                chatId,
+                text,
+                parseMode,
+                replyToMessageId,
+                replyMarkup,
+                disableNotification: disableNotification,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -428,9 +472,13 @@ namespace SB.TelegramBot
         /// <param name="entities"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Message> SendTextMessageV2Async(ChatId chatId, string text, ParseMode parseMode = ParseMode.Markdown, bool disableWebPagePreview = false, bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup replyMarkup = null, MessageEntity[] entities = default, CancellationToken cancellationToken = default)
+        public Task<Message> SendTextMessageV2Async(ChatId chatId, string text,
+            ParseMode parseMode = ParseMode.Markdown, bool disableWebPagePreview = false,
+            bool disableNotification = false, int replyToMessageId = 0, ReplyMarkup replyMarkup = null,
+            MessageEntity[] entities = default, CancellationToken cancellationToken = default)
         {
-            return Client.SendTextMessageV2Async(chatId, text, parseMode, disableWebPagePreview, disableNotification, replyToMessageId, replyMarkup, entities, cancellationToken);
+            return Client.SendTextMessageV2Async(chatId, text, parseMode, disableWebPagePreview, disableNotification,
+                replyToMessageId, replyMarkup, entities, cancellationToken);
         }
 
         /// <summary>
@@ -443,36 +491,47 @@ namespace SB.TelegramBot
         public async Task<Message> SendPoolMesssage<T>(
             ChatId chatId,
             string question,
-            IEnumerable<string> options,
+            IEnumerable<InputPollOption> options,
+            bool isAnonymous = true,
             string pollCommandData = null,
             int? messageThreadId = null,
-            bool? isAnonymous = null,
             PollType? pollType = null,
-            bool? allowsMultipleAnswers = null,
+            bool allowsMultipleAnswers = false,
             int? correctOptionId = null,
             string explanation = null,
             IEnumerable<MessageEntity> explanationEntities = null,
             int? openPeriod = null,
-            ParseMode? explanationParseMode = null,
+            ParseMode explanationParseMode = ParseMode.None,
             DateTime? closeDate = null,
-            bool? isClosed = null,
-            bool? disableNotification = null,
-            bool? protectContent = null,
+            bool isClosed = false,
+            bool disableNotification = false,
+            bool protectContent = false,
             int? replyToMessageId = null,
             bool? allowSendingWithoutReply = null,
-            IReplyMarkup replyMarkup = null,
+            ReplyMarkup replyMarkup = null,
             CancellationToken cancellationToken = default)
             where T : TelegramBotPollCommand
         {
-            var result = await Client.SendPollAsync(chatId, question, options, messageThreadId,
-                                        isAnonymous, pollType, allowsMultipleAnswers,
-                                        correctOptionId, explanation, explanationParseMode,
-                                        explanationEntities, openPeriod, closeDate,
-                                        isClosed, disableNotification, protectContent,
-                                        replyToMessageId, allowSendingWithoutReply,
-                                        replyMarkup, cancellationToken);
+            var result = await Client.SendPoll(
+                chatId,
+                question,
+                options,
+                isAnonymous,
+                pollType,
+                allowsMultipleAnswers,
+                correctOptionId,
+                replyToMessageId,
+                replyMarkup, explanation, explanationParseMode,
+                explanationEntities,
+                openPeriod: openPeriod,
+                closeDate: closeDate,
+                isClosed: isClosed,
+                disableNotification: disableNotification,
+                protectContent: protectContent,
+                cancellationToken: cancellationToken);
 
-            PollService.HandleSend<T>(chatId.ToString(), messageThreadId?.ToString(), result.Poll.Id, question, pollCommandData);
+            PollService.HandleSend<T>(chatId.ToString(), messageThreadId?.ToString(), result.Poll.Id, question,
+                pollCommandData);
             return result;
         }
     }

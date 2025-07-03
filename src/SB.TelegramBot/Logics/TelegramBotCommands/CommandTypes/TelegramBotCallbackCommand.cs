@@ -1,7 +1,7 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotDIContainers;
 using SB.TelegramBot.Services;
 using System.Threading.Tasks;
-using Telegram.Bot.Requests;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 
 namespace SB.TelegramBot
@@ -57,14 +57,9 @@ namespace SB.TelegramBot
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public Task<bool> SendAnswerText(string text, bool? showAlert = default, string url = default)
+        public Task SendAnswerText(string text, bool showAlert = false, string url = default)
         {
-            var request = new AnswerCallbackQueryRequest(CallbackQueryId);
-            request.Text = text;
-            request.ShowAlert = showAlert;
-            request.Url = url;
-
-            return Client.MakeRequestAsync(request);
+            return Client.AnswerCallbackQuery(CallbackQueryId, text, showAlert, url);
         }
     }
 }
