@@ -34,8 +34,15 @@ namespace SB.TelegramBot
             if (value == string.Empty)
                 return null;
 
-            var millisecounds = long.Parse(value);
-            return new DateTimeOffset().AddMilliseconds(millisecounds).Date;
+            var milleseconds = long.Parse(value);
+            
+            var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+    
+            // Add milliseconds to get correct UTC DateTime
+            var dateTimeUtc = unixEpoch.AddMilliseconds(milleseconds);
+
+            return dateTimeUtc;
+            // return new DateTimeOffset().AddMilliseconds(millisecounds).Date;
         }
     }
 }

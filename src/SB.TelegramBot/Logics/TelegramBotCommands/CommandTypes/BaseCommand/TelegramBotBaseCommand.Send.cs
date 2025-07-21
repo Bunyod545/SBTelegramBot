@@ -430,6 +430,7 @@ namespace SB.TelegramBot
                 replyToMessageId,
                 replyMarkup,
                 disableNotification: disableNotification,
+                linkPreviewOptions: disableWebPagePreview,
                 cancellationToken: cancellationToken);
         }
 
@@ -455,6 +456,7 @@ namespace SB.TelegramBot
                 parseMode,
                 replyToMessageId,
                 replyMarkup,
+                linkPreviewOptions: disableWebPagePreview,
                 disableNotification: disableNotification,
                 cancellationToken: cancellationToken);
         }

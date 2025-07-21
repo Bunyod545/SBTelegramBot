@@ -88,5 +88,15 @@ namespace SB.TelegramBot
             EndOfColumn();
             return new InlineKeyboardMarkup(_buttons);
         }
+
+        public int ColumnButtonsCount()
+        {
+            return _columnButtons.Count;
+        }
+
+        public int RowButtonsCount()
+        {
+            return _buttons.Count;
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public InlineKeyboardButton Button { get; }
+        public InlineKeyboardButton Button { get; private set; }
 
         /// <summary>
         /// 
@@ -61,6 +61,17 @@ namespace SB.TelegramBot
         {
             var dataString = TelegramBotCallbackDataConverter.Serialize(data);
             Button.CallbackData += dataString;
+            return this;
+        }
+
+        public InlineKeyboardButtonInfo WithUrl(string url)
+        {
+            // var button = InlineKeyboardButton.WithUrl(Button.Text, url);
+            // button.Text = Button.Text;
+            // button.CallbackData = Button.CallbackData;
+            // Button = button;
+            // return new InlineKeyboardButtonInfo(Button, CommandFactory);
+            Button.Url = url;
             return this;
         }
     }

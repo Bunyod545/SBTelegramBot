@@ -211,7 +211,8 @@ namespace SB.TelegramBot
                 text,
                 parseMode,
                 replyMarkup: replyMarkup,
-                cancellationToken: cancellationToken);
+                cancellationToken: cancellationToken,
+                linkPreviewOptions: disableWebPagePreview);
         }
 
         /// <summary>

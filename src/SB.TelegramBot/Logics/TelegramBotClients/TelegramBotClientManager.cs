@@ -83,16 +83,16 @@ namespace SB.TelegramBot.Logics.TelegramBotClients
         /// <param name="update"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        private Task HandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken token)
+        private async Task HandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken token)
         {
             try
             {
-                return TryHandleUpdateAsync(client, update, token); 
+                await TryHandleUpdateAsync(client, update, token);
             }
             catch (Exception ex)
             {
                 ErrorHandler.Handle(ex);
-                throw ex;
+                // throw ex;
             }
         }
 

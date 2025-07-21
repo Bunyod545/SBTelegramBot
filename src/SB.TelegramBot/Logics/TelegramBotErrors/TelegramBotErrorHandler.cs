@@ -11,7 +11,7 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <param name="exception"></param>
-        public void Handle(Exception exception)
+        public virtual void Handle(Exception exception)
         {
             Console.WriteLine(exception.ToString());
         }

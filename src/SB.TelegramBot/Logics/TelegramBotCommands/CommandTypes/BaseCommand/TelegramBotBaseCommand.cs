@@ -68,6 +68,15 @@ namespace SB.TelegramBot
             Update = ServicesProvider.GetService<ITelegramBotCurrentUpdate>().GetCurrentUpdate();
         }
 
+        public virtual void ExecuteCommand(ITelegramBotCommand command)
+        {
+            var currentCommand = ServicesProvider.GetService<ITelegramBotCurrentCommand>();
+            currentCommand?.SetCurrentCommand(command);
+            
+            command?.Initialize(ServicesProvider);
+            command?.Execute();
+        }
+
         /// <summary>
         /// 
         /// </summary>

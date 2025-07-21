@@ -26,6 +26,7 @@
                 return;
 
             user.BackCommandHandler = typeof(TCommand).Name;
+            user.BackCommandHandlerClrName = typeof(TCommand).Name;
             UserRepository.Update(user);
         }
 
