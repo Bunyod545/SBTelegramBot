@@ -20,8 +20,8 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public virtual T GetData<T>() where T : class, new()
         {
-            var data = CallbackQuery.Data;
-            return TelegramBotCallbackDataConverter.Deserialize<T>(data);
+            var data = CallbackQuery?.Data;
+            return data is null ? default : TelegramBotCallbackDataConverter.Deserialize<T>(data);
         }
     }
 }
