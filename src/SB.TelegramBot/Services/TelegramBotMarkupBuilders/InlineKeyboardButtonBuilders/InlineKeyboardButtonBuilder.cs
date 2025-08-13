@@ -38,7 +38,7 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <returns></returns>
-        public InlineKeyboardButtonInfo AddRowButton()
+        public virtual InlineKeyboardButtonInfo AddRowButton()
         {
             if (_columnButtons != null)
                 EndOfColumn();
@@ -55,7 +55,7 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <returns></returns>
-        public InlineKeyboardButtonInfo AddColumnButton()
+        public virtual InlineKeyboardButtonInfo AddColumnButton()
         {
             if (_columnButtons == null)
                 _columnButtons = new List<InlineKeyboardButton>();
@@ -68,7 +68,7 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public void EndOfColumn()
+        public virtual void EndOfColumn()
         {
             if (_columnButtons == null)
                 return;
@@ -83,18 +83,26 @@ namespace SB.TelegramBot
         /// 
         /// </summary>
         /// <returns></returns>
-        public InlineKeyboardMarkup Build()
+        public virtual InlineKeyboardMarkup Build()
         {
             EndOfColumn();
             return new InlineKeyboardMarkup(_buttons);
         }
 
-        public int ColumnButtonsCount()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public virtual int ColumnButtonsCount()
         {
             return _columnButtons.Count;
         }
 
-        public int RowButtonsCount()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public virtual int RowButtonsCount()
         {
             return _buttons.Count;
         }
