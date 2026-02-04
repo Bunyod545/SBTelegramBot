@@ -6,7 +6,7 @@ namespace SB.TelegramBot
     /// <summary>
     /// 
     /// </summary>
-    [BotSingletonService]
+    [BotScopedService]
     public class TelegramBotButtonBuilderFactory : ITelegramBotButtonBuilderFactory
     {
         /// <summary>
@@ -24,7 +24,8 @@ namespace SB.TelegramBot
         /// </summary>
         /// <param name="commandFactory"></param>
         /// <param name="callbackDataRepository"></param>
-        public TelegramBotButtonBuilderFactory(ITelegramBotCommandFactory commandFactory,
+        public TelegramBotButtonBuilderFactory(
+            ITelegramBotCommandFactory commandFactory,
             ITelegramBotCallbackDataRepository callbackDataRepository)
         {
             _commandFactory = commandFactory;

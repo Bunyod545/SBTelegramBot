@@ -21,9 +21,6 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        /// <summary>
-        /// 
-        /// </summary>
         public ITelegramBotCommandFactory CommandFactory { get; }
 
         /// <summary>
