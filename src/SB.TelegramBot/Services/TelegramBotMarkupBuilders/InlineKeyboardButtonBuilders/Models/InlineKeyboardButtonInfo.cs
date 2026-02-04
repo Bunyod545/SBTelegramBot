@@ -88,6 +88,16 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public InlineKeyboardButtonInfo WithDbData(object data)
+        {
+            return WithDataToDb(data);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="dataString"></param>
         /// <returns></returns>
         protected virtual bool CanAddData(string dataString)
@@ -118,11 +128,6 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public InlineKeyboardButtonInfo WithUrl(string url)
         {
-            // var button = InlineKeyboardButton.WithUrl(Button.Text, url);
-            // button.Text = Button.Text;
-            // button.CallbackData = Button.CallbackData;
-            // Button = button;
-            // return new InlineKeyboardButtonInfo(Button, CommandFactory);
             Button.Url = url;
             return this;
         }
