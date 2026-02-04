@@ -1,0 +1,29 @@
+﻿  Determining projects to restore...
+  Restored C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj (in 282 ms).
+  Restored C:\Projects\SBTelegramBot\src\SB.TelegramBot.Example\SB.TelegramBot.Example.csproj (in 282 ms).
+C:\Projects\SBTelegramBot\src\SB.TelegramBot\Logics\TelegramBotCommands\CommandTypes\BaseCommand\TelegramBotBaseCommand.Send.cs(255,98): warning CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. [C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj]
+C:\Projects\SBTelegramBot\src\SB.TelegramBot\Logics\TelegramBotCommands\CommandTypes\BaseCommand\TelegramBotBaseCommand.Send.cs(276,98): warning CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. [C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj]
+C:\Projects\SBTelegramBot\src\SB.TelegramBot\Logics\TelegramBot\Requests\Available Methods\Sending Messages\SbEditInlineMessageTextRequest.cs(16,32): warning CS0108: 'SbEditInlineMessageTextRequest.Entities' hides inherited member 'EditInlineMessageTextRequest.Entities'. Use the new keyword if hiding was intended. [C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj]
+C:\Projects\SBTelegramBot\src\SB.TelegramBot\Logics\TelegramBot\Requests\Available Methods\Sending Messages\SbSendMessageRequest.cs(16,32): warning CS0108: 'SbSendMessageRequest.Entities' hides inherited member 'SendMessageRequest.Entities'. Use the new keyword if hiding was intended. [C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj]
+C:\Projects\SBTelegramBot\src\SB.TelegramBot\Logics\TelegramBot\Requests\Available Methods\Sending Messages\SbEditMessageTextRequest.cs(16,32): warning CS0108: 'SbEditMessageTextRequest.Entities' hides inherited member 'EditMessageTextRequest.Entities'. Use the new keyword if hiding was intended. [C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj]
+C:\Projects\SBTelegramBot\src\SB.TelegramBot\Logics\TelegramBotMessageHandlers\Handlers\BackCommandMessageHandler.cs(16,45): warning CS0169: The field 'BackCommandMessageHandler.backCommandName' is never used [C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj]
+  SB.TelegramBot -> C:\Projects\SBTelegramBot\src\SB.TelegramBot\bin\Debug\net8.0\SB.TelegramBot.dll
+  The package SB.TelegramBot.1.1.9 is missing a readme. Go to https://aka.ms/nuget/authoring-best-practices/readme to learn why package readmes are important.
+  Successfully created package 'C:\Projects\SBTelegramBot\src\SB.TelegramBot\bin\Debug\SB.TelegramBot.1.1.9.nupkg'.
+C:\Projects\SBTelegramBot\src\SB.TelegramBot.Example\Commands\CallbackTestCommand.cs(24,17): error CS0103: The name 'SendMessage' does not exist in the current context [C:\Projects\SBTelegramBot\src\SB.TelegramBot.Example\SB.TelegramBot.Example.csproj]
+
+Build FAILED.
+
+C:\Projects\SBTelegramBot\src\SB.TelegramBot\Logics\TelegramBotCommands\CommandTypes\BaseCommand\TelegramBotBaseCommand.Send.cs(255,98): warning CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. [C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj]
+C:\Projects\SBTelegramBot\src\SB.TelegramBot\Logics\TelegramBotCommands\CommandTypes\BaseCommand\TelegramBotBaseCommand.Send.cs(276,98): warning CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. [C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj]
+C:\Projects\SBTelegramBot\src\SB.TelegramBot\Logics\TelegramBot\Requests\Available Methods\Sending Messages\SbEditInlineMessageTextRequest.cs(16,32): warning CS0108: 'SbEditInlineMessageTextRequest.Entities' hides inherited member 'EditInlineMessageTextRequest.Entities'. Use the new keyword if hiding was intended. [C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj]
+C:\Projects\SBTelegramBot\src\SB.TelegramBot\Logics\TelegramBot\Requests\Available Methods\Sending Messages\SbSendMessageRequest.cs(16,32): warning CS0108: 'SbSendMessageRequest.Entities' hides inherited member 'SendMessageRequest.Entities'. Use the new keyword if hiding was intended. [C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj]
+C:\Projects\SBTelegramBot\src\SB.TelegramBot\Logics\TelegramBot\Requests\Available Methods\Sending Messages\SbEditMessageTextRequest.cs(16,32): warning CS0108: 'SbEditMessageTextRequest.Entities' hides inherited member 'EditMessageTextRequest.Entities'. Use the new keyword if hiding was intended. [C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj]
+C:\Projects\SBTelegramBot\src\SB.TelegramBot\Logics\TelegramBotMessageHandlers\Handlers\BackCommandMessageHandler.cs(16,45): warning CS0169: The field 'BackCommandMessageHandler.backCommandName' is never used [C:\Projects\SBTelegramBot\src\SB.TelegramBot\SB.TelegramBot.csproj]
+C:\Projects\SBTelegramBot\src\SB.TelegramBot.Example\Commands\CallbackTestCommand.cs(24,17): error CS0103: The name 'SendMessage' does not exist in the current context [C:\Projects\SBTelegramBot\src\SB.TelegramBot.Example\SB.TelegramBot.Example.csproj]
+    6 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:02.97
+
+Workload updates are available. Run `dotnet workload list` for more information.

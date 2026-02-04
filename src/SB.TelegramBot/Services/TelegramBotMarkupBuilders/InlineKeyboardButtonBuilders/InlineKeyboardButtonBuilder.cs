@@ -1,4 +1,5 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
+using SB.TelegramBot.Repositories.CallbackDataRepositories;
 using System.Collections.Generic;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -22,16 +23,27 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
-        public ITelegramBotCommandFactory CommandFactory { get; private set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public ITelegramBotCommandFactory CommandFactory { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ITelegramBotCallbackDataRepository CallbackDataRepository { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="commandFactory"></param>
-        public InlineKeyboardButtonBuilder(ITelegramBotCommandFactory commandFactory)
+        /// <param name="callbackDataRepository"></param>
+        public InlineKeyboardButtonBuilder(ITelegramBotCommandFactory commandFactory,
+            ITelegramBotCallbackDataRepository callbackDataRepository)
         {
             _buttons = new List<List<InlineKeyboardButton>>();
             CommandFactory = commandFactory;
+            CallbackDataRepository = callbackDataRepository;
         }
 
         /// <summary>
@@ -48,7 +60,7 @@ namespace SB.TelegramBot
 
             var currentButton = new InlineKeyboardButton(string.Empty);
             currentRowButtons.Add(currentButton);
-            return new InlineKeyboardButtonInfo(currentButton, CommandFactory);
+            return new InlineKeyboardButtonInfo(currentButton, CommandFactory, CallbackDataRepository);
         }
 
         /// <summary>
@@ -62,7 +74,7 @@ namespace SB.TelegramBot
 
             var currentButton = new InlineKeyboardButton(string.Empty);
             _columnButtons.Add(currentButton);
-            return new InlineKeyboardButtonInfo(currentButton, CommandFactory);
+            return new InlineKeyboardButtonInfo(currentButton, CommandFactory, CallbackDataRepository);
         }
 
         /// <summary>

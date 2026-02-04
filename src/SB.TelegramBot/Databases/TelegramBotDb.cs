@@ -43,6 +43,11 @@ namespace SB.TelegramBot.Databases
         /// <summary>
         /// 
         /// </summary>
+        public static ILiteCollection<TelegramBotDbCallbackData> CallbackData { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         static TelegramBotDb()
         {
             var path = string.Empty;
@@ -57,6 +62,7 @@ namespace SB.TelegramBot.Databases
             Polls = Database.GetCollection<TelegramBotDbPoll>(nameof(Polls));
             Users = Database.GetCollection<TelegramBotDbUser>(nameof(Users));
             Commands = Database.GetCollection<TelegramBotDbCommand>(nameof(Commands));
+            CallbackData = Database.GetCollection<TelegramBotDbCallbackData>(nameof(CallbackData));
         }
     }
 }

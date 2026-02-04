@@ -1,4 +1,5 @@
 ﻿using SB.TelegramBot.Logics.TelegramBotCommands.Factories;
+using SB.TelegramBot.Repositories.CallbackDataRepositories;
 
 namespace SB.TelegramBot
 {
@@ -16,10 +17,18 @@ namespace SB.TelegramBot
         /// <summary>
         /// 
         /// </summary>
+        private readonly ITelegramBotCallbackDataRepository _callbackDataRepository;
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="commandFactory"></param>
-        public TelegramBotButtonBuilderFactory(ITelegramBotCommandFactory commandFactory)
+        /// <param name="callbackDataRepository"></param>
+        public TelegramBotButtonBuilderFactory(ITelegramBotCommandFactory commandFactory,
+            ITelegramBotCallbackDataRepository callbackDataRepository)
         {
             _commandFactory = commandFactory;
+            _callbackDataRepository = callbackDataRepository;
         }
 
         /// <summary>
@@ -37,7 +46,7 @@ namespace SB.TelegramBot
         /// <returns></returns>
         public InlineKeyboardButtonBuilder CreateInlineKeyboardButtonBuilder()
         {
-            return new InlineKeyboardButtonBuilder(_commandFactory);
+            return new InlineKeyboardButtonBuilder(_commandFactory, _callbackDataRepository);
         }
     }
 }

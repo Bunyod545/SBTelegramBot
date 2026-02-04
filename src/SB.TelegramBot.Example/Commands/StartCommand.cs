@@ -29,13 +29,30 @@ namespace SB.TeleramBot.Example.Commands
         /// </summary>
         public async override void Execute()
         {
-            var message = "test";
+            var message = "Test Callback Data (Small and Large)";
             var buttons = CreateInlineKeyboardButtonBuilder();
-            buttons.AddRowButton().WithCommand<CallbackTestCommand>().WithText("test1").WithData(new { name = "test" });
-            buttons.AddRowButton().WithCommand<CallbackTestCommand>().WithText("test2").WithData(new { name = "test"} );
+
+            // Small data (should be in callback string)
+            buttons.AddRowButton()
+                .WithCommand<CallbackTestCommand>()
+                .WithText("Small Data")
+                .WithData(new { name = "small" });
+
+            // Large data (should exceed 64 bytes and be stored in DB)
+            var largeData = new LargeDataModel
+            {
+                Title = "Large Data Test",
+                Description = "This is a test for large callback data storage in LiteDB",
+                LongText =
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            };
+
+            buttons.AddRowButton()
+                .WithCommand<CallbackTestCommand>()
+                .WithText("Large Data")
+                .WithData(largeData);
 
             await SendTextMessageAsync(message, replyMarkup: buttons.Build());
-            await SendPoolMesssage<PollTestCommand>(ChatId, "Test question", new string[] { "Yes", "No"}, isAnonymous: false);
         }
     }
 }
