@@ -104,7 +104,14 @@ namespace SB.TelegramBot.Services
         /// <returns></returns>
         public virtual bool IsEqualName(string name)
         {
-            return GetName() == name;
+            var commandName = GetName();
+            if (commandName == name)
+                return true;
+
+            if (string.IsNullOrEmpty(name))
+                return false;
+
+            return name.StartsWith(commandName + " ");
         }
 
         /// <summary>
